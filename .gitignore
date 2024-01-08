@@ -1,22 +1,26 @@
-# Backend
-environnement
+# Django
+__pycache__/
 *.pyc
-*~
-.coverage
-__pycache__
-.vscode
-clean.ps1
+*.pyo
+*.pyd
+db.sqlite3
+*.log
+*.pot
+*.pyc
+*.pyo
 
-# Frontend
-frontend/node_modules/*
-frontend/.pnp
-frontend/.pnp.js
-frontend/coverage
-frontend/.DS_Store
-frontend/.env.local
-frontend/.env.development.local
-frontend/.env.test.local
-frontend/.env.production.local
-frontend/npm-debug.log*
-frontend/yarn-debug.log*
-frontend/yarn-error.log*
+# Environnement virtuel
+venv/
+__venv__/
+
+# Node
+node_modules/
+
+# React build
+build/
+dist/
+.DS_Store
+
+# Editor directories and files
+.idea/
+.vscode/
