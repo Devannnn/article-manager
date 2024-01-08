@@ -1,0 +1,20 @@
+[
+    {
+        "id": 1,
+        "titre": "What You'll Wish You'd Known",
+        "auteur": "Paul Graham",
+        "url_site": "https://paulgraham.com/",
+        "date": 2005,
+        "synopsis": "L'article prodigue des conseils aux lycéens en suggérant qu'ils se concentrent sur la découverte de leurs centres d'intérêt et passions plutôt que de s'inquiéter de plans de carrière spécifiques",
+        "url_article": "https://www.paulgraham.com/hs.html"
+    },
+    {
+        "id": 2,
+        "titre": "Writing, Briefly",
+        "auteur": "Paul Graham",
+        "url_site": "https://paulgraham.com/",
+        "date": 2005,
+        "synopsis": "L'article donne des conseils pour comment écrire un texte.",
+        "url_article": "https://www.paulgraham.com/writing44.html"
+    }
+]
