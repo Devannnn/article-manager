@@ -4,7 +4,7 @@ from rest_framework import routers
 from article import views as article_views 
 
 router = routers.DefaultRouter()                   
-router.register(r'article', article_views.ArticleView, 'article')
+router.register(r'articles', article_views.ArticleView, 'articles')
 
 urlpatterns = [
     path('admin/', admin.site.urls),

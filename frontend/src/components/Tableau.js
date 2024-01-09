@@ -1,9 +1,10 @@
 // Bibliothèques
 import React from "react";
 import { DataGrid } from '@mui/x-data-grid';
-import data from "../data/data.json";
+import FetchData from "./FetchData";
+import { getArticlesURL } from "./Urls";
 
-const columns = [
+const COLUMNS = [
     {
         field: 'titre',
         headerName: 'Titre',
@@ -39,9 +40,12 @@ const columns = [
 ];
 
 function Tableau() {
+    const API_URL_ARTICLES = getArticlesURL();
+    const { data } = FetchData(API_URL_ARTICLES);
+
     return (
         <div style={{ height: 500, width: '100%' }}>
-            <DataGrid rows={data} columns={columns} getRowHeight={() => 'auto'} />
+            <DataGrid rows={data} columns={COLUMNS} getRowHeight={() => 'auto'} />
         </div>
     )
 }
