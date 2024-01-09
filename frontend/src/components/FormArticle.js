@@ -1,71 +1,95 @@
-import React from 'react';
-import { useForm } from 'react-hook-form';
-import { Modal, ModalHeader, ModalBody, ModalFooter, Button, Form, FormGroup, Label, Input, FormFeedback } from 'reactstrap';
+// Bibliothèques
+import React, { useState } from "react";
+import {
+    Button,
+    Modal,
+    ModalHeader,
+    ModalBody,
+    ModalFooter,
+    Form,
+    FormGroup,
+    Input,
+    Label,
+} from "reactstrap";
 
-function FormArticle({ isOpen, toggleModal }) {
-    const {
-        register,
-        handleSubmit,
-        formState: { errors },
-    } = useForm();
+/**
+ * Le rôle de ce composant est d'afficher un formulaire pour rentrer des informations sur un enseignant.
+ * Il est utilisé aussi bien pour ajouter un nouvel enseignant que pour modifier un enseignant existant.
+ */
+function FormArticle({ isOpen, toggle, onSave, title }) {
+    const [item, setItem] = useState({});
 
-    const onSubmit = (data) => {
-        console.log(data);
-        // Ajoutez le traitement de la soumission du formulaire ici si nécessaire
-        toggleModal(); // Fermer le modal après la soumission
-    };
+    function handleChange(e) {
+        let { name, value } = e.target;
+        const newItem = { ...item, [name]: value };
+        setItem(newItem);
+    }
+
+    function validateForm() {
+        console.log(item);
+        return onSave(item);
+    }
 
     return (
-        <Modal isOpen={isOpen} toggle={toggleModal}>
-            <Form onSubmit={handleSubmit(onSubmit)}>
-                <ModalHeader toggle={toggleModal}>Ajouter un article</ModalHeader>
-                <ModalBody>
+        <Modal isOpen={isOpen} toggle={toggle}>
+            <ModalHeader toggle={toggle}>{title}</ModalHeader>
+            <ModalBody>
+                <Form>
                     <FormGroup>
                         <Label for="titre">Titre</Label>
-                        <Input {...register('titre', { required: true })} />
-                        {errors.titre && <FormFeedback>Un titre est requis.</FormFeedback>}
+                        <Input
+                            type="text"
+                            name="titre"
+                            onChange={handleChange}
+                        />
                     </FormGroup>
-
                     <FormGroup>
                         <Label for="auteur">Auteur</Label>
-                        <Input {...register('auteur', { required: true })} />
-                        {errors.auteur && <FormFeedback>Un auteur est requis.</FormFeedback>}
+                        <Input
+                            type="text"
+                            name="auteur"
+                            onChange={handleChange}
+                        />
                     </FormGroup>
-
                     <FormGroup>
-                        <Label for="url_site">Url site</Label>
-                        <Input {...register('url_site', { required: true })} />
-                        {errors.url_site && <FormFeedback>L'URL du site est requis.</FormFeedback>}
+                        <Label for="url_site">Url Site</Label>
+                        <Input
+                            type="text"
+                            name="url_site"
+                            onChange={handleChange}
+                        />
                     </FormGroup>
-
                     <FormGroup>
-                        <Label for="url_article">Url article</Label>
-                        <Input {...register('url_article', { required: true })} />
-                        {errors.url_article && <FormFeedback>L'URL de l'article est requis.</FormFeedback>}
+                        <Label for="date">Date</Label>
+                        <Input
+                            type="text"
+                            name="date"
+                            onChange={handleChange}
+                        />
                     </FormGroup>
-
-                    <FormGroup>
-                        <Label for="date">Année de l'article</Label>
-                        <Input {...register('date', { required: true })} />
-                        {errors.date && <FormFeedback>L'année de l'article est requis.</FormFeedback>}
-                    </FormGroup>
-
                     <FormGroup>
                         <Label for="synopsis">Synopsis</Label>
-                        <Input {...register('synopsis', { required: true })} />
-                        {errors.synopsis && <FormFeedback>Un synopsis de l'article est requis.</FormFeedback>}
+                        <Input
+                            type="text"
+                            name="synopsis"
+                            onChange={handleChange}
+                        />
                     </FormGroup>
-
-                </ModalBody>
-                <ModalFooter>
-                    <Button type="submit" color="primary">
-                        Envoyer
-                    </Button>{' '}
-                    <Button color="secondary" onClick={toggleModal}>
-                        Annuler
-                    </Button>
-                </ModalFooter>
-            </Form>
+                    <FormGroup>
+                        <Label for="url_article">Url Article</Label>
+                        <Input
+                            type="text"
+                            name="url_article"
+                            onChange={handleChange}
+                        />
+                    </FormGroup>
+                </Form>
+            </ModalBody>
+            <ModalFooter>
+                <Button color="success" onClick={() => validateForm()}>
+                    Enregistrer
+                </Button>
+            </ModalFooter>
         </Modal>
     );
 }

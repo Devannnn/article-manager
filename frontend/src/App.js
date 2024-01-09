@@ -1,12 +1,10 @@
 // Bibliothèques
-import Ajout from "./components/Ajout";
-import Tableau from "./components/Tableau";
+import Page from "./components/Page";
 
 function App() {
   return (
     <>
-      <Ajout />
-      <Tableau />
+      <Page />
     </>
   );
 }
