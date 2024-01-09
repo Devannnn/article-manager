@@ -11,6 +11,8 @@ import {
     Input,
     Label,
 } from "reactstrap";
+import FetchData from "./FetchData";
+import { getTagsURL } from "./Urls";
 
 /**
  * Le rôle de ce composant est d'afficher un formulaire pour rentrer des informations sur un enseignant.
@@ -18,16 +20,32 @@ import {
  */
 function FormArticle({ isOpen, toggle, onSave, title }) {
     const [item, setItem] = useState({});
+    const API_URL_TAGS = getTagsURL();
+    const { data: tags } = FetchData(API_URL_TAGS);
 
     function handleChange(e) {
-        let { name, value } = e.target;
-        const newItem = { ...item, [name]: value };
-        setItem(newItem);
+        const { name, value } = e.target;
+        if (name === "tags") {
+            const selectedTags = Array.from(e.target.selectedOptions, (option) =>
+                JSON.parse(option.value)
+            );
+            setItem((prevItem) => ({ ...prevItem, [name]: selectedTags }));
+        } else {
+            setItem((prevItem) => ({ ...prevItem, [name]: value }));
+        }
     }
 
     function validateForm() {
         console.log(item);
         return onSave(item);
+    }
+
+    function generateOptionsTags() {
+        return tags.map((tag) => (
+            <option key={tag.id} value={JSON.stringify(tag)}>
+                {tag.nom}
+            </option>
+        ));
     }
 
     return (
@@ -82,6 +100,19 @@ function FormArticle({ isOpen, toggle, onSave, title }) {
                             name="url_article"
                             onChange={handleChange}
                         />
+                    </FormGroup>
+                    <FormGroup>
+                        <Label for="exampleSelect">
+                            Choix des tags
+                        </Label>
+                        <Input
+                            type="select"
+                            name="tags"
+                            multiple
+                            onChange={handleChange}
+                        >
+                            {generateOptionsTags()}
+                        </Input>
                     </FormGroup>
                 </Form>
             </ModalBody>

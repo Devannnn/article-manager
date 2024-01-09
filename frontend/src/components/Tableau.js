@@ -13,7 +13,11 @@ const COLUMNS = [
             </a>
         ),
     },
-    { field: 'auteur', headerName: 'Auteur', width: 150 },
+    {
+        field: 'auteur',
+        headerName: 'Auteur',
+        width: 150,
+    },
     {
         field: 'url_site',
         headerName: 'Site',
@@ -24,7 +28,11 @@ const COLUMNS = [
             </a>
         ),
     },
-    { field: 'date', headerName: 'Date', width: 70 },
+    {
+        field: 'date',
+        headerName: 'Date',
+        width: 70,
+    },
     {
         field: 'synopsis',
         headerName: 'Synopsis',
@@ -33,6 +41,14 @@ const COLUMNS = [
             <div style={{ whiteSpace: 'pre-line', wordWrap: 'break-word' }}>
                 {params.row.synopsis}
             </div>
+        ),
+    },
+    {
+        field: 'tags',
+        headerName: 'Tags',
+        width: 150,
+        renderCell: (params) => (
+            params.value.map((tag) => (tag.nom)).join(', ')
         ),
     },
 ];
