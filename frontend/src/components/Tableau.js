@@ -10,7 +10,7 @@ import { DataGrid } from '@mui/x-data-grid';
 function Tableau({ data, columns }) {
     return (
         <div style={{ height: 500, width: '100%' }}>
-            <DataGrid rows={data} columns={columns} getRowHeight={() => 'auto'} />
+            <DataGrid rows={data} columns={columns} getRowHeight={() => 'auto'} hideFooter />
         </div>
     )
 }
