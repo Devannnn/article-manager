@@ -2,7 +2,7 @@
 import { useEffect, useState } from "react";
 
 /**
- * Le rôle de ce composant est de charger des données à partir d'une URL spécifiée.
+ * The role of this component is to load data from a specified URL.
  */
 function FetchData(urlFetch) {
     const [data, setData] = useState([]);
@@ -21,4 +21,5 @@ function FetchData(urlFetch) {
     return { data, fetchData };
 }
 
+// Exportation
 export default FetchData;

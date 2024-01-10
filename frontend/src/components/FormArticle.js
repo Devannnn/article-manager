@@ -15,8 +15,7 @@ import FetchData from "./FetchData";
 import { getTagsURL } from "./Urls";
 
 /**
- * Le rôle de ce composant est d'afficher un formulaire pour rentrer des informations sur un enseignant.
- * Il est utilisé aussi bien pour ajouter un nouvel enseignant que pour modifier un enseignant existant.
+ * The goal of this component is to provide a modal form for adding or editing an article. 
  */
 function FormArticle({ isOpen, toggle, onSave, title }) {
     const [item, setItem] = useState({});
@@ -125,4 +124,5 @@ function FormArticle({ isOpen, toggle, onSave, title }) {
     );
 }
 
+// Exportation
 export default FormArticle;

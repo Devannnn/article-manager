@@ -1,6 +1,9 @@
 // Bibliothèques
 import React from "react";
 
+/**
+ * This component generates the footer of the application.
+ */
 function Footer() {
     return (
         <div className="bg-dark py-3">
@@ -13,4 +16,5 @@ function Footer() {
     );
 }
 
+// Exportation
 export default Footer;

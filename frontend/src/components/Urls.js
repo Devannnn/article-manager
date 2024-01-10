@@ -1,5 +1,5 @@
 /**
- *  Ce fichier définit les URL de l'API utilisée dans PEPH.
+ *  This file define the API's urls.
  */
 
 const baseURL = "http://127.0.0.1:8000/api";

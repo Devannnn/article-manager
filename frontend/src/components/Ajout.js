@@ -2,12 +2,15 @@
 import React, { useState } from "react";
 import axios from "axios";
 import FormArticle from "./FormArticle";
-import { getArticlesURL } from "./Urls";
 
-// Composant
-function Ajout({ fetchData }) {
+/***
+ * The goal of this component is to provide a button to add an entity. The component takes 
+ * in a method named fetchData and a string named urlToFetch as props. The component triggers
+ * a modal form and send the data in a POST request to the urlToFetch. Then it calls the callback
+ * fetchData to update the datatable.
+ */
+function Ajout({ fetchData, urlToFetch }) {
   const [modalCreate, setModalCreate] = useState(false);
-  const API_URL_ARTICLES = getArticlesURL();
 
   function toggleModalCreate() {
     setModalCreate(!modalCreate);
@@ -16,7 +19,7 @@ function Ajout({ fetchData }) {
   function create(item) {
     toggleModalCreate();
     axios
-      .post(API_URL_ARTICLES, item)
+      .post(urlToFetch, item)
       .then(() => {
         fetchData();
       })

@@ -3,9 +3,9 @@ import React, { useState } from "react";
 import { NavLink } from "react-router-dom";
 
 /**
- * Le rôle de ce composant est de créer une barre de navigation.
- * La barre de navigation utilise la bibliothèque react-router-dom pour gérer la navigation
- * entre les différentes pages de l'application.
+ * The role of this component is to create a navigation bar.
+ * The navigation bar uses the react-router-dom library to handle navigation
+ * between the various pages of the application.
  */
 function BarreNavigation() {
     const [expanded, setExpanded] = useState(false);
@@ -40,4 +40,5 @@ function BarreNavigation() {
     );
 }
 
+// Exportation
 export default BarreNavigation;
