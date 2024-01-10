@@ -11,12 +11,14 @@ function Articles() {
     const { data, fetchData } = FetchData(API_URL_ARTICLES);
 
     return (
-        <>
+        <div className="container my-4"> {/* Ajout d'un conteneur avec une marge */}
             <Ajout fetchData={fetchData} />
-            <Tableau data={data} />
+            <div className="mx-auto"> {/* Centrage horizontal */}
+                <Tableau data={data} />
+            </div>
             <Footer />
-        </>
-    )
+        </div>
+    );
 }
 
 export default Articles;
