@@ -30,7 +30,7 @@ function Ajout({ fetchData, urlToFetch }) {
 
   return (
     <div className="d-flex justify-content-end">
-      <button className="btn btn-success btn-lg" onClick={toggleModalCreate}>
+      <button className="btn btn-success mb-3" onClick={toggleModalCreate}>
         Ajouter
       </button>
 

@@ -34,7 +34,7 @@ function Tags() {
 
     return (
         <div className="container my-4">
-            <div className="mx-auto">
+            <div className="shadow p-3 mb-5 bg-white rounded">
                 <Tableau data={data} columns={COLUMNS} />
             </div>
         </div>

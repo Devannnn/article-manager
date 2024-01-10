@@ -36,7 +36,7 @@ const COLUMNS = [
                 {'Site'}
             </strong>
         ),
-        width: 250,
+        width: 200,
         renderCell: (params) => (
             <a href={params.row.url_site} target="_blank" rel="noopener noreferrer">
                 {params.row.url_site}
@@ -50,7 +50,7 @@ const COLUMNS = [
                 {'Date'}
             </strong>
         ),
-        width: 70,
+        width: 100,
     },
     {
         field: 'synopsis',
@@ -90,7 +90,7 @@ function Articles() {
     return (
         <div className="container my-4">
             <Ajout fetchData={fetchData} urlToFetch={API_URL_ARTICLES} />
-            <div className="mx-auto">
+            <div className="mx-auto shadow p-3 mb-5 bg-white rounded">
                 <Tableau data={data} columns={COLUMNS} />
             </div>
         </div>
