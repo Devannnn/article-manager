@@ -3,6 +3,7 @@ import React from "react";
 import DataTable from "./DataTable";
 import FetchData from "./FetchData";
 import ButtonAdd from "./ButtonAdd";
+import FormWebsite from "./FormWebsite";
 import { getWebSitesURL } from "./Urls";
 
 const COLUMNS = [
@@ -53,7 +54,17 @@ function WebSites() {
 
     return (
         <div className="container my-4">
-            <ButtonAdd fetchData={fetchData} urlToFetch={API_URL_WEBSITES} />
+            <ButtonAdd
+                fetchData={fetchData}
+                urlToFetch={API_URL_WEBSITES}
+                FormComponent={FormWebsite}
+                title={"Ajout d'un site web"}
+                activeItem={{
+                    "nom": "",
+                    "url": "",
+                    "image_url": ""
+                }}
+            />
             <div className="shadow p-3 mb-5 bg-white rounded">
                 <DataTable data={data} columns={COLUMNS} />
             </div>

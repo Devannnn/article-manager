@@ -1,7 +1,6 @@
 // Libraries
 import React, { useState } from "react";
 import axios from "axios";
-import FormArticle from "./FormArticle";
 import { Button } from "reactstrap";
 
 /***
@@ -10,7 +9,7 @@ import { Button } from "reactstrap";
  * a modal form and send the data in a POST request to the urlToFetch. Then it calls the callback
  * fetchData to update the datatable.
  */
-function Ajout({ fetchData, urlToFetch }) {
+function Ajout({ fetchData, urlToFetch, FormComponent, title, activeItem }) {
   const [modalCreate, setModalCreate] = useState(false);
 
   function toggleModalCreate() {
@@ -35,22 +34,12 @@ function Ajout({ fetchData, urlToFetch }) {
         Ajouter
       </Button>
 
-      {modalCreate && <FormArticle
+      {modalCreate && <FormComponent
         isOpen={modalCreate}
         toggle={toggleModalCreate}
         onSave={create}
-        title={"Ajout d'un article"}
-        activeItem={{
-          "tags": [],
-          "titre": "",
-          "auteur": "",
-          "url_site": "",
-          "url_article": "",
-          "date": undefined,
-          "synopsis": "",
-          "date_creation": "",
-          "date_modification": ""
-        }}
+        title={title}
+        activeItem={activeItem}
       />}
     </div>
   );

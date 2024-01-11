@@ -5,6 +5,7 @@ import ButtonAdd from "./ButtonAdd";
 import ButtonDelete from "./ButtonDelete";
 import ButtonEdit from "./ButtonEdit";
 import FetchData from "./FetchData";
+import FormArticle from "./FormArticle";
 import { getArticlesURL } from "./Urls";
 
 /**
@@ -114,7 +115,23 @@ function Articles() {
 
     return (
         <div className="container my-4">
-            <ButtonAdd fetchData={fetchData} urlToFetch={API_URL_ARTICLES} />
+            <ButtonAdd
+                fetchData={fetchData}
+                urlToFetch={API_URL_ARTICLES}
+                FormComponent={FormArticle}
+                title={"Ajout d'un article"}
+                activeItem={{
+                    "tags": [],
+                    "titre": "",
+                    "auteur": "",
+                    "url_site": "",
+                    "url_article": "",
+                    "date": undefined,
+                    "synopsis": "",
+                    "date_creation": "",
+                    "date_modification": ""
+                }}
+            />
             <div className="mx-auto shadow p-3 mb-5 bg-white rounded">
                 <DataTable data={data} columns={COLUMNS} />
             </div>
