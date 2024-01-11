@@ -27,8 +27,8 @@ function BarreNavigation() {
                         </NavLink>
                     </li>
                     <li className="nav-item display-7">
-                        <NavLink className="nav-link font-weight-bold" to="/tags">
-                            Tags
+                        <NavLink className="nav-link font-weight-bold" to="/websites">
+                            WebSites
                         </NavLink>
                     </li>
                 </ul>

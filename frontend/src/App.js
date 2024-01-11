@@ -2,7 +2,7 @@
 import { Routes, Route } from "react-router-dom";
 import NavBar from "./components/NavBar";
 import Articles from "./components/Articles";
-import Tags from "./components/Tags";
+import WebSites from "./components/WebSites";
 import Footer from "./components/Footer";
 
 function App() {
@@ -12,7 +12,7 @@ function App() {
       <Routes>
         <Route exact path="/" element={<Articles />} />
         <Route path="/articles" element={<Articles />} />
-        <Route path="/tags" element={<Tags />} />
+        <Route path="/websites" element={<WebSites />} />
       </Routes>
       <Footer />
     </div>
