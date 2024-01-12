@@ -30,66 +30,84 @@ function FormArticle({ isOpen, toggle, onSave, title, activeItem }) {
 
     return (
         <Modal isOpen={isOpen} toggle={toggle}>
-            <ModalHeader toggle={toggle}>{title}</ModalHeader>
+            <ModalHeader toggle={toggle}><b>{title}</b></ModalHeader>
             <ModalBody>
                 <Form>
                     <FormGroup>
-                        <Label for="titre">Titre</Label>
+                        <Label for="titre">
+                            <b>Titre</b>
+                        </Label>
                         <Input
                             type="text"
                             name="titre"
+                            placeholder="Titre"
                             value={item.titre}
                             onChange={handleChange}
                         />
                     </FormGroup>
                     <FormGroup>
-                        <Label for="auteur">Auteur</Label>
+                        <Label for="auteur">
+                            <b>Auteur</b>
+                        </Label>
                         <Input
                             type="text"
                             name="auteur"
+                            placeholder="Auteur"
                             value={item.auteur}
                             onChange={handleChange}
                         />
                     </FormGroup>
                     <FormGroup>
-                        <Label for="url_site">Url Site</Label>
+                        <Label for="url_site">
+                            <b>Url Site</b>
+                        </Label>
                         <Input
                             type="text"
                             name="url_site"
+                            placeholder="Url Site"
                             value={item.url_site}
                             onChange={handleChange}
                         />
                     </FormGroup>
                     <FormGroup>
-                        <Label for="date">Date</Label>
+                        <Label for="date">
+                            <b>Date</b>
+                        </Label>
                         <Input
                             type="text"
                             name="date"
+                            placeholder="Date"
                             value={item.date}
                             onChange={handleChange}
                         />
                     </FormGroup>
                     <FormGroup>
-                        <Label for="synopsis">Synopsis</Label>
+                        <Label for="synopsis">
+                            <b>Synopsis</b>
+                        </Label>
                         <Input
                             type="text"
                             name="synopsis"
+                            placeholder="Synopsis"
                             value={item.synopsis}
                             onChange={handleChange}
                         />
                     </FormGroup>
                     <FormGroup>
-                        <Label for="url_article">Url Article</Label>
+                        <Label for="url_article">
+                            <b>Url Article</b>
+                        </Label>
                         <Input
                             type="text"
                             name="url_article"
+                            placeholder="Url Article"
                             value={item.url_article}
                             onChange={handleChange}
                         />
                     </FormGroup>
                     <FormGroup>
                         <Label for="exampleSelect">
-                            Choix des tags
+                            <b>Choix des tags</b>
                         </Label>
                         <Tags onChange={handleChange} />
                     </FormGroup>
