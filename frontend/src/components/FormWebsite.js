@@ -29,32 +29,35 @@ function FormWebsite({ isOpen, toggle, onSave, title, activeItem }) {
 
     return (
         <Modal isOpen={isOpen} toggle={toggle}>
-            <ModalHeader toggle={toggle}>{title}</ModalHeader>
+            <ModalHeader toggle={toggle}><b>{title}</b></ModalHeader>
             <ModalBody>
                 <Form>
                     <FormGroup>
-                        <Label for="nom">Nom</Label>
+                        <Label for="nom"><b>Nom</b></Label>
                         <Input
                             type="text"
                             name="nom"
+                            placeholder="Nom"
                             value={item.nom}
                             onChange={handleChange}
                         />
                     </FormGroup>
                     <FormGroup>
-                        <Label for="url">Url</Label>
+                        <Label for="url"><b>Site</b></Label>
                         <Input
                             type="text"
                             name="url"
+                            placeholder="Url"
                             value={item.url}
                             onChange={handleChange}
                         />
                     </FormGroup>
                     <FormGroup>
-                        <Label for="image_url">URL Image</Label>
+                        <Label for="image_url"><b>Logo</b></Label>
                         <Input
                             type="text"
                             name="image_url"
+                            placeholder="Url"
                             value={item.image_url}
                             onChange={handleChange}
                         />
