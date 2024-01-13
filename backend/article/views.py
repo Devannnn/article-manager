@@ -15,19 +15,6 @@ class ArticleSerializer(serializers.ModelSerializer):
         validated_tags = []
         for tag_data in tags_data:
             try:
-                tag_id = tag_data.get('id')
-                tag_object = Tag.objects.get(id=tag_id)
-                validated_tags.append(tag_object)
-            except Tag.DoesNotExist:
-                pass
-        validated_data['tags'] = validated_tags
-        return super().create(validated_data)
-    
-    def create(self, validated_data):
-        tags_data = self.context['request'].data.get('tags', [])
-        validated_tags = []
-        for tag_data in tags_data:
-            try:
                 tag_object = Tag.objects.get(nom=tag_data)
                 validated_tags.append(tag_object)
             except Tag.DoesNotExist:
