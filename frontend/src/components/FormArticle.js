@@ -86,7 +86,7 @@ function FormArticle({ isOpen, toggle, onSave, title, activeItem }) {
                             <b>Synopsis</b>
                         </Label>
                         <Input
-                            type="text"
+                            type="textarea"
                             name="synopsis"
                             placeholder="Synopsis"
                             value={item.synopsis}
