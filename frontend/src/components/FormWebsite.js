@@ -4,7 +4,7 @@ import { Button, Modal, ModalHeader, ModalBody, ModalFooter, Form, FormGroup, In
 import * as yup from 'yup';
 
 const validationSchema = yup.object({
-    nom: yup.string().required('Le nom de l\'article est requis.'),
+    nom: yup.string().required('Le nom du site est requis.'),
     url: yup.string().url('Format de l\'url invalide.').required('L\'url du site est requise.'),
     image_url: yup.string().url('Format de l\'url invalide.'),
 });
