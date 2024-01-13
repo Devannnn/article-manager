@@ -22,6 +22,19 @@ class ArticleSerializer(serializers.ModelSerializer):
                 pass
         validated_data['tags'] = validated_tags
         return super().create(validated_data)
+    
+    def create(self, validated_data):
+        tags_data = self.context['request'].data.get('tags', [])
+        validated_tags = []
+        for tag_data in tags_data:
+            try:
+                tag_object = Tag.objects.get(nom=tag_data)
+                validated_tags.append(tag_object)
+            except Tag.DoesNotExist:
+                tag_object = Tag.objects.create(nom=tag_data)
+                validated_tags.append(tag_object)
+        validated_data['tags'] = validated_tags
+        return super().create(validated_data)
 
     
 class ArticleView(viewsets.ModelViewSet): 
