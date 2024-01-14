@@ -123,4 +123,8 @@ INSERT INTO article_article (titre, auteur, url_site, date, synopsis, url_articl
 
 ("Schelling fences on slippery slopes","Scott Alexander","https://www.lesswrong.com/",2012,"Cet article explore le concept des 'pentes glissantes'.","https://www.lesswrong.com/posts/Kbm6QnJv9dgWsPHQP/schelling-fences-on-slippery-slopes","2024-01-10 09:42:32","2024-01-10 09:42:32"),
 
-("The correct response to uncertainty is *not* half-speed","AnnaSalamon","https://www.lesswrong.com/",2016,"Cet article parle de l'idée que couper la poire en deux n'est jamais la bonne solution.", "https://www.lesswrong.com/posts/FMkQtPvzsriQAow5q/the-correct-response-to-uncertainty-is-not-half-speed","2024-01-10 09:42:32","2024-01-10 09:42:32");
+("The correct response to uncertainty is *not* half-speed","AnnaSalamon","https://www.lesswrong.com/",2016,"Cet article parle de l'idée que couper la poire en deux n'est jamais la bonne solution.", "https://www.lesswrong.com/posts/FMkQtPvzsriQAow5q/the-correct-response-to-uncertainty-is-not-half-speed","2024-01-10 09:42:32","2024-01-10 09:42:32"),
+
+("Background Ops","Sebastian Marshall","https://medium.com/the-strategic-review/",2017,"Cette série d'articles parle de stratégie en terme d'organisaton et illustre cela par des exemples historiques.", "https://medium.com/the-strategic-review/background-ops-1-strict-limit-a520f73e138a","2024-01-10 09:42:32","2024-01-10 09:42:32"),
+
+("Unity","Sebastian Marshall","https://medium.com/the-strategic-review/",2018,"Cette série d'articles parle d'union et illustre cela par des exemples historiques.", "https://medium.com/the-strategic-review/unity-1-structural-pressures-4bf74f3af3b7","2024-01-10 09:42:32","2024-01-10 09:42:32");
