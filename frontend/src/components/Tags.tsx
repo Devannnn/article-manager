@@ -13,7 +13,7 @@ interface TagsProps {
  * The goal of this component is to provide a user interface for managing tags. 
  * It allows users to input tags through an input field.
  */
-function Tags({ onChange, currentTags }: TagsProps) {
+function Tags({ onChange, currentTags }: Readonly<TagsProps>) {
     const [tags, setTags] = useState<Tag[]>(currentTags)
 
     function handleKeyDown(e: KeyboardEvent<HTMLInputElement>) {

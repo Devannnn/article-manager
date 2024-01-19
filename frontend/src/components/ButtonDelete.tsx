@@ -15,7 +15,7 @@ interface ButtonDeleteProps {
  * It displays a "Delete" button that, when clicked, opens a confirmation form.
  * When the confirmation window is confirmed, a DELETE request is sent to the API.
  */
-function ButtonDelete({ fetchData, urlToRequest, itemId }: ButtonDeleteProps) {
+function ButtonDelete({ fetchData, urlToRequest, itemId }: Readonly<ButtonDeleteProps>) {
     const [modalRemove, setModalRemove] = useState(false);
 
     function toggleModalRemove() {

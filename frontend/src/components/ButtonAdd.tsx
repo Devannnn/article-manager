@@ -18,7 +18,7 @@ interface ButtonAddProps<T extends Item> {
  * a modal form and send the data in a POST request to the urlToFetch. Then it calls the callback
  * fetchData to update the datatable.
  */
-function ButtonAdd<T extends Item>({ fetchData, urlToFetch, FormComponent, title, activeItem }: ButtonAddProps<T>) {
+function ButtonAdd<T extends Item>({ fetchData, urlToFetch, FormComponent, title, activeItem }: Readonly<ButtonAddProps<T>>) {
   const [modalCreate, setModalCreate] = useState<boolean>(false);
 
   function toggleModalCreate() {

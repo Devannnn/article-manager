@@ -14,7 +14,7 @@ interface FormConfirmationProps {
  * Il est utilisé pour demander une confirmation à l'utilisateur avant d'effectuer une action.
  * Dans PEPH, il est utilisé uniquement pour les suppressions.
  */
-function FormConfirmation({ isOpen, toggle, onSave }: FormConfirmationProps) {
+function FormConfirmation({ isOpen, toggle, onSave }: Readonly<FormConfirmationProps>) {
   return (
     <Modal isOpen={isOpen} toggle={toggle}>
       <ModalHeader>Confirmation</ModalHeader>

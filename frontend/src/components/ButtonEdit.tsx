@@ -17,7 +17,7 @@ interface ButtonEditProps<T extends Item> {
  * It displays a "Delete" button that, when clicked, opens a confirmation form.
  * When the confirmation window is confirmed, a DELETE request is sent to the API.
  */
-function ButtonEdit<T extends Item>({ fetchData, urlToRequest, FormComponent, title, activeItem }: ButtonEditProps<T>) {
+function ButtonEdit<T extends Item>({ fetchData, urlToRequest, FormComponent, title, activeItem }: Readonly<ButtonEditProps<T>>) {
     const [modalEdit, setModalEdit] = useState(false);
 
     function toggleModalEdit() {

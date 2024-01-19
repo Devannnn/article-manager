@@ -13,7 +13,7 @@ interface TableauProps {
  * from the Material-UI library. The component takes in data and columns as props, 
  * which represent the rows and columns of the data grid, respectively.
  */
-function Tableau({ data, columns }: TableauProps) {
+function Tableau({ data, columns }: Readonly<TableauProps>) {
     return (
         <div style={{ height: 500, width: '100%' }}>
             <DataGrid rows={data} columns={columns} getRowHeight={() => 'auto'} hideFooter />
