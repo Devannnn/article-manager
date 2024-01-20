@@ -12,6 +12,7 @@ db.sqlite3
 # BACKEND (Virtual Environment)
 venv/
 __venv__/
+.env
 
 # FRONTEND (Node.js)
 node_modules/
