@@ -1,14 +1,14 @@
 // Libraries
 import React from "react";
 import { GridColDef } from '@mui/x-data-grid';
-import DataTable from "./DataTable";
-import FetchData from "./FetchData";
-import ButtonAdd from "./ButtonAdd";
-import FormWebsite from "./FormWebsite";
-import ButtonDelete from "./ButtonDelete";
-import ButtonEdit from "./ButtonEdit";
-import { getWebSitesURL } from "./Urls";
-import { WebSite } from "./Types";
+import DataTable from "../Structure/DataTable";
+import FetchData from "../Tools/FetchData";
+import ButtonAdd from "../Buttons/ButtonAdd";
+import FormWebsite from "../Forms/FormWebsite";
+import ButtonDelete from "../Buttons/ButtonDelete";
+import ButtonEdit from "../Buttons/ButtonEdit";
+import { getWebSitesURL } from "../Tools/Urls";
+import { WebSite } from "../Tools/Types";
 
 /**
  * This component generates the Tag page.

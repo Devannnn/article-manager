@@ -1,11 +1,11 @@
 // Libraries
 import React from "react";
 import { Modal, ModalHeader, ModalBody, ModalFooter } from "reactstrap";
-import { Article, Tag } from "./Types";
-import FormArticle from "./FormArticle";
-import ButtonDelete from "./ButtonDelete";
-import ButtonEdit from "./ButtonEdit";
-import { getArticlesURL } from "./Urls";
+import { Article, Tag } from "../Tools/Types";
+import FormArticle from "../Forms/FormArticle";
+import ButtonDelete from "../Buttons/ButtonDelete";
+import ButtonEdit from "../Buttons/ButtonEdit";
+import { getArticlesURL } from "../Tools/Urls";
 
 interface DetailsArticleProps {
     isOpen: boolean;

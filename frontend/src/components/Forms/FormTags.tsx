@@ -1,8 +1,8 @@
 // Libraries
 import React, { useState, KeyboardEvent } from 'react';
-import { Tag } from "./Types";
+import { Tag } from "../Tools/Types";
 import { Label } from "reactstrap";
-import "../style/tags.css"
+import "../../style/tags.css"
 
 interface TagsProps {
     onChange: (newTags: Tag[]) => void;

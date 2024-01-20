@@ -2,7 +2,7 @@
 import React, { useState, FunctionComponent } from "react";
 import axios from "axios";
 import { Button } from "reactstrap";
-import { Item, FormProps } from "./Types";
+import { Item, FormProps } from "../Tools/Types";
 
 interface ButtonAddProps<T extends Item> {
   fetchData: () => void;

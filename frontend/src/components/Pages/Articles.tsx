@@ -1,13 +1,13 @@
 // Libraries
 import React from "react";
 import { GridColDef } from '@mui/x-data-grid';
-import DataTable from "./DataTable";
-import ButtonAdd from "./ButtonAdd";
-import ButtonDetails from "./ButtonDetails";
-import FetchData from "./FetchData";
-import FormArticle from "./FormArticle";
-import { getArticlesURL } from "./Urls";
-import { Article } from "./Types";
+import DataTable from "../Structure/DataTable";
+import ButtonAdd from "../Buttons/ButtonAdd";
+import ButtonDetails from "../Buttons/ButtonDetails";
+import FetchData from "../Tools/FetchData";
+import FormArticle from "../Forms/FormArticle";
+import { getArticlesURL } from "../Tools/Urls";
+import { Article } from "../Tools/Types";
 
 /**
  * This component generates the Article page.

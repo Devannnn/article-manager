@@ -1,8 +1,8 @@
 // Libraries
 import React, { useState, ChangeEvent, FunctionComponent } from "react";
 import { Button, Modal, ModalHeader, ModalBody, ModalFooter, Form, FormGroup, Input, Label } from "reactstrap";
-import { FormProps, Article, Tag } from "./Types";
-import Tags from "./Tags";
+import { FormProps, Article, Tag } from "../Tools/Types";
+import Tags from "../Forms/FormTags";
 import * as yup from 'yup';
 
 const validationSchema = yup.object({

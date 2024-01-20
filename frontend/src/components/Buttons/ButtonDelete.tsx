@@ -2,7 +2,7 @@
 import React, { useState } from "react";
 import { Button } from "reactstrap";
 import axios from "axios";
-import FormConfirmation from "./FormConfirmation";
+import FormConfirmation from "../Forms/FormConfirmation";
 
 interface ButtonDeleteProps {
     fetchData: () => void;

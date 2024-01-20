@@ -1,9 +1,9 @@
 // Bibliothèques
 import { Routes, Route } from "react-router-dom";
-import NavBar from "./components/NavBar";
-import Articles from "./components/Articles";
-import WebSites from "./components/WebSites";
-import Footer from "./components/Footer";
+import NavBar from "./components/Structure/NavBar";
+import Articles from "./components/Pages/Articles";
+import WebSites from "./components/Pages/WebSites";
+import Footer from "./components/Structure/Footer";
 
 function App() {
   return (

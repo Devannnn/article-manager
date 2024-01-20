@@ -1,8 +1,8 @@
 // Libraries
 import React, { useState } from "react";
 import { Button } from "reactstrap";
-import { Article } from "./Types";
-import DetailsArticle from "./DetailsArticle";
+import { Article } from "../Tools/Types";
+import DetailsArticle from "../Pages/DetailsArticle";
 
 interface ButtonDetailsProps {
     fetchData: () => void;
