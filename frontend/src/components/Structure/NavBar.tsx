@@ -9,27 +9,27 @@ import { NavLink } from "react-router-dom";
  */
 function NavBar() {
 
-    return (
-        <nav className="navbar navbar-expand-lg navbar-dark bg-dark">
-          <div className="container-fluid">
-            <span className="navbar-text font-weight-bold display-5">
-                Tableau de bord
-            </span>
-            <ul className="navbar-nav">
-              <li className="nav-item display-7">
-                <NavLink className="nav-link font-weight-bold" to="/accounts">
-                  Comptes
-                </NavLink>
-              </li>
-              <li className="nav-item display-7">
-                <NavLink className="nav-link font-weight-bold" to="/articles">
-                  Article Manager
-                </NavLink>
-              </li>
-            </ul>
-          </div>
-        </nav>
-      );
+  return (
+    <nav className="navbar navbar-expand-lg navbar-dark bg-dark">
+      <div className="container-fluid">
+        <NavLink className="navbar-text font-weight-bold display-5 text-decoration-none" to="/">
+          Tableau de bord
+        </NavLink>
+        <ul className="navbar-nav">
+          <li className="nav-item display-7">
+            <NavLink className="nav-link font-weight-bold" to="/accounts">
+              Comptes
+            </NavLink>
+          </li>
+          <li className="nav-item display-7">
+            <NavLink className="nav-link font-weight-bold" to="/articles">
+              Article Manager
+            </NavLink>
+          </li>
+        </ul>
+      </div>
+    </nav>
+  );
 }
 
 // Exportation

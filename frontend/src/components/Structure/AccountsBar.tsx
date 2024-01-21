@@ -2,6 +2,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faEnvelope, faCube } from "@fortawesome/free-solid-svg-icons";
 import {
     faFacebook,
+    faFacebookMessenger,
     faLinkedin,
     faInstagram,
 } from "@fortawesome/free-brands-svg-icons";
@@ -13,7 +14,7 @@ const socials = [
         color: "Dodgerblue",
     },
     {
-        icon: faFacebook,
+        icon: faFacebookMessenger,
         url: "https://www.messenger.com/",
         color: "Dodgerblue",
     },
@@ -46,10 +47,11 @@ const socials = [
 
 function Accounts() {
     return (
-        <div className="d-flex justify-content-center align-items-center vh-100">
+        <div className="d-flex flex-column justify-content-center align-items-center border">
+            <h2 className="text-center"><b>Comptes</b></h2>
             {socials.map((social) => (
-                <a key={social.url} href={social.url} className="mx-5">
-                    <FontAwesomeIcon icon={social.icon} color={social.color} size="5x" style={{ margin: '0.5rem' }} />
+                <a key={social.url} href={social.url}>
+                    <FontAwesomeIcon icon={social.icon} color={social.color} size="3x" style={{ margin: '0.5rem' }} />
                 </a>
             ))}
         </div>
