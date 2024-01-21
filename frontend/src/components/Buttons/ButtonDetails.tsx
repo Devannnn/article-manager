@@ -1,6 +1,6 @@
 // Libraries
 import React, { useState } from "react";
-import InfoSharpIcon from '@mui/icons-material/InfoSharp';
+import { Info } from 'react-feather';
 import { Article } from "../Tools/Types";
 import DetailsArticle from "../Pages/DetailsArticle";
 
@@ -16,21 +16,20 @@ interface ButtonDetailsProps {
  * fetchData to update the datatable.
  */
 function ButtonDetails({ fetchData, activeItem }: Readonly<ButtonDetailsProps>) {
-  const [modalCreate, setModalCreate] = useState<boolean>(false);
+  const [modal, setModal] = useState<boolean>(false);
 
-  function toggleModalCreate() {
-    setModalCreate(!modalCreate);
+  function toggleModal() {
+    setModal(!modal);
   }
 
   return (
     <div className="d-flex justify-content-end">
-      <button onClick={toggleModalCreate}>
-        <InfoSharpIcon/>
-      </button>
       
-      {modalCreate && <DetailsArticle
-        isOpen={modalCreate}
-        toggle={toggleModalCreate}
+      <Info onClick={toggleModal} size={"40px"} strokeWidth={"2px"} color={"#0c9c02"}/>
+      
+      {modal && <DetailsArticle
+        isOpen={modal}
+        toggle={toggleModal}
         fetchData={fetchData}
         title={"Fiche de l'article"}
         activeItem={activeItem}

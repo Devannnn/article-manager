@@ -1,6 +1,6 @@
 // Libraries
 import React, { useState } from "react";
-import DeleteRoundedIcon from '@mui/icons-material/DeleteRounded';
+import { XSquare } from 'react-feather';
 import axios from "axios";
 import FormConfirmation from "../Forms/FormConfirmation";
 
@@ -36,9 +36,7 @@ function ButtonDelete({ fetchData, urlToRequest, itemId }: Readonly<ButtonDelete
 
     return (
         <main>
-            <button onClick={toggleModalRemove}>
-                <DeleteRoundedIcon/>
-            </button>
+            <XSquare onClick={toggleModalRemove} size={"40px"} strokeWidth={"2px"} color={"#c91010"}/>
 
             <FormConfirmation
                 isOpen={modalRemove}
