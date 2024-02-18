@@ -9,6 +9,7 @@ class Article(models.Model):
    url_article = models.TextField()
    date = models.IntegerField()
    synopsis = models.TextField()
+   read = models.BooleanField(default=False)
    tags = models.ManyToManyField(Tag, blank=True)
    date_creation = models.DateTimeField(auto_now_add=True)
    date_modification = models.DateTimeField(auto_now=True)

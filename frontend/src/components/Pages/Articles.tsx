@@ -1,6 +1,7 @@
 // Libraries
 import React from "react";
 import { GridColDef } from '@mui/x-data-grid';
+import Checkbox from '@mui/material/Checkbox';
 import DataTable from "../Structure/DataTable";
 import ButtonAdd from "../Buttons/ButtonAdd";
 import ButtonDetails from "../Buttons/ButtonDetails";
@@ -25,6 +26,7 @@ function Articles() {
         "url_article": "",
         "date": 0,
         "synopsis": "",
+        "read": false,
         "date_creation": "",
         "date_modification": ""
     };
@@ -77,7 +79,19 @@ function Articles() {
                     />
                 </div>
             ),
-        }
+        },
+        {
+            field: 'Lu',
+            width: 60,
+            renderHeader: () => (
+                <strong className="fs-5">
+                    {'Lu'}
+                </strong>
+            ),
+            renderCell: (params) => (
+                <Checkbox disabled checked={params.row.read}/>
+            ),
+        },
     ];
 
     return (

@@ -10,6 +10,7 @@ export interface Article extends Item {
     url_article: string;
     date: number;
     synopsis: string;
+    read: boolean;
     date_creation: string;
     date_modification: string;
 }

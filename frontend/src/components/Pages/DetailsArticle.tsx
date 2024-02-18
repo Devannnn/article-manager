@@ -1,6 +1,7 @@
 // Libraries
 import React from "react";
 import { Modal, ModalHeader, ModalBody, ModalFooter } from "reactstrap";
+import Checkbox from '@mui/material/Checkbox';
 import { Article, Tag } from "../Tools/Types";
 import FormArticle from "../Forms/FormArticle";
 import ButtonDelete from "../Buttons/ButtonDelete";
@@ -50,13 +51,16 @@ function DetailsArticle({ isOpen, toggle, fetchData, title, activeItem }: Readon
                             </a>
                         </div>
                     </div>
-                    <div className="d-flex mb-5">
+                    <div className="d-flex">
                         <div className="col-md-5">
                             <b>Date : </b> {activeItem.date}
                         </div>
                         <div className="col-md-7">
-                            <b>Tags : </b> {activeItem.tags.map((tag: Tag) => (tag.nom)).join(', ')}
+                            <b>Consulté : </b> <Checkbox disabled checked={activeItem.read}/>
                         </div>
+                    </div>
+                    <div className="row mb-5">
+                        <b>Tags : </b> {activeItem.tags.map((tag: Tag) => (tag.nom)).join(', ')}
                     </div>
                     <div className="row">
                         <b>Synopsis : </b> {activeItem.synopsis}
