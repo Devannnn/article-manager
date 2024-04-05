@@ -1,8 +1,8 @@
 // Bibliothèques
 import { Routes, Route } from "react-router-dom";
 import NavBar from "./components/Structure/NavBar";
-import Dashboard from "./components/Pages/Dashboard";
-import ArticleManager from "./components/Pages/ArticleManager";
+import Articles from "./components/Pages/Articles";
+import WebSites from "./components/Pages/WebSites";
 import Footer from "./components/Structure/Footer";
 
 function App() {
@@ -10,9 +10,9 @@ function App() {
     <div className="App">
       <NavBar />
       <Routes>
-        <Route exact path="/" element={<Dashboard />} />
-        <Route path="/articles" element={<ArticleManager />} />
-        <Route path="*" element={<Dashboard />} />
+        <Route exact path="/" element={<Articles />} />
+        <Route exact path="/websites" element={<WebSites />} />
+        <Route path="*" element={<Articles />} />
       </Routes>
       <Footer />
     </div>
