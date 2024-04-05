@@ -8,7 +8,7 @@ class Article(models.Model):
    url_site = models.TextField()
    url_article = models.TextField()
    date = models.IntegerField()
-   summary = models.TextField()
+   summary = models.TextField(blank=True)
    read = models.BooleanField(default=False)
    favoris = models.BooleanField(default=False)
    tags = models.ManyToManyField(Tag, blank=True)

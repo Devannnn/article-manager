@@ -21,7 +21,7 @@ const validationSchema = yup.object({
   url_site: yup.string().url(" ").required(" "),
   url_article: yup.string().url(" ").required(" "),
   date: yup.date().required(" "),
-  summary: yup.string().required(" "),
+  summary: yup.string(),
   read: yup.boolean().required(" "),
   favoris: yup.boolean().required(" "),
 });
