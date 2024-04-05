@@ -34,7 +34,7 @@ function Articles() {
   const COLUMNS: GridColDef[] = [
     {
       field: "titre",
-      width: 320,
+      width: 450,
       renderHeader: () => <strong className="fs-5">{"Titre"}</strong>,
       renderCell: (params) => (
         <a
@@ -48,12 +48,11 @@ function Articles() {
     },
     {
       field: "auteur",
-      width: 130,
+      width: 150,
       renderHeader: () => <strong className="fs-5">{"Auteur"}</strong>,
     },
     {
       field: "date",
-      width: 80,
       renderHeader: () => <strong className="fs-5">{"Date"}</strong>,
     },
     {
@@ -68,13 +67,11 @@ function Articles() {
     },
     {
       field: "Lu",
-      width: 60,
-      renderHeader: () => <strong className="fs-5">{"Lu"}</strong>,
+      renderHeader: () => <strong className="fs-5">{"Consulté"}</strong>,
       renderCell: (params) => <Checkbox disabled checked={params.row.read} />,
     },
     {
       field: "Favoris",
-      width: 60,
       renderHeader: () => <strong className="fs-5">{"Favoris"}</strong>,
       renderCell: (params) => (
         <Checkbox disabled checked={params.row.favoris} />
