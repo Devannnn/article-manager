@@ -15,12 +15,14 @@ interface TableauProps {
  */
 function Tableau({ data, columns }: Readonly<TableauProps>) {
   return (
-    <DataGrid
-      rows={data}
-      columns={columns}
-      getRowHeight={() => "auto"}
-      hideFooter
-    />
+    <div className="flex-grow h-full bg-gray-100 border">
+      <DataGrid
+        rows={data}
+        columns={columns}
+        getRowHeight={() => "auto"}
+        hideFooter
+      />
+    </div>
   );
 }
 

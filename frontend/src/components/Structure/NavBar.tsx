@@ -10,7 +10,7 @@ import { NavLink } from "react-router-dom";
 function NavBar() {
   return (
     <nav className="bg-gray-800">
-      <div className="mx-auto max-w-7xl flex flex-1 h-16 items-center space-x-6">
+      <div className="mx-4 flex flex-1 h-16 items-center space-x-6">
         <NavLink
           className="text-gray-400 hover:text-gray-200 focus:text-white"
           to="/"

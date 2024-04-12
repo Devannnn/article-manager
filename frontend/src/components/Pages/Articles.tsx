@@ -80,7 +80,7 @@ function Articles() {
   ];
 
   return (
-    <div className="h-full flex flex-col mx-8 my-8">
+    <div className="h-full flex flex-col mx-16 space-y-4">
       <div className="flex flex-row justify-center">
         <ButtonAdd<Article>
           fetchData={fetchData}

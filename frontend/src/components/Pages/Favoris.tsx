@@ -68,8 +68,8 @@ function Favoris() {
   ];
 
   return (
-    <div className="container my-4">
-      <div className="shadow p-3 mb-5 bg-white rounded">
+    <div className="h-full flex flex-col mx-16 space-y-4">
+      <div className="shadow bg-white rounded overflow-auto">
         <DataTable data={favoris} columns={COLUMNS} />
       </div>
     </div>
