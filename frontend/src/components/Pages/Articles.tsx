@@ -5,9 +5,9 @@ import Checkbox from "@mui/material/Checkbox";
 import DataTable from "../Structure/DataTable";
 import ButtonAdd from "../Buttons/ButtonAdd";
 import ButtonDetails from "../Buttons/ButtonDetails";
-import FetchData from "../Tools/FetchData";
 import FormArticle from "../Forms/FormArticle";
 import { getArticlesURL } from "../Tools/Urls";
+import FetchData from "../Tools/FetchData";
 import { Article } from "../Tools/Types";
 
 /**

@@ -3,10 +3,10 @@ import React from "react";
 import { Modal, ModalHeader, ModalBody, ModalFooter } from "reactstrap";
 import Checkbox from "@mui/material/Checkbox";
 import { Article, Tag } from "../Tools/Types";
+import { getArticlesURL } from "../Tools/Urls";
 import FormArticle from "../Forms/FormArticle";
 import ButtonDelete from "../Buttons/ButtonDelete";
 import ButtonEdit from "../Buttons/ButtonEdit";
-import { getArticlesURL } from "../Tools/Urls";
 
 interface DetailsArticleProps {
   isOpen: boolean;
