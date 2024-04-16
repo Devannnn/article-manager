@@ -2,7 +2,6 @@
 import React, { useState, ChangeEvent, FunctionComponent } from "react";
 import * as yup from "yup";
 import {
-  Button,
   Modal,
   ModalHeader,
   ModalBody,
@@ -10,7 +9,6 @@ import {
   Form,
   FormGroup,
   Input,
-  Label,
 } from "reactstrap";
 import CreatableSelect from "react-select/creatable";
 import Tags from "../Forms/FormTags";
@@ -34,7 +32,7 @@ function onlyUnique(value: string, index: number, array: string[]) {
 }
 
 /**
- * The goal of this component is to provide a modal form for adding or editing an article.
+ * The goal of this component is to provide a modal form htmlFor adding or editing an article.
  */
 const FormArticle: FunctionComponent<FormProps<Article>> = ({
   isOpen,
@@ -96,9 +94,9 @@ const FormArticle: FunctionComponent<FormProps<Article>> = ({
         <div className="container">
           <Form>
             <FormGroup>
-              <Label for="nom">
+              <label htmlFor="nom">
                 <b>Titre</b>
-              </Label>
+              </label>
               <Input
                 type="text"
                 name="nom"
@@ -111,9 +109,9 @@ const FormArticle: FunctionComponent<FormProps<Article>> = ({
             </FormGroup>
             <div className="row">
               <FormGroup className="col-md-6">
-                <Label for="auteur">
+                <label htmlFor="auteur">
                   <b>Auteur</b>
-                </Label>
+                </label>
                 <CreatableSelect
                   name="auteur"
                   placeholder="Auteur"
@@ -129,9 +127,9 @@ const FormArticle: FunctionComponent<FormProps<Article>> = ({
                 )}
               </FormGroup>
               <FormGroup className="col-md-6">
-                <Label for="date">
+                <label htmlFor="date">
                   <b>Année</b>
-                </Label>
+                </label>
                 <Input
                   type="text"
                   name="date"
@@ -146,9 +144,9 @@ const FormArticle: FunctionComponent<FormProps<Article>> = ({
               </FormGroup>
             </div>
             <FormGroup>
-              <Label for="url_site">
+              <label htmlFor="url_site">
                 <b>Url Site</b>
-              </Label>
+              </label>
               <Input
                 type="text"
                 name="url_site"
@@ -164,9 +162,9 @@ const FormArticle: FunctionComponent<FormProps<Article>> = ({
               )}
             </FormGroup>
             <FormGroup>
-              <Label for="url_article">
+              <label htmlFor="url_article">
                 <b>Url Article</b>
-              </Label>
+              </label>
               <Input
                 type="text"
                 name="url_article"
@@ -182,9 +180,9 @@ const FormArticle: FunctionComponent<FormProps<Article>> = ({
               )}
             </FormGroup>
             <FormGroup>
-              <Label for="summary">
+              <label htmlFor="summary">
                 <b>Résumé</b>
-              </Label>
+              </label>
               <Input
                 type="textarea"
                 name="summary"
@@ -197,9 +195,9 @@ const FormArticle: FunctionComponent<FormProps<Article>> = ({
               )}
             </FormGroup>
             <FormGroup>
-              <Label for="read">
+              <label htmlFor="read">
                 <b>Consulté</b>
-              </Label>
+              </label>
               <br />
               <Input
                 type="checkbox"
@@ -212,9 +210,9 @@ const FormArticle: FunctionComponent<FormProps<Article>> = ({
               )}
             </FormGroup>
             <FormGroup>
-              <Label for="favoris">
+              <label htmlFor="favoris">
                 <b>Favoris</b>
-              </Label>
+              </label>
               <br />
               <Input
                 type="checkbox"
@@ -233,9 +231,12 @@ const FormArticle: FunctionComponent<FormProps<Article>> = ({
         </div>
       </ModalBody>
       <ModalFooter className="d-flex justify-content-center">
-        <Button color="success" onClick={() => validateForm()}>
+        <button
+          className="bg-green-600 hover:bg-green-800 text-white py-2 px-6 rounded"
+          onClick={() => validateForm()}
+        >
           Enregistrer
-        </Button>
+        </button>
       </ModalFooter>
     </Modal>
   );
