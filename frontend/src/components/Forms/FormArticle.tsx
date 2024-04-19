@@ -1,20 +1,13 @@
 // Libraries
 import React, { useState, ChangeEvent, FunctionComponent } from "react";
 import * as yup from "yup";
-import {
-  Modal,
-  ModalHeader,
-  ModalBody,
-  ModalFooter,
-  Form,
-  FormGroup,
-  Input,
-} from "reactstrap";
+import { Input } from "reactstrap";
 import CreatableSelect from "react-select/creatable";
 import Tags from "../Forms/FormTags";
 import { FormProps, Tag, Article } from "../Tools/Types";
 import { getArticlesURL } from "../Tools/Urls";
 import FetchData from "../Tools/FetchData";
+import PopupWrapper from "../Wrappers/PopupWrapper";
 
 const validationSchema = yup.object({
   nom: yup.string().required(" "),
@@ -86,14 +79,12 @@ const FormArticle: FunctionComponent<FormProps<Article>> = ({
   }
 
   return (
-    <Modal isOpen={isOpen} toggle={toggle}>
-      <ModalHeader toggle={toggle}>
-        <b>{title}</b>
-      </ModalHeader>
-      <ModalBody>
-        <div className="container">
-          <Form>
-            <FormGroup>
+    <PopupWrapper popup={isOpen} setPopup={toggle} status="neutral">
+      <div className="flex flex-col space-y-4">
+        <h1 className="text-center text-red-600 font-bold text-xl">{title}</h1>
+        <form>
+          <div className="flex flex-col space-y-2">
+            <div>
               <label htmlFor="nom">
                 <b>Titre</b>
               </label>
@@ -106,9 +97,9 @@ const FormArticle: FunctionComponent<FormProps<Article>> = ({
                 invalid={errors.nom !== undefined && errors.nom !== ""}
               />
               {errors.nom && <div className="error-message">{errors.nom}</div>}
-            </FormGroup>
+            </div>
             <div className="row">
-              <FormGroup className="col-md-6">
+              <div className="col-md-6">
                 <label htmlFor="auteur">
                   <b>Auteur</b>
                 </label>
@@ -125,8 +116,8 @@ const FormArticle: FunctionComponent<FormProps<Article>> = ({
                 {errors.auteur && (
                   <div className="error-message">{errors.auteur}</div>
                 )}
-              </FormGroup>
-              <FormGroup className="col-md-6">
+              </div>
+              <div className="col-md-6">
                 <label htmlFor="date">
                   <b>Année</b>
                 </label>
@@ -141,9 +132,9 @@ const FormArticle: FunctionComponent<FormProps<Article>> = ({
                 {errors.date && (
                   <div className="error-message">{errors.date}</div>
                 )}
-              </FormGroup>
+              </div>
             </div>
-            <FormGroup>
+            <div>
               <label htmlFor="url_site">
                 <b>Url Site</b>
               </label>
@@ -160,8 +151,8 @@ const FormArticle: FunctionComponent<FormProps<Article>> = ({
               {errors.url_site && (
                 <div className="error-message">{errors.url_site}</div>
               )}
-            </FormGroup>
-            <FormGroup>
+            </div>
+            <div>
               <label htmlFor="url_article">
                 <b>Url Article</b>
               </label>
@@ -178,8 +169,8 @@ const FormArticle: FunctionComponent<FormProps<Article>> = ({
               {errors.url_article && (
                 <div className="error-message">{errors.url_article}</div>
               )}
-            </FormGroup>
-            <FormGroup>
+            </div>
+            <div>
               <label htmlFor="summary">
                 <b>Résumé</b>
               </label>
@@ -193,8 +184,8 @@ const FormArticle: FunctionComponent<FormProps<Article>> = ({
               {errors.summary && (
                 <div className="error-message">{errors.summary}</div>
               )}
-            </FormGroup>
-            <FormGroup>
+            </div>
+            <div>
               <label htmlFor="read">
                 <b>Consulté</b>
               </label>
@@ -208,8 +199,8 @@ const FormArticle: FunctionComponent<FormProps<Article>> = ({
               {errors.read && (
                 <div className="error-message">{errors.read}</div>
               )}
-            </FormGroup>
-            <FormGroup>
+            </div>
+            <div>
               <label htmlFor="favoris">
                 <b>Favoris</b>
               </label>
@@ -223,22 +214,22 @@ const FormArticle: FunctionComponent<FormProps<Article>> = ({
               {errors.favoris && (
                 <div className="error-message">{errors.favoris}</div>
               )}
-            </FormGroup>
-            <FormGroup>
+            </div>
+            <div>
               <Tags onChange={handleTagChange} currentTags={activeItem.tags} />
-            </FormGroup>
-          </Form>
+            </div>
+          </div>
+        </form>
+        <div className="flex flex-col justify-content-center items-center">
+          <button
+            className="bg-green-600 hover:bg-green-800 text-white w-64 py-2 px-6 rounded"
+            onClick={() => validateForm()}
+          >
+            Enregistrer
+          </button>
         </div>
-      </ModalBody>
-      <ModalFooter className="d-flex justify-content-center">
-        <button
-          className="bg-green-600 hover:bg-green-800 text-white py-2 px-6 rounded"
-          onClick={() => validateForm()}
-        >
-          Enregistrer
-        </button>
-      </ModalFooter>
-    </Modal>
+      </div>
+    </PopupWrapper>
   );
 };
 
