@@ -1,14 +1,8 @@
 // Libraries
 import React, { useState, ChangeEvent, FunctionComponent } from "react";
-import {
-  Modal,
-  ModalHeader,
-  ModalBody,
-  Form,
-  FormGroup,
-  Input,
-} from "reactstrap";
+import { Input } from "reactstrap";
 import { FormProps, WebSite } from "../Tools/Types";
+import PopupWrapper from "../Wrappers/PopupWrapper";
 import * as yup from "yup";
 
 const validationSchema = yup.object({
@@ -57,69 +51,69 @@ const FormWebsite: FunctionComponent<FormProps<WebSite>> = ({
   }
 
   return (
-    <Modal isOpen={isOpen} toggle={toggle}>
-      <ModalHeader toggle={toggle}>
-        <b>{title}</b>
-      </ModalHeader>
-      <ModalBody>
-        <Form>
-          <FormGroup>
-            <label className="font-bold" htmlFor="nom">
-              Nom
-            </label>
-            <Input
-              type="text"
-              name="nom"
-              placeholder="Nom"
-              value={item.nom}
-              onChange={handleChange}
-              invalid={errors.nom !== undefined && errors.nom !== ""}
-            />
-            {errors.nom && <div className="error-message">{errors.nom}</div>}
-          </FormGroup>
-          <FormGroup>
-            <label className="font-bold" htmlFor="url">
-              Site
-            </label>
-            <Input
-              type="text"
-              name="url"
-              placeholder="Url"
-              value={item.url}
-              onChange={handleChange}
-              invalid={errors.url !== undefined && errors.url !== ""}
-            />
-            {errors.url && <div className="error-message">{errors.url}</div>}
-          </FormGroup>
-          <FormGroup>
-            <label className="font-bold" htmlFor="image_url">
-              Logo
-            </label>
-            <Input
-              type="text"
-              name="image_url"
-              placeholder="Url"
-              value={item.image_url}
-              onChange={handleChange}
-              invalid={
-                errors.image_url !== undefined && errors.image_url !== ""
-              }
-            />
-            {errors.image_url && (
-              <div className="error-message">{errors.image_url}</div>
-            )}
-          </FormGroup>
-        </Form>
-      </ModalBody>
-      <div className="flex flex-row justify-center m-4">
-        <button
-          className="bg-green-600 hover:bg-green-800 text-white py-2 px-6 rounded"
-          onClick={() => validateForm()}
-        >
-          Enregistrer
-        </button>
+    <PopupWrapper popup={isOpen} setPopup={toggle} status="neutral">
+      <div className="flex flex-col space-y-4">
+        <h1 className="text-center text-red-600 font-bold text-2xl">{title}</h1>
+        <form>
+          <div className="flex flex-col space-y-4">
+            <div>
+              <label className="font-bold" htmlFor="nom">
+                Nom
+              </label>
+              <Input
+                type="text"
+                name="nom"
+                placeholder="Nom"
+                value={item.nom}
+                onChange={handleChange}
+                invalid={errors.nom !== undefined && errors.nom !== ""}
+              />
+              {errors.nom && <div className="error-message">{errors.nom}</div>}
+            </div>
+            <div>
+              <label className="font-bold" htmlFor="url">
+                Site
+              </label>
+              <Input
+                type="text"
+                name="url"
+                placeholder="Url"
+                value={item.url}
+                onChange={handleChange}
+                invalid={errors.url !== undefined && errors.url !== ""}
+              />
+              {errors.url && <div className="error-message">{errors.url}</div>}
+            </div>
+            <div>
+              <label className="font-bold" htmlFor="image_url">
+                Logo
+              </label>
+              <Input
+                type="text"
+                name="image_url"
+                placeholder="Url"
+                value={item.image_url}
+                onChange={handleChange}
+                invalid={
+                  errors.image_url !== undefined && errors.image_url !== ""
+                }
+              />
+              {errors.image_url && (
+                <div className="error-message">{errors.image_url}</div>
+              )}
+            </div>
+          </div>
+        </form>
+        <div className="flex flex-row justify-center m-4">
+          <button
+            className="bg-green-600 hover:bg-green-800 text-white py-2 px-6 rounded"
+            onClick={() => validateForm()}
+          >
+            Enregistrer
+          </button>
+        </div>
       </div>
-    </Modal>
+    </PopupWrapper>
   );
 };
 

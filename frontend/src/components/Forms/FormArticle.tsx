@@ -81,7 +81,7 @@ const FormArticle: FunctionComponent<FormProps<Article>> = ({
   return (
     <PopupWrapper popup={isOpen} setPopup={toggle} status="neutral">
       <div className="flex flex-col space-y-4">
-        <h1 className="text-center text-red-600 font-bold text-xl">{title}</h1>
+        <h1 className="text-center text-red-600 font-bold text-2xl">{title}</h1>
         <form>
           <div className="flex flex-col space-y-2">
             <div>

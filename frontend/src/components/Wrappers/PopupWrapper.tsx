@@ -60,7 +60,7 @@ function PopupWrapper({
         >
           <div
             id="alert-additional-content-3"
-            className={`p-4 mb-4 rounded-lg select-none ${statusClasses} dark:bg-gray-800`}
+            className={`${statusClasses} rounded-lg select-none p-4`}
             role="alert"
           >
             {children}

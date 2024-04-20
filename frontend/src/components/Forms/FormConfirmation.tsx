@@ -1,6 +1,6 @@
 // Libraries
 import React from "react";
-import { Modal, ModalHeader, ModalBody, ModalFooter } from "reactstrap";
+import PopupWrapper from "../Wrappers/PopupWrapper";
 
 interface FormConfirmationProps {
   isOpen: boolean;
@@ -20,24 +20,28 @@ function FormConfirmation({
   onSave,
 }: Readonly<FormConfirmationProps>) {
   return (
-    <Modal isOpen={isOpen} toggle={toggle}>
-      <ModalHeader>Confirmation</ModalHeader>
-      <ModalBody>Etes-vous sûr de vouloir supprimer cet élément ?</ModalBody>
-      <ModalFooter>
-        <button
-          className="bg-red-600 hover:bg-red-800 text-white py-2 px-6 rounded"
-          onClick={toggle}
-        >
-          Annuler
-        </button>
-        <button
-          className="ml-auto bg-green-600 hover:bg-green-800 text-white py-2 px-6 rounded"
-          onClick={onSave}
-        >
-          Valider
-        </button>
-      </ModalFooter>
-    </Modal>
+    <PopupWrapper popup={isOpen} setPopup={toggle} status="neutral">
+      <div className="flex flex-col space-y-6">
+        <h1 className="text-center text-black font-bold text-2xl">
+          {"Confirmation"}
+        </h1>
+        <div>{"Etes-vous sûr de vouloir supprimer cet élément ?"}</div>
+        <div className="flex flex-row justify-between">
+          <button
+            className="bg-red-600 hover:bg-red-800 text-white py-2 px-6 rounded"
+            onClick={toggle}
+          >
+            Annuler
+          </button>
+          <button
+            className="ml-auto bg-green-600 hover:bg-green-800 text-white py-2 px-6 rounded"
+            onClick={onSave}
+          >
+            Valider
+          </button>
+        </div>
+      </div>
+    </PopupWrapper>
   );
 }
 
