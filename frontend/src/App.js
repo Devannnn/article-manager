@@ -4,7 +4,6 @@ import NavBar from "./components/Structure/NavBar";
 import PageArticles from "./components/Pages/PageArticles";
 import WebSites from "./components/Pages/PageWebSites";
 import PageFavoris from "./components/Pages/PageFavoris";
-import Footer from "./components/Structure/Footer";
 
 function App() {
   return (
@@ -17,9 +16,6 @@ function App() {
           <Route exact path="/favoris" element={<PageFavoris />} />
           <Route path="*" element={<PageArticles />} />
         </Routes>
-      </div>
-      <div className="mt-auto">
-        <Footer />
       </div>
     </div>
   );
