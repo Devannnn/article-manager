@@ -50,7 +50,6 @@ function WebSites() {
     {
       field: "actions",
       headerName: "Actions",
-      width: 90,
       renderHeader: () => <strong className="fs-5">{"Actions"}</strong>,
       renderCell: (params) => (
         <div className="d-flex justify-content-between">
@@ -72,18 +71,22 @@ function WebSites() {
   ];
 
   return (
-    <div className="h-full flex flex-col mx-auto space-y-4 max-w-lg">
-      <div className="flex flex-row justify-content-center">
-        <ButtonAdd
-          fetchData={fetchData}
-          urlToFetch={API_URL_WEBSITES}
-          FormComponent={FormWebsite}
-          title={TITLE_WEBSITE_FORM}
-          activeItem={newWebSite}
-        />
-      </div>
-      <div className="shadow bg-white rounded overflow-auto">
-        <DataTable data={data} columns={COLUMNS} />
+    <div className="h-full flex flex-col items-center">
+      <div className="h-full w-1/2">
+        <div className="h-full flex flex-col space-y-4">
+          <div className="flex flex-row justify-content-center">
+            <ButtonAdd
+              fetchData={fetchData}
+              urlToFetch={API_URL_WEBSITES}
+              FormComponent={FormWebsite}
+              title={TITLE_WEBSITE_FORM}
+              activeItem={newWebSite}
+            />
+          </div>
+          <div className="shadow bg-white rounded overflow-y-auto">
+            <DataTable data={data} columns={COLUMNS} />
+          </div>
+        </div>
       </div>
     </div>
   );

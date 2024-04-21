@@ -13,7 +13,7 @@ interface TableauProps {
  * from the Material-UI library. The component takes in data and columns as props,
  * which represent the rows and columns of the data grid, respectively.
  */
-function Tableau({ data, columns }: Readonly<TableauProps>) {
+function DataTable({ data, columns }: Readonly<TableauProps>) {
   return (
     <div className="flex-grow h-full bg-gray-100 border">
       <DataGrid
@@ -27,4 +27,4 @@ function Tableau({ data, columns }: Readonly<TableauProps>) {
 }
 
 // Exportation
-export default Tableau;
+export default DataTable;
