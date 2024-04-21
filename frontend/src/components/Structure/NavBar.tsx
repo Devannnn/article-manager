@@ -8,27 +8,20 @@ import { NavLink } from "react-router-dom";
  * between the various pages of the application.
  */
 function NavBar() {
+  const linkStyle = "text-gray-800 font-bold hover:text-white focus:text-white";
+
   return (
-    <nav className="bg-gray-800">
+    <nav className="bg-gray-200">
       <div className="mx-4 flex flex-1 h-16 items-center space-x-6">
-        <NavLink
-          className="text-gray-400 hover:text-gray-200 focus:text-white"
-          to="/"
-        >
+        <NavLink className={linkStyle} to="/">
           Articles
         </NavLink>
 
-        <NavLink
-          className="text-gray-400 hover:text-gray-200 focus:text-white"
-          to="/favoris"
-        >
+        <NavLink className={linkStyle} to="/favoris">
           Favoris
         </NavLink>
 
-        <NavLink
-          className="text-gray-400 hover:text-gray-200 focus:text-white"
-          to="/websites"
-        >
+        <NavLink className={linkStyle} to="/websites">
           WebSites
         </NavLink>
       </div>
