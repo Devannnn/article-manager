@@ -11,13 +11,14 @@ import PopupWrapper from "../Wrappers/PopupWrapper";
 
 const validationSchema = yup.object({
   name: yup.string().required(" "),
-  auteur: yup.string().required(" "),
+  author: yup.string().required(" "),
   url_site: yup.string().url(" ").required(" "),
   url_article: yup.string().url(" ").required(" "),
   date: yup.date().required(" "),
   summary: yup.string(),
   read: yup.boolean().required(" "),
-  favoris: yup.boolean().required(" "),
+  read_again: yup.boolean().required(" "),
+  favorite: yup.boolean().required(" "),
 });
 
 function onlyUnique(value: string, index: number, array: string[]) {
@@ -56,7 +57,7 @@ const FormArticle: FunctionComponent<FormProps<Article>> = ({
   }
 
   function handleAuthorsChange(newValue: any) {
-    setItem((prevItem) => ({ ...prevItem, auteur: newValue.value }));
+    setItem((prevItem) => ({ ...prevItem, author: newValue.value }));
   }
 
   function validateForm() {
@@ -102,12 +103,12 @@ const FormArticle: FunctionComponent<FormProps<Article>> = ({
             </div>
             <div className="row">
               <div className="col-md-6">
-                <label htmlFor="auteur">
-                  <b>Auteur</b>
+                <label htmlFor="author">
+                  <b>Author</b>
                 </label>
                 <CreatableSelect
-                  name="auteur"
-                  placeholder="Auteur"
+                  name="author"
+                  placeholder="author"
                   onChange={handleAuthorsChange}
                   isClearable
                   options={authors.map((author) => ({
@@ -115,8 +116,8 @@ const FormArticle: FunctionComponent<FormProps<Article>> = ({
                     label: author,
                   }))}
                 />
-                {errors.auteur && (
-                  <div className="error-message">{errors.auteur}</div>
+                {errors.author && (
+                  <div className="error-message">{errors.author}</div>
                 )}
               </div>
               <div className="col-md-6">
@@ -203,18 +204,33 @@ const FormArticle: FunctionComponent<FormProps<Article>> = ({
               )}
             </div>
             <div>
-              <label htmlFor="favoris">
+              <label htmlFor="read_again">
+                <b>A relire</b>
+              </label>
+              <br />
+              <Input
+                type="checkbox"
+                name="read_again"
+                checked={item.read_again}
+                onChange={handleChange}
+              />
+              {errors.read_again && (
+                <div className="error-message">{errors.read_again}</div>
+              )}
+            </div>
+            <div>
+              <label htmlFor="favorite">
                 <b>Favoris</b>
               </label>
               <br />
               <Input
                 type="checkbox"
-                name="favoris"
+                name="favorite"
                 checked={item.favorite}
                 onChange={handleChange}
               />
-              {errors.favoris && (
-                <div className="error-message">{errors.favoris}</div>
+              {errors.favorite && (
+                <div className="error-message">{errors.favorite}</div>
               )}
             </div>
             <div>
