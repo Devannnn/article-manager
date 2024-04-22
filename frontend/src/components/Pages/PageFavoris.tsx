@@ -21,9 +21,9 @@ function PageFavoris() {
 
   const COLUMNS: GridColDef[] = [
     {
-      field: "titre",
+      field: "title",
       width: 450,
-      renderHeader: () => <strong className="fs-5">{"Titre"}</strong>,
+      renderHeader: () => <strong className="fs-5">{"Title"}</strong>,
       renderCell: (params) => (
         <a
           href={params.row.url_article}
@@ -37,11 +37,11 @@ function PageFavoris() {
     {
       field: "author",
       width: 150,
-      renderHeader: () => <strong className="fs-5">{"Auteur"}</strong>,
+      renderHeader: () => <strong className="fs-5">{"Author"}</strong>,
     },
     {
-      field: "date",
-      renderHeader: () => <strong className="fs-5">{"Date"}</strong>,
+      field: "year",
+      renderHeader: () => <strong className="fs-5">{"Year"}</strong>,
     },
     {
       field: "actions",
@@ -55,12 +55,12 @@ function PageFavoris() {
     },
     {
       field: "read",
-      renderHeader: () => <strong className="fs-5">{"Consulté"}</strong>,
+      renderHeader: () => <strong className="fs-5">{"Read"}</strong>,
       renderCell: (params) => <Checkbox disabled checked={params.row.read} />,
     },
     {
       field: "read_again",
-      renderHeader: () => <strong className="fs-5">{"Consulté"}</strong>,
+      renderHeader: () => <strong className="fs-5">{"To reread"}</strong>,
       renderCell: (params) => (
         <Checkbox disabled checked={params.row.read_again} />
       ),
