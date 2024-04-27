@@ -56,6 +56,7 @@ function ButtonEdit({ url, activeItem }: Readonly<ButtonEditProps>) {
           onSave={edit}
           title={"Fiche de l'article"}
           activeItem={activeItem}
+          showDeleteButton={true}
         />
       )}
     </div>

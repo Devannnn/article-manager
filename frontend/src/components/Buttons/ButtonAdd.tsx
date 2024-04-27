@@ -62,6 +62,7 @@ function ButtonAdd<T extends Item>({
           onSave={create}
           title={title}
           activeItem={activeItem}
+          showDeleteButton={false}
         />
       )}
     </>
