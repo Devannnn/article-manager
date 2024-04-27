@@ -104,12 +104,13 @@ const FormArticle: FunctionComponent<FormProps<Article>> = ({
               )}
             </div>
             <div className="flex flex-row space-x-4">
-              <div>
+              <div className="w-64">
                 <label htmlFor="author">
                   <b>Author</b>
                 </label>
                 <CreatableSelect
                   name="author"
+                  placeholder="Author"
                   onChange={handleAuthorsChange}
                   isClearable={false}
                   value={{ value: item.author, label: item.author }}
