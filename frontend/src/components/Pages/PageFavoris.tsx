@@ -29,7 +29,7 @@ function PageFavoris() {
           target="_blank"
           rel="noopener noreferrer"
         >
-          {params.row.name}
+          {params.row.title}
         </a>
       ),
     },

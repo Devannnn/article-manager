@@ -1,13 +1,10 @@
 // Libraries
-import React, { useEffect } from "react";
-import { useDispatch } from "react-redux";
+import React from "react";
 import { GridColDef } from "@mui/x-data-grid";
 import Checkbox from "@mui/material/Checkbox";
 // Configuration Files
 import { Article } from "../Tools/Types";
 import { useArticles } from "../../redux/selectors";
-import { proxy, requestTypes } from "../Tools/Proxy";
-import { SET_ARTICLES, SET_NOTIFICATION } from "../../redux/actionsCreators";
 // Components
 import ButtonAdd from "../Buttons/ButtonAdd";
 import DataTable from "../Structure/DataTable";
@@ -18,22 +15,7 @@ import FormArticle from "../Forms/FormArticle";
  * This component generates the Article page.
  */
 function PageArticles() {
-  const dispatch = useDispatch();
   const currentArticles = useArticles();
-
-  useEffect(() => {
-    async function fetchData() {
-      const { error, message, data } = await proxy(requestTypes.FETCH_ARTICLES);
-      if (!error) {
-        const articles = data as Article[];
-        dispatch(SET_ARTICLES(articles));
-        return;
-      }
-      dispatch(SET_NOTIFICATION(message, "error"));
-    }
-
-    fetchData().catch((err) => console.error(err));
-  }, [dispatch]);
 
   const TITLE_ADD_FORM: string = "Ajout d'un article";
   const newArticle: Article = {
