@@ -6,7 +6,6 @@ import FetchData from "../Tools/FetchData";
 import ButtonAdd from "../Buttons/ButtonAdd";
 import FormWebsite from "../Forms/FormWebsite";
 import ButtonDelete from "../Buttons/ButtonDelete";
-import ButtonEdit from "../Buttons/ButtonEdit";
 import { getWebSitesURL } from "../Tools/Urls";
 import { WebSite } from "../Tools/Types";
 
@@ -53,13 +52,6 @@ function WebSites() {
       renderHeader: () => <strong className="fs-5">{"Actions"}</strong>,
       renderCell: (params) => (
         <div className="d-flex justify-content-between">
-          <ButtonEdit
-            fetchData={fetchData}
-            urlToRequest={API_URL_WEBSITES}
-            FormComponent={FormWebsite}
-            title={"Modification d'un site web"}
-            activeItem={params.row}
-          />
           <ButtonDelete
             fetchData={fetchData}
             urlToRequest={API_URL_WEBSITES}

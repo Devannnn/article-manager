@@ -4,6 +4,7 @@ import NavBar from "./components/Structure/NavBar";
 import PageArticles from "./components/Pages/PageArticles";
 import WebSites from "./components/Pages/PageWebSites";
 import PageFavoris from "./components/Pages/PageFavoris";
+import NotificationBox from "./components/Structure/NotificationBox";
 
 function App() {
   return (
@@ -17,6 +18,7 @@ function App() {
           <Route path="*" element={<PageArticles />} />
         </Routes>
       </div>
+      <NotificationBox />
     </div>
   );
 }

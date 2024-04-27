@@ -1,63 +1,66 @@
 // Libraries
-import React, { useState, FunctionComponent } from "react";
+import React, { useState } from "react";
+import { Info } from "react-feather";
 import axios from "axios";
-import { FormProps, Item } from "../Tools/Types";
+import { Article } from "../Tools/Types";
+import FormArticle from "../Forms/FormArticle";
+import { getArticlesURL } from "../Tools/Urls";
+import { useDispatch } from "react-redux";
+import { SET_NOTIFICATION } from "../../redux/actionsCreators";
 
-interface ButtonEditProps<T extends Item> {
+interface ButtonEditProps {
   fetchData: () => void;
-  urlToRequest: string;
-  FormComponent: FunctionComponent<FormProps<T>>;
-  title: string;
-  activeItem: T;
+  activeItem: Article;
 }
 
-/**
- * The role of this component is to handle the deletion of an item.
- * It displays a "Delete" button that, when clicked, opens a confirmation form.
- * When the confirmation window is confirmed, a DELETE request is sent to the API.
+/***
+ * The goal of this component is to provide a button to add an entity. The component takes
+ * in a method named fetchData and a string named urlToFetch as props. The component triggers
+ * a modal form and send the data in a POST request to the urlToFetch. Then it calls the callback
+ * fetchData to update the datatable.
  */
-function ButtonEdit<T extends Item>({
-  fetchData,
-  urlToRequest,
-  FormComponent,
-  title,
-  activeItem,
-}: Readonly<ButtonEditProps<T>>) {
-  const [modalEdit, setModalEdit] = useState(false);
+function ButtonEdit({ fetchData, activeItem }: Readonly<ButtonEditProps>) {
+  const dispatch = useDispatch();
+  const [modal, setModal] = useState<boolean>(false);
+  const API_URL_ARTICLES: string = getArticlesURL();
 
-  function toggleModalEdit() {
-    setModalEdit(!modalEdit);
+  function toggleModal() {
+    setModal(!modal);
   }
 
-  function edit(item: T) {
-    setModalEdit(!modalEdit);
+  function edit(article: Article) {
+    toggleModal();
     axios
-      .patch(`${urlToRequest}${item.id}/`, item)
+      .patch(`${API_URL_ARTICLES}${article.id}/`, article)
       .then(() => {
         fetchData();
+        dispatch(SET_NOTIFICATION("An article has been updated", "success"));
       })
       .catch((error) => {
         console.error(error);
+        dispatch(SET_NOTIFICATION(error.response.data, "error"));
       });
   }
 
   return (
-    <>
-      <button
-        className="bg-yellow-600 hover:bg-yellow-800 text-white py-2 px-6 rounded"
-        onClick={toggleModalEdit}
-      >
-        Modifier
-      </button>
-
-      <FormComponent
-        isOpen={modalEdit}
-        toggle={toggleModalEdit}
-        onSave={edit}
-        title={title}
-        activeItem={activeItem}
+    <div className="d-flex justify-content-end">
+      <Info
+        onClick={toggleModal}
+        size={"40px"}
+        strokeWidth={"2px"}
+        color={"#198754"}
       />
-    </>
+
+      {modal && (
+        <FormArticle
+          isOpen={modal}
+          toggle={toggleModal}
+          onSave={edit}
+          title={"Fiche de l'article"}
+          activeItem={activeItem}
+        />
+      )}
+    </div>
   );
 }
 

@@ -2,6 +2,8 @@
 import React, { useState, FunctionComponent } from "react";
 import axios from "axios";
 import { Item, FormProps } from "../Tools/Types";
+import { useDispatch } from "react-redux";
+import { SET_NOTIFICATION } from "../../redux/actionsCreators";
 
 interface ButtonAddProps<T extends Item> {
   fetchData: () => void;
@@ -24,6 +26,7 @@ function ButtonAdd<T extends Item>({
   title,
   activeItem,
 }: Readonly<ButtonAddProps<T>>) {
+  const dispatch = useDispatch();
   const [modalCreate, setModalCreate] = useState<boolean>(false);
 
   function toggleModalCreate() {
@@ -36,9 +39,11 @@ function ButtonAdd<T extends Item>({
       .post(urlToFetch, item)
       .then(() => {
         fetchData();
+        dispatch(SET_NOTIFICATION("An article has been added", "success"));
       })
       .catch((error) => {
         console.error(error);
+        dispatch(SET_NOTIFICATION(error.response.data, "error"));
       });
   }
 

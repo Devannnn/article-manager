@@ -2,6 +2,8 @@
 import React, { useState } from "react";
 import axios from "axios";
 import FormConfirmation from "../Forms/FormConfirmation";
+import { useDispatch } from "react-redux";
+import { SET_NOTIFICATION } from "../../redux/actionsCreators";
 
 interface ButtonDeleteProps {
   fetchData: () => void;
@@ -19,6 +21,7 @@ function ButtonDelete({
   urlToRequest,
   itemId,
 }: Readonly<ButtonDeleteProps>) {
+  const dispatch = useDispatch();
   const [modalRemove, setModalRemove] = useState(false);
 
   function toggleModalRemove() {
@@ -31,9 +34,11 @@ function ButtonDelete({
       .delete(`${urlToRequest}${itemId}/`)
       .then(() => {
         fetchData();
+        dispatch(SET_NOTIFICATION("An article has been deleted", "success"));
       })
       .catch((error) => {
         console.error(error);
+        dispatch(SET_NOTIFICATION(error.response.data, "error"));
       });
   }
 

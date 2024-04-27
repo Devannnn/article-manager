@@ -4,7 +4,7 @@ import { GridColDef } from "@mui/x-data-grid";
 import Checkbox from "@mui/material/Checkbox";
 import DataTable from "../Structure/DataTable";
 import ButtonAdd from "../Buttons/ButtonAdd";
-import ButtonDetails from "../Buttons/ButtonDetails";
+import ButtonEdit from "../Buttons/ButtonEdit";
 import FormArticle from "../Forms/FormArticle";
 import { getArticlesURL } from "../Tools/Urls";
 import FetchData from "../Tools/FetchData";
@@ -77,7 +77,7 @@ function PageArticles() {
       renderHeader: () => <strong className="fs-5">{"Actions"}</strong>,
       renderCell: (params) => (
         <div className="d-flex justify-content-center align-items-center">
-          <ButtonDetails fetchData={fetchData} activeItem={params.row} />
+          <ButtonEdit fetchData={fetchData} activeItem={params.row} />
         </div>
       ),
     },

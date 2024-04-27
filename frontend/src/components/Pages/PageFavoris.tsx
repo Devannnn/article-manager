@@ -3,7 +3,7 @@ import React from "react";
 import { GridColDef } from "@mui/x-data-grid";
 import Checkbox from "@mui/material/Checkbox";
 import DataTable from "../Structure/DataTable";
-import ButtonDetails from "../Buttons/ButtonDetails";
+import ButtonEdit from "../Buttons/ButtonEdit";
 import FetchData from "../Tools/FetchData";
 import { getArticlesURL } from "../Tools/Urls";
 import { Article } from "../Tools/Types";
@@ -62,7 +62,7 @@ function PageFavoris() {
       renderHeader: () => <strong className="fs-5">{"Actions"}</strong>,
       renderCell: (params) => (
         <div className="d-flex justify-content-center align-items-center">
-          <ButtonDetails fetchData={fetchData} activeItem={params.row} />
+          <ButtonEdit fetchData={fetchData} activeItem={params.row} />
         </div>
       ),
     },
