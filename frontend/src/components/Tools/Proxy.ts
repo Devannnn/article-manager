@@ -46,8 +46,8 @@ export async function proxy(
       let data: any;
       try {
         const response = await axios.post(API_ARTICLES, parameter);
-        error = response.status !== 200;
-        message = "Configuration created successfully";
+        error = (response.status < 200 || response.status >= 300);
+        message = "Article successfully added";
         data = response.data;
       } catch (err: any) {
         error = true;

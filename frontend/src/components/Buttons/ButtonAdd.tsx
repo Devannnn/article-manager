@@ -1,8 +1,8 @@
 // Libraries
 import React, { useState, FunctionComponent } from "react";
-import axios from "axios";
-import { Item, FormProps, Article } from "../Tools/Types";
 import { useDispatch } from "react-redux";
+import { Item, FormProps, Article } from "../Tools/Types";
+import { proxy, requestTypes } from "../Tools/Proxy";
 import { ADD_ARTICLE, SET_NOTIFICATION } from "../../redux/actionsCreators";
 
 interface ButtonAddProps<T extends Item> {
@@ -19,7 +19,6 @@ interface ButtonAddProps<T extends Item> {
  * fetchData to update the datatable.
  */
 function ButtonAdd<T extends Item>({
-  url,
   FormComponent,
   title,
   activeItem,
@@ -31,19 +30,17 @@ function ButtonAdd<T extends Item>({
     setModalCreate(!modalCreate);
   }
 
-  function create(item: T) {
+  async function create(item: T) {
+    const { error, message } = await proxy(requestTypes.ADD_ARTICLE, item);
+    if (error) {
+      dispatch(SET_NOTIFICATION(message, "error"));
+      return;
+    } else {
+      const article = item as unknown as Article;
+      dispatch(ADD_ARTICLE(article));
+      dispatch(SET_NOTIFICATION(message, "success"));
+    }
     toggleModalCreate();
-    axios
-      .post(url, item)
-      .then(() => {
-        const article = item as unknown as Article;
-        dispatch(ADD_ARTICLE(article));
-        dispatch(SET_NOTIFICATION("An article has been added", "success"));
-      })
-      .catch((error) => {
-        console.error(error);
-        dispatch(SET_NOTIFICATION(error.response.data, "error"));
-      });
   }
 
   return (

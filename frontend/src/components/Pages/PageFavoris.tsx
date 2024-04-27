@@ -70,7 +70,7 @@ function PageFavoris() {
   ];
 
   return (
-    <div className="h-full flex flex-col mx-16 space-y-4">
+    <div className="h-full flex flex-col justify-start mx-16">
       <div className="shadow bg-white rounded overflow-auto">
         <DataTable data={favoris} columns={COLUMNS} />
       </div>
