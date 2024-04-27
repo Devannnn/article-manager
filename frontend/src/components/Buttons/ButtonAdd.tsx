@@ -6,8 +6,7 @@ import { useDispatch } from "react-redux";
 import { ADD_ARTICLE, SET_NOTIFICATION } from "../../redux/actionsCreators";
 
 interface ButtonAddProps<T extends Item> {
-  fetchData: () => void;
-  urlToFetch: string;
+  url: string;
   FormComponent: FunctionComponent<FormProps<T>>;
   title: string;
   activeItem: T;
@@ -20,7 +19,7 @@ interface ButtonAddProps<T extends Item> {
  * fetchData to update the datatable.
  */
 function ButtonAdd<T extends Item>({
-  urlToFetch,
+  url,
   FormComponent,
   title,
   activeItem,
@@ -35,7 +34,7 @@ function ButtonAdd<T extends Item>({
   function create(item: T) {
     toggleModalCreate();
     axios
-      .post(urlToFetch, item)
+      .post(url, item)
       .then(() => {
         const article = item as unknown as Article;
         dispatch(ADD_ARTICLE(article));

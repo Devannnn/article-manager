@@ -5,6 +5,7 @@ import { GridColDef } from "@mui/x-data-grid";
 import Checkbox from "@mui/material/Checkbox";
 // Configuration Files
 import { Article } from "../Tools/Types";
+import { getArticlesURL } from "../Tools/Urls";
 import { useArticles } from "../../redux/selectors";
 import { proxy, requestTypes } from "../Tools/Proxy";
 import { SET_ARTICLES, SET_NOTIFICATION } from "../../redux/actionsCreators";
@@ -20,6 +21,7 @@ import FormArticle from "../Forms/FormArticle";
 function PageArticles() {
   const dispatch = useDispatch();
   const currentArticles = useArticles();
+  const API_URL_ARTICLES: string = getArticlesURL();
 
   useEffect(() => {
     async function fetchData() {
@@ -27,8 +29,9 @@ function PageArticles() {
       if (!error) {
         const articles = data as Article[];
         dispatch(SET_ARTICLES(articles));
+        return;
       }
-      dispatch(SET_NOTIFICATION(message, error ? "error" : "success"));
+      dispatch(SET_NOTIFICATION(message, "error"));
     }
 
     fetchData().catch((err) => console.error(err));
@@ -95,7 +98,7 @@ function PageArticles() {
       renderHeader: () => <strong className="fs-5">{"Actions"}</strong>,
       renderCell: (params) => (
         <div className="d-flex justify-content-center align-items-center">
-          <ButtonEdit fetchData={() => {}} activeItem={params.row} />
+          <ButtonEdit url={API_URL_ARTICLES} activeItem={params.row} />
         </div>
       ),
     },
@@ -105,8 +108,7 @@ function PageArticles() {
     <div className="h-full flex flex-col mx-16 space-y-4">
       <div className="flex flex-row justify-center">
         <ButtonAdd<Article>
-          fetchData={() => {}}
-          urlToFetch={""}
+          url={API_URL_ARTICLES}
           FormComponent={FormArticle}
           title={TITLE_ADD_FORM}
           activeItem={newArticle}

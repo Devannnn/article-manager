@@ -39,3 +39,17 @@ export function ADD_ARTICLE(newArticle: Article) {
     payload: { newArticle: newArticle },
   };
 }
+
+export function EDIT_ARTICLE(id: number, article: Article) {
+  return {
+    type: actionsTypes.EDIT_ARTICLE,
+    payload: { id: id, article: article },
+  };
+}
+
+export function DELETE_ARTICLE(id: number) {
+  return {
+    type: actionsTypes.DELETE_ARTICLE,
+    payload: { id: id },
+  };
+}

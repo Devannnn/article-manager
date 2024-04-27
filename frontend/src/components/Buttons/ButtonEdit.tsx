@@ -4,12 +4,11 @@ import { Info } from "react-feather";
 import axios from "axios";
 import { Article } from "../Tools/Types";
 import FormArticle from "../Forms/FormArticle";
-import { getArticlesURL } from "../Tools/Urls";
 import { useDispatch } from "react-redux";
-import { SET_NOTIFICATION } from "../../redux/actionsCreators";
+import { EDIT_ARTICLE, SET_NOTIFICATION } from "../../redux/actionsCreators";
 
 interface ButtonEditProps {
-  fetchData: () => void;
+  url: string;
   activeItem: Article;
 }
 
@@ -19,10 +18,9 @@ interface ButtonEditProps {
  * a modal form and send the data in a POST request to the urlToFetch. Then it calls the callback
  * fetchData to update the datatable.
  */
-function ButtonEdit({ fetchData, activeItem }: Readonly<ButtonEditProps>) {
+function ButtonEdit({ url, activeItem }: Readonly<ButtonEditProps>) {
   const dispatch = useDispatch();
   const [modal, setModal] = useState<boolean>(false);
-  const API_URL_ARTICLES: string = getArticlesURL();
 
   function toggleModal() {
     setModal(!modal);
@@ -31,9 +29,9 @@ function ButtonEdit({ fetchData, activeItem }: Readonly<ButtonEditProps>) {
   function edit(article: Article) {
     toggleModal();
     axios
-      .patch(`${API_URL_ARTICLES}${article.id}/`, article)
+      .patch(`${url}${article.id}/`, article)
       .then(() => {
-        fetchData();
+        dispatch(EDIT_ARTICLE(article.id, article));
         dispatch(SET_NOTIFICATION("An article has been updated", "success"));
       })
       .catch((error) => {

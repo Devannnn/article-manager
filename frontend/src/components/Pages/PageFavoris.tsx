@@ -2,22 +2,23 @@
 import React from "react";
 import { GridColDef } from "@mui/x-data-grid";
 import Checkbox from "@mui/material/Checkbox";
+// Configuration Files
+import { Article } from "../Tools/Types";
+import { getArticlesURL } from "../Tools/Urls";
+import { useArticles } from "../../redux/selectors";
+// Components
 import DataTable from "../Structure/DataTable";
 import ButtonEdit from "../Buttons/ButtonEdit";
-import FetchData from "../Tools/FetchData";
-import { getArticlesURL } from "../Tools/Urls";
-import { Article } from "../Tools/Types";
 
 /**
  * This component generates the Tag page.
  */
 function PageFavoris() {
-  const API_URL_ARTICLES: string = getArticlesURL();
-  const { data, fetchData } = FetchData(API_URL_ARTICLES);
-  const typedData = data as Article[];
-  const favoris = typedData.filter(
+  const currentArticles = useArticles();
+  const favoris = currentArticles.filter(
     (article: Article) => article.favorite === true
   );
+  const API_URL_ARTICLES: string = getArticlesURL();
 
   const COLUMNS: GridColDef[] = [
     {
@@ -62,7 +63,7 @@ function PageFavoris() {
       renderHeader: () => <strong className="fs-5">{"Actions"}</strong>,
       renderCell: (params) => (
         <div className="d-flex justify-content-center align-items-center">
-          <ButtonEdit fetchData={fetchData} activeItem={params.row} />
+          <ButtonEdit url={API_URL_ARTICLES} activeItem={params.row} />
         </div>
       ),
     },

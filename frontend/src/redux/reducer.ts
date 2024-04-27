@@ -36,6 +36,20 @@ export default function reducer(state = initialState, action: any) {
         ...state,
         currentArticles: [...state.currentArticles, action.payload.newArticle],
       };
+    case actionsTypes.EDIT_ARTICLE:
+      return {
+        ...state,
+        currentArticles: state.currentArticles.map((article) =>
+          article.id === action.payload.id ? action.payload.article : article
+        ),
+      };
+    case actionsTypes.DELETE_ARTICLE:
+      return {
+        ...state,
+        currentArticles: state.currentArticles.filter(
+          (article) => article.id !== action.payload.id
+        ),
+      };
     default:
       return state;
   }

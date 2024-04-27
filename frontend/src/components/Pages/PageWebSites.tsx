@@ -14,7 +14,7 @@ import { WebSite } from "../Tools/Types";
  */
 function WebSites() {
   const API_URL_WEBSITES: string = getWebSitesURL();
-  const { data, fetchData } = FetchData(API_URL_WEBSITES);
+  const { data } = FetchData(API_URL_WEBSITES);
   const TITLE_WEBSITE_FORM: string = "Ajout d'un site web";
   const newWebSite: WebSite = {
     id: 0,
@@ -52,11 +52,7 @@ function WebSites() {
       renderHeader: () => <strong className="fs-5">{"Actions"}</strong>,
       renderCell: (params) => (
         <div className="d-flex justify-content-between">
-          <ButtonDelete
-            fetchData={fetchData}
-            urlToRequest={API_URL_WEBSITES}
-            itemId={params.row.id}
-          />
+          <ButtonDelete url={API_URL_WEBSITES} itemId={params.row.id} />
         </div>
       ),
     },
@@ -68,8 +64,7 @@ function WebSites() {
         <div className="h-full flex flex-col space-y-4">
           <div className="flex flex-row justify-content-center">
             <ButtonAdd
-              fetchData={fetchData}
-              urlToFetch={API_URL_WEBSITES}
+              url={API_URL_WEBSITES}
               FormComponent={FormWebsite}
               title={TITLE_WEBSITE_FORM}
               activeItem={newWebSite}

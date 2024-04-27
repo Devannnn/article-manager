@@ -34,6 +34,7 @@ const FormArticle: FunctionComponent<FormProps<Article>> = ({
   onSave,
   title,
   activeItem,
+  showDeleteButton,
 }) => {
   const [item, setItem] = useState(activeItem);
   const [errors, setErrors] = useState<Record<string, string>>({});
@@ -223,20 +224,24 @@ const FormArticle: FunctionComponent<FormProps<Article>> = ({
           </div>
         </form>
         <div className="flex flex-col justify-content-center items-center">
-          <div className="w-full flex flex-row justify-between">
-            <ButtonDelete
-              fetchData={() => {}}
-              urlToRequest={API_URL_ARTICLES}
-              itemId={activeItem.id}
-            />
-
+          {showDeleteButton ? (
+            <div className="w-full flex flex-row justify-between">
+              <ButtonDelete url={API_URL_ARTICLES} itemId={activeItem.id} />
+              <button
+                className="bg-green-600 hover:bg-green-800 text-white py-2 px-6 rounded"
+                onClick={() => validateForm()}
+              >
+                Enregistrer
+              </button>
+            </div>
+          ) : (
             <button
               className="bg-green-600 hover:bg-green-800 text-white py-2 px-6 rounded"
               onClick={() => validateForm()}
             >
               Enregistrer
             </button>
-          </div>
+          )}
         </div>
       </div>
     </PopupWrapper>

@@ -29,6 +29,7 @@ export interface FormProps<T extends Item> {
   onSave: (item: T) => void;
   title: string;
   activeItem: T;
+  showDeleteButton?: boolean;
 }
 
 export type SeverityType = "error" | "warning" | "info" | "success";

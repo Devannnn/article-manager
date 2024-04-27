@@ -3,11 +3,10 @@ import React, { useState } from "react";
 import axios from "axios";
 import FormConfirmation from "../Forms/FormConfirmation";
 import { useDispatch } from "react-redux";
-import { SET_NOTIFICATION } from "../../redux/actionsCreators";
+import { DELETE_ARTICLE, SET_NOTIFICATION } from "../../redux/actionsCreators";
 
 interface ButtonDeleteProps {
-  fetchData: () => void;
-  urlToRequest: string;
+  url: string;
   itemId: number;
 }
 
@@ -16,11 +15,7 @@ interface ButtonDeleteProps {
  * It displays a "Delete" button that, when clicked, opens a confirmation form.
  * When the confirmation window is confirmed, a DELETE request is sent to the API.
  */
-function ButtonDelete({
-  fetchData,
-  urlToRequest,
-  itemId,
-}: Readonly<ButtonDeleteProps>) {
+function ButtonDelete({ url, itemId }: Readonly<ButtonDeleteProps>) {
   const dispatch = useDispatch();
   const [modalRemove, setModalRemove] = useState(false);
 
@@ -31,9 +26,9 @@ function ButtonDelete({
   function remove(itemId: number) {
     setModalRemove(!modalRemove);
     axios
-      .delete(`${urlToRequest}${itemId}/`)
+      .delete(`${url}${itemId}/`)
       .then(() => {
-        fetchData();
+        dispatch(DELETE_ARTICLE(itemId));
         dispatch(SET_NOTIFICATION("An article has been deleted", "success"));
       })
       .catch((error) => {
