@@ -35,6 +35,7 @@ export async function proxy(
         message = "Articles fetched successfully";
         data = response.data;
       } catch (err: any) {
+        console.log("FETCH_ARTICLES", err);
         error = true;
         message = err.message;
         data = [];
@@ -49,7 +50,9 @@ export async function proxy(
         const response = await axios.post(API_ARTICLES, parameter);
         error = (response.status < 200 || response.status >= 300);
         message = "Article successfully added";
+        data = response.data;
       } catch (err: any) {
+        console.log("ADD_ARTICLE", err);
         error = true;
         message = err.message;
         if (err.response) {
@@ -57,7 +60,7 @@ export async function proxy(
           message = data.message;
         }
       }
-      return { error, message, data: {} };
+      return { error, message, data };
     }
     case requestTypes.EDIT_ARTICLE: {
       let error: boolean;
@@ -68,6 +71,7 @@ export async function proxy(
         error = response.status !== 200;
         message = "Article successfully edited";
       } catch (err: any) {
+        console.log("EDIT_ARTICLE", err);
         error = true;
         message = err.message;
         if (err.response) {
@@ -85,6 +89,7 @@ export async function proxy(
         error = response.status !== 204;
         message = "Article successfully deleted";
       } catch (err: any) {
+        console.log("DELETE_ARTICLE", err);
         error = true;
         message = err.message;
         if (err.response) {

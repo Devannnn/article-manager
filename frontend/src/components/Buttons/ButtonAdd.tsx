@@ -26,9 +26,12 @@ function ButtonAdd({ FormComponent, title, activeItem }: Readonly<PropsType>) {
   }
 
   async function create(article: Article) {
-    const { error, message } = await proxy(requestTypes.ADD_ARTICLE, article);
+    const { error, message, data } = await proxy(
+      requestTypes.ADD_ARTICLE,
+      article
+    );
     if (!error) {
-      dispatch(ADD_ARTICLE(article));
+      dispatch(ADD_ARTICLE(data));
     }
     dispatch(SET_NOTIFICATION(message, error ? "error" : "success"));
     toggleModalCreate();

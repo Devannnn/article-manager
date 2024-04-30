@@ -16,4 +16,4 @@ class Article(models.Model):
    date_modification = models.DateTimeField(auto_now=True)
 
    def _str_(self):
-     return self.titre
+     return self.title

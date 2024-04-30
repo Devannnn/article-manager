@@ -1,4 +1,5 @@
 from rest_framework import serializers,viewsets
+from django.http import JsonResponse
 from article.models import Article
 from tag.models import Tag
 from tag.views import TagSerializer
@@ -11,6 +12,7 @@ class ArticleSerializer(serializers.ModelSerializer):
         fields = '__all__'
 
     def create(self, validated_data):
+        print(validated_data)
         # Check if an article with the same title and author already exists
         article = Article.objects.filter(title=validated_data['title'], author=validated_data['author'])
         if article.exists():
@@ -26,7 +28,8 @@ class ArticleSerializer(serializers.ModelSerializer):
                 tag_object = Tag.objects.create(name=tag_data['name'])
                 validated_tags.append(tag_object)
         validated_data['tags'] = validated_tags
-        return super().create(validated_data)
+        article = super().create(validated_data)
+        return article
     
     def update(self, instance, validated_data):
         tags_data = self.context['request'].data.get('tags', [])
@@ -46,3 +49,10 @@ class ArticleSerializer(serializers.ModelSerializer):
 class ArticleView(viewsets.ModelViewSet): 
     serializer_class = ArticleSerializer   
     queryset = Article.objects.all()
+
+    def post(self, request, *args, **kwargs):
+        serializer = ArticleSerializer(data=request.data)
+        if serializer.is_valid():
+            article = serializer.save()
+            return Response({'id': article.id}, status=201)  # return the ID in the response
+        return Response(serializer.errors, status=400)
