@@ -14,7 +14,14 @@ const validationSchema = yup.object({
   title: yup.string().required(" "),
   author: yup.string().required(" "),
   url: yup.string().url(" ").required(" "),
-  year: yup.date().required(" "),
+  year: yup
+    .date()
+    .min(0, "Year must be greater than or equal to 0")
+    .max(
+      new Date().getFullYear(),
+      "Year must be less than or equal to the current year"
+    )
+    .required(" "),
   summary: yup.string(),
   read: yup.boolean().required(" "),
   read_again: yup.boolean().required(" "),
@@ -36,6 +43,7 @@ function ArticleForm({
   activeItem,
   showDeleteButton,
 }: FormProps) {
+  const currentYear = new Date().getFullYear();
   const [item, setItem] = useState(activeItem);
   const [errors, setErrors] = useState<Record<string, string>>({});
   const currentArticles = useArticles();
@@ -129,8 +137,10 @@ function ArticleForm({
                   <b>Year</b>
                 </label>
                 <Input
-                  type="text"
+                  type="number"
                   name="year"
+                  min={0}
+                  max={currentYear}
                   placeholder="Year"
                   value={item.year}
                   onChange={handleChange}
