@@ -1,6 +1,7 @@
 // Libraries
 import React, { useState, FunctionComponent } from "react";
 import { useDispatch } from "react-redux";
+import { buttonSize, buttonStyle } from "../Tools/Styling";
 import { FormProps, Article } from "../Tools/Types";
 import { proxy, requestTypes } from "../Tools/Proxy";
 import { ADD_ARTICLE, SET_NOTIFICATION } from "../../redux/actionsCreators";
@@ -40,7 +41,7 @@ function ButtonAdd({ FormComponent, title, activeItem }: Readonly<PropsType>) {
   return (
     <>
       <button
-        className="bg-green-600 hover:bg-green-800 text-white py-2 px-6 rounded"
+        className={`${buttonStyle.success} ${buttonSize.medium}`}
         onClick={toggleModalCreate}
       >
         Ajouter

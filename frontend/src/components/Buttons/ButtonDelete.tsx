@@ -3,6 +3,7 @@ import React, { useState } from "react";
 import FormConfirmation from "../Forms/FormConfirmation";
 import { useDispatch } from "react-redux";
 import { proxy, requestTypes } from "../Tools/Proxy";
+import { buttonSize, buttonStyle } from "../Tools/Styling";
 import { DELETE_ARTICLE, SET_NOTIFICATION } from "../../redux/actionsCreators";
 
 interface PropsType {
@@ -34,7 +35,7 @@ function ButtonDelete({ itemId }: Readonly<PropsType>) {
   return (
     <>
       <button
-        className="bg-red-600 hover:bg-red-800 text-white py-2 px-6 rounded"
+        className={`${buttonStyle.error} ${buttonSize.medium}`}
         onClick={toggleModalRemove}
       >
         Supprimer

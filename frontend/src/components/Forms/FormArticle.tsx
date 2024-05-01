@@ -4,6 +4,7 @@ import * as yup from "yup";
 import { Input } from "reactstrap";
 import CreatableSelect from "react-select/creatable";
 import Tags from "../Forms/FormTags";
+import { buttonSize, buttonStyle } from "../Tools/Styling";
 import { FormProps, Tag, Article } from "../Tools/Types";
 import { useArticles } from "../../redux/selectors";
 import PopupWrapper from "../Wrappers/PopupWrapper";
@@ -234,7 +235,7 @@ function FormArticle({
             </div>
           ) : (
             <button
-              className="bg-green-600 hover:bg-green-800 text-white py-2 px-6 rounded"
+              className={`${buttonStyle.success} ${buttonSize.medium}`}
               onClick={() => validateForm()}
             >
               Enregistrer
