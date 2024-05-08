@@ -1,6 +1,6 @@
 // Libraries
 import React from "react";
-import { DataGrid, GridColDef } from "@mui/x-data-grid";
+import { DataGrid, GridColDef, GridToolbar } from "@mui/x-data-grid";
 import { Article } from "../Tools/Types";
 
 interface TableauProps {
@@ -20,6 +20,17 @@ function DataTable({ data, columns }: Readonly<TableauProps>) {
         rows={data}
         columns={columns}
         getRowHeight={() => "auto"}
+        disableColumnFilter
+        disableColumnSelector
+        disableDensitySelector
+        slots={{ toolbar: GridToolbar }}
+        slotProps={{
+          toolbar: {
+            printOptions: { disableToolbarButton: true },
+            csvOptions: { disableToolbarButton: true },
+            showQuickFilter: true,
+          },
+        }}
         hideFooter
       />
     </div>

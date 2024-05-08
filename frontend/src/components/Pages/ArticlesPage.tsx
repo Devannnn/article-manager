@@ -34,7 +34,7 @@ function ArticlesPage() {
   };
   const COLUMNS: GridColDef[] = [
     {
-      field: "titre",
+      field: "title",
       width: 450,
       renderHeader: () => <strong className="fs-5">{"Title"}</strong>,
       renderCell: (params) => (
