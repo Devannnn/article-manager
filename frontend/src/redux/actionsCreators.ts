@@ -1,4 +1,9 @@
-import { Notification, Severity, Article } from "../components/Tools/Types";
+import {
+  Tag,
+  Notification,
+  Severity,
+  Article,
+} from "../components/Tools/Types";
 import actionsTypes from "./actionsTypes";
 
 export function SET_NOTIFICATION(message: string, severity: Severity) {
@@ -10,7 +15,7 @@ export function SET_NOTIFICATION(message: string, severity: Severity) {
   };
   return {
     type: actionsTypes.SET_NOTIFICATION,
-    payload: { currentNotification: newNotification },
+    payload: { newNotification },
   };
 }
 
@@ -22,21 +27,28 @@ export function DELETE_NOTIFICATION() {
   };
   return {
     type: actionsTypes.SET_NOTIFICATION,
-    payload: { currentNotification: newNotification },
+    payload: { newNotification },
+  };
+}
+
+export function SET_TAGS(newTags: Tag[]) {
+  return {
+    type: actionsTypes.SET_TAGS,
+    payload: { newTags },
   };
 }
 
 export function SET_ARTICLES(newArticles: Article[]) {
   return {
     type: actionsTypes.SET_ARTICLES,
-    payload: { newArticles: newArticles },
+    payload: { newArticles },
   };
 }
 
 export function ADD_ARTICLE(newArticle: Article) {
   return {
     type: actionsTypes.ADD_ARTICLE,
-    payload: { newArticle: newArticle },
+    payload: { newArticle },
   };
 }
 

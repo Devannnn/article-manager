@@ -1,19 +1,21 @@
 // Libraries
 import actionsTypes from "./actionsTypes";
-import { Notification, Article } from "../components/Tools/Types";
+import { Notification, Article, Tag } from "../components/Tools/Types";
 
 type State = {
-  currentNotification: Notification;
-  currentArticles: Article[];
+  notification: Notification;
+  articles: Article[];
+  tags: Tag[];
 };
 
 const initialState: State = {
-  currentNotification: {
+  notification: {
     open: false,
     message: "",
     severity: "info",
   },
-  currentArticles: [],
+  articles: [],
+  tags: [],
 };
 
 export default function reducer(state = initialState, action: any) {
@@ -21,29 +23,34 @@ export default function reducer(state = initialState, action: any) {
     case actionsTypes.SET_NOTIFICATION:
       return {
         ...state,
-        currentNotification: action.payload.currentNotification,
+        notification: action.payload.newNotification,
+      };
+    case actionsTypes.SET_TAGS:
+      return {
+        ...state,
+        tags: action.payload.newTags,
       };
     case actionsTypes.SET_ARTICLES:
       return {
         ...state,
-        currentArticles: action.payload.newArticles,
+        articles: action.payload.newArticles,
       };
     case actionsTypes.ADD_ARTICLE:
       return {
         ...state,
-        currentArticles: [...state.currentArticles, action.payload.newArticle],
+        articles: [...state.articles, action.payload.newArticle],
       };
     case actionsTypes.EDIT_ARTICLE:
       return {
         ...state,
-        currentArticles: state.currentArticles.map((article) =>
+        articles: state.articles.map((article) =>
           article.id === action.payload.id ? action.payload.article : article
         ),
       };
     case actionsTypes.DELETE_ARTICLE:
       return {
         ...state,
-        currentArticles: state.currentArticles.filter(
+        articles: state.articles.filter(
           (article) => article.id !== action.payload.id
         ),
       };
