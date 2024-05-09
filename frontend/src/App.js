@@ -3,10 +3,12 @@ import { Routes, Route } from "react-router-dom";
 import NavBar from "./components/Structure/NavBar";
 import FavoritesPage from "./components/Pages/FavoritesPage";
 import ArticlesPage from "./components/Pages/ArticlesPage";
-import DataLoader from "./components/Tools/DataLoader";
+import useDataLoader from "./components/Hooks/useDataLoader";
 import NotificationBox from "./components/Structure/NotificationBox";
 
 function App() {
+  useDataLoader();
+
   return (
     <div className="h-screen flex flex-col">
       <NavBar />
@@ -17,7 +19,6 @@ function App() {
           <Route path="*" element={<ArticlesPage />} />
         </Routes>
       </div>
-      <DataLoader />
       <NotificationBox />
     </div>
   );
