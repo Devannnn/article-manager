@@ -2,7 +2,7 @@
 import React from "react";
 import PopupWrapper from "../Wrappers/PopupWrapper";
 
-interface FormConfirmationProps {
+interface FormProps {
   isOpen: boolean;
   toggle: () => void;
   onSave: () => void;
@@ -14,11 +14,7 @@ interface FormConfirmationProps {
  * Il est utilisé pour demander une confirmation à l'utilisateur avant d'effectuer une action.
  * Dans PEPH, il est utilisé uniquement pour les suppressions.
  */
-function ConfirmationForm({
-  isOpen,
-  toggle,
-  onSave,
-}: Readonly<FormConfirmationProps>) {
+function ConfirmationForm({ isOpen, toggle, onSave }: Readonly<FormProps>) {
   return (
     <PopupWrapper popup={isOpen} setPopup={toggle} status="neutral">
       <div className="flex flex-col space-y-6">

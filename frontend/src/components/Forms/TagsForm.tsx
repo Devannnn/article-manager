@@ -68,6 +68,7 @@ function TagsForm({ onChange, currentTags }: Readonly<TagsProps>) {
         <input
           name="tags"
           onKeyDown={handleKeyDown}
+          placeholder="..."
           type="text"
           className="flex-grow p-y-2 border-none outline-none bg-white"
         />

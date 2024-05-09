@@ -42,7 +42,7 @@ function ArticleForm({
   title,
   activeItem,
   showDeleteButton,
-}: FormProps) {
+}: Readonly<FormProps>) {
   const currentYear = new Date().getFullYear();
   const [item, setItem] = useState(activeItem);
   const [errors, setErrors] = useState<Record<string, string>>({});
@@ -50,7 +50,7 @@ function ArticleForm({
   const authors = currentArticles
     .map((article: Article) => article.author)
     .filter(onlyUnique)
-    .sort();
+    .sort((a, b) => a.localeCompare(b));
 
   function handleTagChange(newTags: Tag[]): void {
     setItem((prevItem) => ({ ...prevItem, tags: newTags }));
@@ -122,7 +122,11 @@ function ArticleForm({
                   placeholder="Author"
                   onChange={handleAuthorsChange}
                   isClearable={false}
-                  value={{ value: item.author, label: item.author }}
+                  value={
+                    item.author
+                      ? { value: item.author, label: item.author }
+                      : null
+                  }
                   options={authors.map((author) => ({
                     value: author,
                     label: author,
