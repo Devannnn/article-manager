@@ -2,10 +2,10 @@
 import { useEffect } from "react";
 import { useDispatch } from "react-redux";
 // Configuration Files
-import { Article } from "../Tools/Types";
-import { proxy, requestTypes } from "../Tools/Proxy";
-import { useNotification } from "../../redux/selectors";
-import { SET_ARTICLES, SET_NOTIFICATION } from "../../redux/actionsCreators";
+import { Article } from "../components/Tools/Types";
+import { proxy, requestTypes } from "../components/Tools/Proxy";
+import { useNotification } from "../redux/selectors";
+import { SET_ARTICLES, SET_NOTIFICATION } from "../redux/actionsCreators";
 
 function useLoadConfig() {
   const dispatch = useDispatch();

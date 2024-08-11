@@ -1,8 +1,8 @@
 // Libraries
 import { useDispatch } from "react-redux";
-import { Article } from "../Tools/Types";
-import { proxy, requestTypes } from "../Tools/Proxy";
-import { EDIT_ARTICLE, SET_NOTIFICATION } from "../../redux/actionsCreators";
+import { Article } from "../components/Tools/Types";
+import { proxy, requestTypes } from "../components/Tools/Proxy";
+import { EDIT_ARTICLE, SET_NOTIFICATION } from "../redux/actionsCreators";
 
 function useEditArticle() {
   const dispatch = useDispatch();

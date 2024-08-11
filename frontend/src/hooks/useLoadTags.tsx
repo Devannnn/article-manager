@@ -2,9 +2,9 @@
 import { useEffect } from "react";
 import { useDispatch } from "react-redux";
 // Configuration Files
-import { Tag } from "../Tools/Types";
-import { proxy, requestTypes } from "../Tools/Proxy";
-import { SET_TAGS, SET_NOTIFICATION } from "../../redux/actionsCreators";
+import { Tag } from "../components/Tools/Types";
+import { proxy, requestTypes } from "../components/Tools/Proxy";
+import { SET_TAGS, SET_NOTIFICATION } from "../redux/actionsCreators";
 
 function useLoadTags() {
   const dispatch = useDispatch();

@@ -1,7 +1,7 @@
 // Libraries
 import { useDispatch } from "react-redux";
-import { proxy, requestTypes } from "../Tools/Proxy";
-import { DELETE_ARTICLE, SET_NOTIFICATION } from "../../redux/actionsCreators";
+import { proxy, requestTypes } from "../components/Tools/Proxy";
+import { DELETE_ARTICLE, SET_NOTIFICATION } from "../redux/actionsCreators";
 
 function useRemoveArticle() {
   const dispatch = useDispatch();

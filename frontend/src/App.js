@@ -3,7 +3,7 @@ import { Routes, Route } from "react-router-dom";
 import NavBar from "./components/Structure/NavBar";
 import FavoritesPage from "./components/Pages/FavoritesPage";
 import ArticlesPage from "./components/Pages/ArticlesPage";
-import useLoadConfig from "./components/Hooks/useLoadConfig";
+import useLoadConfig from "./hooks/useLoadConfig";
 import NotificationBox from "./components/Structure/NotificationBox";
 
 function App() {

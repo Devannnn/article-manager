@@ -2,7 +2,7 @@
 import React, { useState, FunctionComponent } from "react";
 import { buttonSize, buttonStyle } from "../Tools/Constants";
 import { FormProps, Article } from "../Tools/Types";
-import useCreateArticle from "../Hooks/useCreateArticle";
+import useCreateArticle from "../../hooks/useCreateArticle";
 
 interface PropsType {
   FormComponent: FunctionComponent<FormProps>;

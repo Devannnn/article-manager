@@ -3,7 +3,7 @@ import React, { useState } from "react";
 import { Info } from "react-feather";
 import { Article } from "../Tools/Types";
 import FormArticle from "../Forms/ArticleForm";
-import useEditArticle from "../Hooks/useEditArticle";
+import useEditArticle from "../../hooks/useEditArticle";
 
 interface PropsType {
   activeItem: Article;

@@ -1,7 +1,7 @@
 // Libraries
 import React, { useState } from "react";
 import ConfirmationForm from "../Forms/ConfirmationForm";
-import useRemoveArticle from "../Hooks/useRemoveArticle";
+import useRemoveArticle from "../../hooks/useRemoveArticle";
 import { buttonSize, buttonStyle } from "../Tools/Constants";
 
 interface PropsType {
