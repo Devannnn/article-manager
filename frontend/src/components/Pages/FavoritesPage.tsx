@@ -1,5 +1,4 @@
 // Libraries
-import React from "react";
 // Configuration Files
 import { Article } from "../Tools/Types";
 import { useArticles } from "../../redux/selectors";

@@ -7,7 +7,7 @@ Web app to **save and search articles** easily. Browse all articles or open your
 
 | Layer    | Technology                                                                                                                                |
 | -------- | ----------------------------------------------------------------------------------------------------------------------------------------- |
-| Frontend | React 18 (Create React App), React Router, Redux Toolkit, MUI X Data Grid, Bootstrap / Reactstrap, Tailwind (utility classes), Axios, Yup |
+| Frontend | React 18 (Vite), React Router, Redux Toolkit, MUI X Data Grid, Bootstrap / Reactstrap, Tailwind, Axios, Yup |
 | Backend  | Django 5, Django REST Framework, django-cors-headers                                                                                      |
 | Database | MySQL                                                                                                                                     |
 
@@ -47,11 +47,13 @@ python manage.py runserver
 
 ### Frontend (`frontend/`)
 
-The client is configured to call `http://127.0.0.1:8000/api` (see `src/components/Tools/Constants.ts`). Start the backend first, or change that URL if your API runs elsewhere.
+The client defaults to `http://127.0.0.1:8000/api`. Override with `VITE_API_BASE_URL` in `frontend/.env` (see `frontend/.env.example` and `src/components/Tools/Constants.ts`). Start the backend first, or point the env var at your API.
 
 ```bash
 cd frontend
 npm install
-npm start
+npm run dev
 ```
+
+Production build: `npm run build` (output in `frontend/dist/`). Preview locally: `npm run preview`.
 

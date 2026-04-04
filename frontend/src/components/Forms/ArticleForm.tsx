@@ -1,5 +1,5 @@
 // Libraries
-import React, { useState, ChangeEvent } from "react";
+import { useState, type ChangeEvent } from "react";
 import * as yup from "yup";
 import { Input } from "reactstrap";
 import CreatableSelect from "react-select/creatable";

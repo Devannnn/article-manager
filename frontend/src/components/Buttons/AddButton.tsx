@@ -1,5 +1,5 @@
 // Libraries
-import React, { useState, FunctionComponent } from "react";
+import { useState, type FunctionComponent } from "react";
 import { buttonSize, buttonStyle } from "../Tools/Constants";
 import { FormProps, Article } from "../Tools/Types";
 import useCreateArticle from "../../hooks/useCreateArticle";

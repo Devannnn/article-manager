@@ -1,5 +1,4 @@
 // Libraries
-import React from "react";
 import { GridColDef } from "@mui/x-data-grid";
 import Checkbox from "@mui/material/Checkbox";
 // Configuration Files

@@ -1,5 +1,5 @@
 // Libraries
-import React, { useState } from "react";
+import { useState } from "react";
 import { Info } from "react-feather";
 import { Article } from "../Tools/Types";
 import FormArticle from "../Forms/ArticleForm";

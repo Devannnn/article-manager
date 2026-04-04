@@ -1,5 +1,4 @@
 // Libraries
-import React from "react";
 import PopupWrapper from "../Wrappers/PopupWrapper";
 import { buttonSize, buttonStyle } from "../Tools/Constants";
 

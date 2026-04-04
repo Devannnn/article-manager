@@ -1,5 +1,5 @@
 // Libraries
-import React, { useState, KeyboardEvent } from "react";
+import { useState, type KeyboardEvent } from "react";
 import { Tag } from "../Tools/Types";
 
 interface TagsProps {
