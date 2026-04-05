@@ -1,8 +1,8 @@
 // Libraries
-import { useState } from "react";
-import ConfirmationForm from "../forms/ConfirmationForm";
-import useRemoveArticle from "../../hooks/useRemoveArticle";
-import { buttonSize, buttonStyle } from "../../constants/constants";
+import { useState } from 'react';
+import ConfirmationForm from '../forms/ConfirmationForm';
+import useRemoveArticle from '../../hooks/useRemoveArticle';
+import { buttonSize, buttonStyle } from '../../constants/constants';
 
 interface PropsType {
   itemId: number;
@@ -23,18 +23,11 @@ function RemoveButton({ itemId }: Readonly<PropsType>) {
 
   return (
     <>
-      <button
-        className={`${buttonStyle.error} ${buttonSize.medium}`}
-        onClick={toggleModalRemove}
-      >
-        Supprimer
+      <button className={`${buttonStyle.error} ${buttonSize.medium}`} onClick={toggleModalRemove}>
+        Delete
       </button>
 
-      <ConfirmationForm
-        isOpen={modalRemove}
-        toggle={toggleModalRemove}
-        onSave={() => remove(itemId)}
-      />
+      <ConfirmationForm isOpen={modalRemove} toggle={toggleModalRemove} onSave={() => remove(itemId)} />
     </>
   );
 }

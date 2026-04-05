@@ -1,8 +1,8 @@
 // Libraries
-import { useState, type FunctionComponent } from "react";
-import { Plus } from "react-feather";
-import { FormProps, Article } from "../../constants/types";
-import useCreateArticle from "../../hooks/useCreateArticle";
+import { useState, type FunctionComponent } from 'react';
+import { Plus } from 'react-feather';
+import { FormProps, Article } from '../../constants/types';
+import useCreateArticle from '../../hooks/useCreateArticle';
 
 interface PropsType {
   FormComponent: FunctionComponent<FormProps>;
@@ -31,7 +31,7 @@ function AddButton({ FormComponent, title, activeItem }: Readonly<PropsType>) {
         onClick={toggleModalCreate}
       >
         <Plus size={16} />
-        Ajouter
+        Add
       </button>
 
       {modalCreate && (

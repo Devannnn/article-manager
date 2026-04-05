@@ -1,9 +1,9 @@
 // Libraries
-import { useState } from "react";
-import { Edit3 } from "react-feather";
-import { Article } from "../../constants/types";
-import FormArticle from "../forms/ArticleForm";
-import useEditArticle from "../../hooks/useEditArticle";
+import { useState } from 'react';
+import { Edit3 } from 'react-feather';
+import { Article } from '../../constants/types';
+import FormArticle from '../forms/ArticleForm';
+import useEditArticle from '../../hooks/useEditArticle';
 
 interface PropsType {
   activeItem: Article;
@@ -28,21 +28,14 @@ function EditButton({ activeItem }: Readonly<PropsType>) {
       <button
         onClick={toggleModal}
         className="rounded-lg p-1.5 text-emerald-600 transition hover:bg-emerald-50 hover:text-emerald-700"
-        aria-label="Modifier l'article"
-        title="Modifier l'article"
+        aria-label="Edit article"
+        title="Edit article"
       >
         <Edit3 size={20} strokeWidth={2.2} />
       </button>
 
       {modal && (
-        <FormArticle
-          isOpen={modal}
-          toggle={toggleModal}
-          onSave={edit}
-          title={"Fiche de l'article"}
-          activeItem={activeItem}
-          showDeleteButton={true}
-        />
+        <FormArticle isOpen={modal} toggle={toggleModal} onSave={edit} title={'Article details'} activeItem={activeItem} showDeleteButton={true} />
       )}
     </div>
   );

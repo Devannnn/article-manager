@@ -1,13 +1,13 @@
-import { useEffect } from "react";
-import { useDispatch } from "react-redux";
-import { Routes, Route } from "react-router-dom";
-import NavBar from "./components/layout/NavBar";
-import FavoritesPage from "./components/features/FavoritesPage";
-import ArticlesPage from "./components/features/ArticlesPage";
-import useLoadConfig from "./hooks/useLoadConfig";
-import NotificationBox from "./components/layout/NotificationBox";
-import { SET_DARK_MODE } from "./redux/actionsCreators";
-import { useIsDarkMode } from "./redux/selectors";
+import { useEffect } from 'react';
+import { useDispatch } from 'react-redux';
+import { Routes, Route } from 'react-router-dom';
+import NavBar from './components/layout/NavBar';
+import FavoritesPage from './components/features/FavoritesPage';
+import ArticlesPage from './components/features/ArticlesPage';
+import useLoadConfig from './hooks/useLoadConfig';
+import NotificationBox from './components/layout/NotificationBox';
+import { SET_DARK_MODE } from './redux/actionsCreators';
+import { useIsDarkMode } from './redux/selectors';
 
 function App() {
   useLoadConfig();
@@ -15,17 +15,15 @@ function App() {
   const isDarkMode = useIsDarkMode();
 
   useEffect(() => {
-    const savedTheme = localStorage.getItem("theme");
-    const initialIsDarkMode = savedTheme
-      ? savedTheme === "dark"
-      : window.matchMedia("(prefers-color-scheme: dark)").matches;
+    const savedTheme = localStorage.getItem('theme');
+    const initialIsDarkMode = savedTheme ? savedTheme === 'dark' : window.matchMedia('(prefers-color-scheme: dark)').matches;
 
     dispatch(SET_DARK_MODE(initialIsDarkMode));
   }, [dispatch]);
 
   useEffect(() => {
-    document.documentElement.classList.toggle("dark", isDarkMode);
-    localStorage.setItem("theme", isDarkMode ? "dark" : "light");
+    document.documentElement.classList.toggle('dark', isDarkMode);
+    localStorage.setItem('theme', isDarkMode ? 'dark' : 'light');
   }, [isDarkMode]);
 
   return (
@@ -34,6 +32,7 @@ function App() {
       <div className="mx-auto w-full max-w-6xl px-4 py-6 sm:px-6 sm:py-8">
         <Routes>
           <Route path="/" element={<ArticlesPage />} />
+          <Route path="/favorites" element={<FavoritesPage />} />
           <Route path="/favoris" element={<FavoritesPage />} />
           <Route path="*" element={<ArticlesPage />} />
         </Routes>

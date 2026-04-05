@@ -146,6 +146,16 @@ body {
   color: #94a3b8;
 }
 
+.article-form .checkbox-group {
+  background-color: #ffffff;
+  border-color: #e2e8f0;
+}
+
+.dark .article-form .checkbox-group {
+  background-color: #1e293b !important;
+  border-color: #334155 !important;
+}
+
 .dark .article-form input.form-control,
 .dark .article-form textarea.form-control,
 .dark .article-form input.form-control.is-invalid,

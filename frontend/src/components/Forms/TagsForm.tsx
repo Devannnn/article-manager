@@ -1,6 +1,6 @@
 // Libraries
-import { useState, type KeyboardEvent } from "react";
-import { Tag } from "../../constants/types";
+import { useState, type KeyboardEvent } from 'react';
+import { Tag } from '../../constants/types';
 
 interface TagsProps {
   onChange: (newTags: Tag[]) => void;
@@ -16,12 +16,12 @@ function TagsForm({ onChange, currentTags }: Readonly<TagsProps>) {
 
   function handleKeyDown(e: KeyboardEvent<HTMLInputElement>) {
     const value: string = e.currentTarget.value;
-    if ((e.key === "Delete" || e.key === "Backspace") && !value.trim()) {
+    if ((e.key === 'Delete' || e.key === 'Backspace') && !value.trim()) {
       removeTag(tags.length - 1);
     }
-    if (e.key !== "Enter") return;
+    if (e.key !== 'Enter') return;
     if (!value.trim()) return;
-    e.currentTarget.value = "";
+    e.currentTarget.value = '';
     addTag(value);
   }
 
@@ -49,14 +49,8 @@ function TagsForm({ onChange, currentTags }: Readonly<TagsProps>) {
       </label>
       <div className="tags-input-wrapper flex flex-wrap items-center gap-2 rounded border border-gray-300 bg-white p-2 dark:border-slate-600 dark:bg-slate-800">
         {tags.map((tag, index) => (
-          <div
-            className="tag-chip flex flex-row items-center space-x-2 rounded-full bg-gray-300 px-3 py-2 dark:bg-slate-700"
-            key={tag.name}
-          >
-            <span
-              className="text-slate-800 dark:text-slate-100"
-              onKeyDown={() => removeTag(index)}
-            >
+          <div className="tag-chip flex flex-row items-center space-x-2 rounded-full px-3 py-2 dark:bg-slate-700" key={tag.name}>
+            <span className="text-slate-800 dark:text-slate-100" onKeyDown={() => removeTag(index)}>
               {tag.name}
             </span>
             <span
