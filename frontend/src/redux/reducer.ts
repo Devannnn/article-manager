@@ -1,6 +1,6 @@
 // Libraries
 import actionsTypes from "./actionsTypes";
-import { Notification, Article, Tag } from "../components/Tools/Types";
+import { Notification, Article, Tag } from "../constants/types";
 
 type State = {
   notification: Notification;

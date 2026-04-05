@@ -1,6 +1,6 @@
 // Libraries
 import { useState, type KeyboardEvent } from "react";
-import { Tag } from "../Tools/Types";
+import { Tag } from "../../constants/types";
 
 interface TagsProps {
   onChange: (newTags: Tag[]) => void;

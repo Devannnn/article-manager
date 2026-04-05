@@ -1,8 +1,8 @@
 // Libraries
 import { useState } from "react";
-import ConfirmationForm from "../Forms/ConfirmationForm";
+import ConfirmationForm from "../forms/ConfirmationForm";
 import useRemoveArticle from "../../hooks/useRemoveArticle";
-import { buttonSize, buttonStyle } from "../Tools/Constants";
+import { buttonSize, buttonStyle } from "../../constants/constants";
 
 interface PropsType {
   itemId: number;

@@ -1,7 +1,7 @@
 // Libraries
 import { useState, type FunctionComponent } from "react";
-import { buttonSize, buttonStyle } from "../Tools/Constants";
-import { FormProps, Article } from "../Tools/Types";
+import { buttonSize, buttonStyle } from "../../constants/constants";
+import { FormProps, Article } from "../../constants/types";
 import useCreateArticle from "../../hooks/useCreateArticle";
 
 interface PropsType {

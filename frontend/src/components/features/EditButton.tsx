@@ -1,8 +1,8 @@
 // Libraries
 import { useState } from "react";
 import { Info } from "react-feather";
-import { Article } from "../Tools/Types";
-import FormArticle from "../Forms/ArticleForm";
+import { Article } from "../../constants/types";
+import FormArticle from "../forms/ArticleForm";
 import useEditArticle from "../../hooks/useEditArticle";
 
 interface PropsType {

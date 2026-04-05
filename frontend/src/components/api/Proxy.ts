@@ -1,7 +1,7 @@
 // Libraries
 import axios from "axios";
-import { API_URLS } from "./Constants";
-import { Article, ProxyResponse } from "./Types";
+import { API_URLS } from "../../constants/constants";
+import { Article, ProxyResponse } from "../../constants/types";
 
 export const requestTypes = {
   FETCH_TAGS: "FETCH_TAGS",

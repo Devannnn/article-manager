@@ -4,11 +4,11 @@ import * as yup from "yup";
 import { Input } from "reactstrap";
 import CreatableSelect from "react-select/creatable";
 import TagsForm from "./TagsForm";
-import { buttonSize, buttonStyle } from "../Tools/Constants";
-import { FormProps, Tag, Article } from "../Tools/Types";
+import { buttonSize, buttonStyle } from "../../constants/constants";
+import { FormProps, Tag, Article } from "../../constants/types";
 import { useArticles } from "../../redux/selectors";
-import PopupWrapper from "../Wrappers/PopupWrapper";
-import RemoveButton from "../Buttons/RemoveButton";
+import PopupWrapper from "../features/PopupWrapper";
+import RemoveButton from "../features/RemoveButton";
 
 const validationSchema = yup.object({
   title: yup.string().required(" "),

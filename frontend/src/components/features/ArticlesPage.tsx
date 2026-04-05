@@ -2,13 +2,13 @@
 import { GridColDef } from "@mui/x-data-grid";
 import Checkbox from "@mui/material/Checkbox";
 // Configuration Files
-import { Article } from "../Tools/Types";
+import { Article } from "../../constants/types";
 import { useArticles } from "../../redux/selectors";
 // Components
-import AddButton from "../Buttons/AddButton";
-import DataTable from "../Structure/DataTable";
-import EditButton from "../Buttons/EditButton";
-import ArticleForm from "../Forms/ArticleForm";
+import AddButton from "./AddButton";
+import DataTable from "../layout/DataTable";
+import EditButton from "./EditButton";
+import ArticleForm from "../forms/ArticleForm";
 
 /**
  * This component generates the Article page.

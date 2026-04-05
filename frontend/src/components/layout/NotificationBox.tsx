@@ -4,7 +4,7 @@ import SnackbarContent from "@mui/material/SnackbarContent";
 import { useNotification } from "../../redux/selectors";
 import { useDispatch } from "react-redux";
 import { DELETE_NOTIFICATION } from "../../redux/actionsCreators";
-import { severityColors } from "../Tools/Constants";
+import { severityColors } from "../../constants/constants";
 
 function NotificationBox() {
   const dispatch = useDispatch();

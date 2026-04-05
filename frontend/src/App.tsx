@@ -1,9 +1,9 @@
 import { Routes, Route } from "react-router-dom";
-import NavBar from "./components/Structure/NavBar";
-import FavoritesPage from "./components/Pages/FavoritesPage";
-import ArticlesPage from "./components/Pages/ArticlesPage";
+import NavBar from "./components/layout/NavBar";
+import FavoritesPage from "./components/features/FavoritesPage";
+import ArticlesPage from "./components/features/ArticlesPage";
 import useLoadConfig from "./hooks/useLoadConfig";
-import NotificationBox from "./components/Structure/NotificationBox";
+import NotificationBox from "./components/layout/NotificationBox";
 
 function App() {
   useLoadConfig();

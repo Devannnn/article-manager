@@ -1,9 +1,9 @@
 // Libraries
 // Configuration Files
-import { Article } from "../Tools/Types";
+import { Article } from "../../constants/types";
 import { useArticles } from "../../redux/selectors";
 // Components
-import Card from "../Cards/Card";
+import Card from "./Card";
 
 /**
  * This component generates the Tag page.

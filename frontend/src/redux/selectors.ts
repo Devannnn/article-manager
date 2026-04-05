@@ -1,7 +1,7 @@
 // Libraries
 import { useSelector } from "react-redux";
 import { RootState } from "./store";
-import { Article, Notification, Tag } from "../components/Tools/Types";
+import { Article, Notification, Tag } from "../constants/types";
 
 export const useNotification = (): Notification =>
   useSelector((state: RootState) => state.notification);

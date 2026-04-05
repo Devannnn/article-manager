@@ -1,7 +1,7 @@
 // Libraries
 import { useDispatch } from "react-redux";
-import { Article } from "../components/Tools/Types";
-import { proxy, requestTypes } from "../components/Tools/Proxy";
+import { Article } from "../constants/types";
+import { proxy, requestTypes } from "../components/api/Proxy";
 import { ADD_ARTICLE, SET_NOTIFICATION } from "../redux/actionsCreators";
 
 function useCreateArticle() {

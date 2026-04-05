@@ -3,7 +3,7 @@ import {
   Notification,
   Severity,
   Article,
-} from "../components/Tools/Types";
+} from "../constants/types";
 import actionsTypes from "./actionsTypes";
 
 export function SET_NOTIFICATION(message: string, severity: Severity) {

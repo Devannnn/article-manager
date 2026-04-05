@@ -2,8 +2,8 @@
 import { useEffect } from "react";
 import { useDispatch } from "react-redux";
 // Configuration Files
-import { Article } from "../components/Tools/Types";
-import { proxy, requestTypes } from "../components/Tools/Proxy";
+import { Article } from "../constants/types";
+import { proxy, requestTypes } from "../components/api/Proxy";
 import { useNotification } from "../redux/selectors";
 import { SET_ARTICLES, SET_NOTIFICATION } from "../redux/actionsCreators";
 

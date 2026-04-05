@@ -1,6 +1,6 @@
 // Libraries
-import PopupWrapper from "../Wrappers/PopupWrapper";
-import { buttonSize, buttonStyle } from "../Tools/Constants";
+import PopupWrapper from "../features/PopupWrapper";
+import { buttonSize, buttonStyle } from "../../constants/constants";
 
 interface FormProps {
   isOpen: boolean;

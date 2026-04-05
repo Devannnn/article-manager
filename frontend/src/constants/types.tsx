@@ -1,4 +1,4 @@
-import { severityTypes } from "./Constants";
+import { severityTypes } from "./constants";
 
 export interface Article {
   id: number;
