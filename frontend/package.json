@@ -27,13 +27,25 @@
     "start": "vite",
     "build": "tsc && vite build",
     "preview": "vite preview",
-    "test": "vitest run"
+    "test": "vitest run",
+    "prepare": "cd .. && husky frontend/.husky",
+    "format": "prettier --write .",
+    "format:check": "prettier --check ."
+  },
+  "lint-staged": {
+    "*.{js,jsx,ts,tsx,cjs,mjs,json,css,md}": "prettier --write"
   },
   "devDependencies": {
     "@types/node": "^22.10.0",
     "@vitejs/plugin-react": "^4.3.4",
+    "@commitlint/cli": "^20.1.0",
+    "@commitlint/config-conventional": "^20.0.0",
     "autoprefixer": "^10.4.20",
+    "husky": "^9.1.7",
+    "lint-staged": "^15.5.2",
     "postcss": "^8.4.49",
+    "prettier": "^3.6.2",
+    "prettier-plugin-sort-imports": "^1.8.8",
     "tailwindcss": "^3.4.3",
     "typescript": "^5.7.2",
     "vite": "^6.0.6",
