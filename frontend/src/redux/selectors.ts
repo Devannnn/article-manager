@@ -18,3 +18,6 @@ export const useArticles = (): Article[] => {
 
 export const useTags = (): Tag[] =>
   useSelector((state: RootState) => state.tags);
+
+export const useIsDarkMode = (): boolean =>
+  useSelector((state: RootState) => state.isDarkMode);

@@ -31,7 +31,7 @@ function PopupWrapper({
     case "neutral":
     default:
       statusClasses =
-        "text-gray-800 border-gray-300 bg-gray-50 dark:text-gray-400 dark:border-gray-800";
+        "text-gray-800 border-gray-300 bg-gray-50 dark:text-slate-100 dark:border-slate-700 dark:bg-slate-900";
       break;
   }
 

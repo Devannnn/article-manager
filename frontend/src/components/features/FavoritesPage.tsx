@@ -1,14 +1,9 @@
-// Libraries
-// Configuration Files
 import { Article } from "../../constants/types";
 import { useArticles } from "../../redux/selectors";
-// Components
 import Card from "./Card";
 import PageHeader from "../layout/PageHeader";
 
-/**
- * This component generates the Tag page.
- */
+
 function FavoritesPage() {
   const articles = useArticles();
   const favoris = articles.filter(
@@ -21,13 +16,13 @@ function FavoritesPage() {
         title="Favoris"
         description="Retrouvez rapidement les articles que vous voulez relire."
       >
-        <span className="mt-3 inline-flex rounded-full bg-amber-100 px-3 py-1 text-xs font-semibold text-amber-700">
+        <span className="mt-3 inline-flex rounded-full bg-amber-100 px-3 py-1 text-xs font-semibold text-amber-700 dark:bg-amber-900/40 dark:text-amber-300">
           {favoris.length} article{favoris.length > 1 ? "s" : ""} en favori
         </span>
       </PageHeader>
 
       {favoris.length === 0 ? (
-        <div className="rounded-2xl border border-dashed border-slate-300 bg-white/70 p-10 text-center text-slate-500">
+        <div className="rounded-2xl border border-dashed border-slate-300 p-10 text-center text-slate-500 dark:border-slate-600 dark:bg-slate-800/50 dark:text-slate-300">
           Aucun favori pour le moment. Ajoutez des favoris depuis la page
           Articles.
         </div>

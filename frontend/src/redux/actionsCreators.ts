@@ -65,3 +65,10 @@ export function DELETE_ARTICLE(id: number) {
     payload: { id: id },
   };
 }
+
+export function SET_DARK_MODE(isDarkMode: boolean) {
+  return {
+    type: actionsTypes.SET_DARK_MODE,
+    payload: { isDarkMode },
+  };
+}

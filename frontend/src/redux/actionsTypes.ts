@@ -5,6 +5,7 @@ const actionsTypes = {
   ADD_ARTICLE: "ADD_ARTICLE",
   EDIT_ARTICLE: "EDIT_ARTICLE",
   DELETE_ARTICLE: "DELETE_ARTICLE",
+  SET_DARK_MODE: "SET_DARK_MODE",
 };
 
 export default actionsTypes;
