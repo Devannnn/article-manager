@@ -19,9 +19,9 @@ class Tag(db.Model):
         nullable=False,
     )
 
-
     def to_dict(self):
         return {
+            "id": self.id,
             "name": self.name
         }
 
@@ -41,6 +41,7 @@ class Author(db.Model):
 
     def to_dict(self):
         return {
+            "id": self.id,
             "name": self.name
         }
 
@@ -72,25 +73,24 @@ class Article(db.Model):
         onupdate=lambda: datetime.now(timezone.utc),
         nullable=False,
     )
-
-def to_dict(self):
-    return {
-        "id": self.id,
-        "title": self.title,
-        "author_id": self.author_id,
-        "author": (
-            {"id": self.author.id, "name": self.author.name}
-            if self.author is not None
-            else None
-        ),
-        "url": self.url,
-        "year": self.year,
-        "summary": self.summary,
-        "read": self.read,
-        "read_again": self.read_again,
-        "favorite": self.favorite,
-        "tags": [{"id": t.id, "name": t.name} for t in self.tags],
-        "date_creation": self.date_creation.isoformat(),
-        "date_modification": self.date_modification.isoformat(),
-    }
-
+    
+    def to_dict(self):
+        return {
+            "id": self.id,
+            "title": self.title,
+            "author_id": self.author_id,
+            "author": (
+                {"id": self.author.id, "name": self.author.name}
+                if self.author is not None
+                else None
+            ),
+            "url": self.url,
+            "year": self.year,
+            "summary": self.summary,
+            "read": self.read,
+            "read_again": self.read_again,
+            "favorite": self.favorite,
+            "tags": [{"id": t.id, "name": t.name} for t in self.tags],
+            "date_creation": self.date_creation.isoformat(),
+            "date_modification": self.date_modification.isoformat(),
+        }
