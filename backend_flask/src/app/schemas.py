@@ -2,8 +2,8 @@ from typing import Literal, Optional
 
 from pydantic import BaseModel, Field, PositiveInt
 
+
 class ArticleSchema(BaseModel):
-    id: PositiveInt
     title: str = Field(..., min_length=1)
     author_id: PositiveInt
     url: str = Field(..., min_length=1)
@@ -12,3 +12,7 @@ class ArticleSchema(BaseModel):
     read: bool
     read_again: bool
     favorite: bool
+    tags_id: list[PositiveInt]
+
+class BasicSchema(BaseModel):
+    name: str = Field(..., min_length=1)
