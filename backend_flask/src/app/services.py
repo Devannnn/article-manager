@@ -3,10 +3,8 @@ from typing import TypeVar
 from sqlalchemy import select
 
 from app.database import Base, db
-
-from app.types import EntitiesNotFoundError
-
 from app.models import Article
+from app.types import EntitiesNotFoundError
 
 ModelType = TypeVar("ModelType", bound=Base)
 
