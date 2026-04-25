@@ -14,8 +14,8 @@ def test_login(client):
     res = client.post("/auth/register", json={"name": "Test", "password": "Test"})
     assert res.status_code == 201
     res2 = client.post("/auth/login", json={"name": "Test", "password": "Test"})
-    assert res.status_code == 201
-    payload = res.get_json()
+    assert res2.status_code == 200
+    payload = res2.get_json()
     assert "access_token" in payload
 
 
@@ -142,12 +142,16 @@ def test_per_user_isolation(client, mock_article):
 
     # User B cannot see User A articles
     assert len(client.get("/articles", headers=headers2).get_json()) == 0
-    
+
     # User B cannot modify/delete User A articles
     edited = {**mock_article, "id": article_id, "title": "hacked"}
     assert client.put("/articles", json=edited, headers=headers2).status_code == 404
-    assert client.delete("/articles", json={"ids": [article_id]}, headers=headers2).status_code == 404
-    
+    assert (
+        client.delete(
+            "/articles", json={"ids": [article_id]}, headers=headers2
+        ).status_code
+        == 404
+    )
+
     # A still has article
     assert len(client.get("/articles", headers=headers1).get_json()) == 1
-

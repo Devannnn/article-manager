@@ -1,14 +1,11 @@
 import re
 import unicodedata
-from typing import TypeVar
 
 from sqlalchemy import select
 
 from app.database import Base, db
 from app.models import Article, Tag
 from app.types import EntitiesNotFoundError
-
-ModelType = TypeVar("ModelType", bound=Base)
 
 
 def normalize_name(raw: str) -> str:
@@ -17,7 +14,7 @@ def normalize_name(raw: str) -> str:
     return s.casefold()
 
 
-def get_or_create_by_name(model: type[ModelType], name: str) -> ModelType:
+def get_or_create_by_name[T: Base](model: type[T], name: str) -> T:
     normalized_name = normalize_name(name)
     stmt = select(model).where(model.normalized_name == normalized_name)
     entity = db.session.execute(stmt).scalars().first()
@@ -53,9 +50,9 @@ def update_model_fields(instance, payload: dict, allowed_fields: set[str]) -> No
             setattr(instance, field, value)
 
 
-def get_entity(
-    entity_id: int, model: type[ModelType], user_id: int | None = None
-) -> ModelType:
+def get_entity[T: Base](
+    entity_id: int, model: type[T], user_id: int | None = None
+) -> T:
     stmt = select(model).where(model.id == entity_id)
     if user_id is not None:
         stmt = stmt.where(model.user_id == user_id)
@@ -65,9 +62,9 @@ def get_entity(
     return entity
 
 
-def get_entities(
-    ids: list[int], model: type[ModelType], user_id: int | None = None
-) -> list[ModelType]:
+def get_entities[T: Base](
+    ids: list[int], model: type[T], user_id: int | None = None
+) -> list[T]:
     dedup_ids = set(ids)
     stmt = select(model).where(model.id.in_(dedup_ids))
     if user_id is not None:

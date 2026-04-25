@@ -4,7 +4,7 @@ from sqlalchemy import select
 
 from app.database import db
 from app.decorators import validate_json
-from app.models import Article, Author, Tag
+from app.models import Article, Author
 from app.schemas import ArticleSchema, IDSchema
 from app.services import (
     associate_tags,
@@ -12,7 +12,6 @@ from app.services import (
     get_entities,
     get_entity,
     get_or_create_by_name,
-    normalize_name,
     update_model_fields,
 )
 
