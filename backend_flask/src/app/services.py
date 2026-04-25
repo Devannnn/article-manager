@@ -10,27 +10,29 @@ from app.types import EntitiesNotFoundError
 
 ModelType = TypeVar("ModelType", bound=Base)
 
+
 def normalize_name(raw: str) -> str:
     s = unicodedata.normalize("NFKC", raw or "")
     s = re.sub(r"\s+", " ", s).strip()
     return s.casefold()
+
 
 def get_or_create_by_name(model: type[ModelType], name: str) -> ModelType:
     normalized_name = normalize_name(name)
     stmt = select(model).where(model.normalized_name == normalized_name)
     entity = db.session.execute(stmt).scalars().first()
     if entity is None:
-        new_entity = model(name=name,normalized_name=normalized_name)
+        new_entity = model(name=name, normalized_name=normalized_name)
         db.session.add(new_entity)
         db.session.flush()
         return new_entity
     return entity
 
 
-def check_url_uniqueness(url: str, existing_id: int | None = None):
+def check_url_uniqueness(url: str, user_id: int, existing_id: int | None = None):
     stmt = select(Article).where(Article.url == url)
     entity = db.session.execute(stmt).scalars().first()
-    return entity is None or entity.id == existing_id 
+    return entity is None or entity.id == existing_id
 
 
 def associate_tags(raw_tags: list[str]):
@@ -44,21 +46,32 @@ def associate_tags(raw_tags: list[str]):
         tags.append(get_or_create_by_name(Tag, raw_tag))
     return tags
 
+
 def update_model_fields(instance, payload: dict, allowed_fields: set[str]) -> None:
     for field, value in payload.items():
         if field in allowed_fields:
             setattr(instance, field, value)
 
-def get_entity(entity_id: int, model: type[ModelType]) -> ModelType:
+
+def get_entity(
+    entity_id: int, model: type[ModelType], user_id: int | None = None
+) -> ModelType:
     stmt = select(model).where(model.id == entity_id)
+    if user_id is not None:
+        stmt = stmt.where(model.user_id == user_id)
     entity = db.session.execute(stmt).scalars().first()
     if entity is None:
         raise EntitiesNotFoundError([entity_id], "Entity not found")
     return entity
 
-def get_entities(ids: list[int], model: type[ModelType]) -> list[ModelType]:
+
+def get_entities(
+    ids: list[int], model: type[ModelType], user_id: int | None = None
+) -> list[ModelType]:
     dedup_ids = set(ids)
     stmt = select(model).where(model.id.in_(dedup_ids))
+    if user_id is not None:
+        stmt = stmt.where(model.user_id == user_id)
     entities = db.session.execute(stmt).scalars().all()
 
     if len(entities) == len(dedup_ids):
