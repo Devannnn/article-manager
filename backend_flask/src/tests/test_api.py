@@ -120,3 +120,34 @@ def test_top_authors(auth_client, create_list_authors_articles):
     for i in range(len(expected_responses)):
         assert payload[i]["author"]["name"] == expected_responses[i][0]
         assert payload[i]["count"] == expected_responses[i][1]
+
+
+def test_per_user_isolation(client, mock_article):
+    # User A
+    res1 = client.post("/auth/register", json={"name": "Test", "password": "Test"})
+    assert res1.status_code == 201
+    token1 = res1.get_json()["access_token"]
+    headers1 = {"Authorization": f"Bearer {token1}"}
+    post1 = client.post("/articles", json=mock_article, headers=headers1)
+    assert post1.status_code == 201
+    payload1 = client.get("/articles", headers=headers1).get_json()
+    assert len(payload1) == 1
+    article_id = post1.get_json()["id"]
+
+    # User B
+    res2 = client.post("/auth/register", json={"name": "Test 2", "password": "Test 2"})
+    assert res2.status_code == 201
+    token2 = res2.get_json()["access_token"]
+    headers2 = {"Authorization": f"Bearer {token2}"}
+
+    # User B cannot see User A articles
+    assert len(client.get("/articles", headers=headers2).get_json()) == 0
+    
+    # User B cannot modify/delete User A articles
+    edited = {**mock_article, "id": article_id, "title": "hacked"}
+    assert client.put("/articles", json=edited, headers=headers2).status_code == 404
+    assert client.delete("/articles", json={"ids": [article_id]}, headers=headers2).status_code == 404
+    
+    # A still has article
+    assert len(client.get("/articles", headers=headers1).get_json()) == 1
+

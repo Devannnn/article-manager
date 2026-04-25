@@ -160,9 +160,23 @@ def tag(auth_client):
     assert r.status_code == 201
     return r.get_json()
 
-
 @pytest.fixture()
 def mock_article():
+    return {
+        "title": "My article",
+        "url": "https://example.com/article-1",
+        "year": 2026,
+        "summary": "Short summary",
+        "read": False,
+        "read_again": False,
+        "favorite": False,
+        "author": "A famous author",
+        "tags": ["Science-fiction"]
+    }
+
+
+@pytest.fixture()
+def mock_article_incomplete():
     return {
         "title": "My article",
         "url": "https://example.com/article-1",
@@ -175,13 +189,13 @@ def mock_article():
 
 
 @pytest.fixture()
-def article(auth_client, author, tag, mock_article, list_authors):
+def article(auth_client, author, tag, mock_article_incomplete, list_authors):
     r_author = auth_client.post("/authors", json=list_authors[1])
     r_tags = auth_client.post("/tags", json={"name": "Personal Development"})
     assert r_author.status_code == 201
     assert r_tags.status_code == 201
 
-    new_article = mock_article.copy()
+    new_article = mock_article_incomplete.copy()
     new_article["author"] = r_author.get_json()["name"]
     new_article["tags"] = [r_tags.get_json()["name"]]
     r = auth_client.post("/articles", json=new_article)
