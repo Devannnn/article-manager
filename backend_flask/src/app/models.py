@@ -1,5 +1,4 @@
-from datetime import datetime, timezone
-from typing import Optional
+from datetime import UTC, datetime
 
 from sqlalchemy import ForeignKey
 from sqlalchemy.orm import Mapped, mapped_column, relationship
@@ -12,11 +11,11 @@ class User(db.Model):
     name: Mapped[str] = mapped_column(nullable=False, unique=True)
     password_hash: Mapped[str] = mapped_column(nullable=False)
     date_creation: Mapped[datetime] = mapped_column(
-        default=lambda: datetime.now(timezone.utc), nullable=False
+        default=lambda: datetime.now(UTC), nullable=False
     )
     date_modification: Mapped[datetime] = mapped_column(
-        default=lambda: datetime.now(timezone.utc),
-        onupdate=lambda: datetime.now(timezone.utc),
+        default=lambda: datetime.now(UTC),
+        onupdate=lambda: datetime.now(UTC),
         nullable=False,
     )
 
@@ -29,11 +28,11 @@ class Tag(db.Model):
     normalized_name: Mapped[str] = mapped_column(nullable=False, unique=True)
     name: Mapped[str] = mapped_column(nullable=False)
     date_creation: Mapped[datetime] = mapped_column(
-        default=lambda: datetime.now(timezone.utc), nullable=False
+        default=lambda: datetime.now(UTC), nullable=False
     )
     date_modification: Mapped[datetime] = mapped_column(
-        default=lambda: datetime.now(timezone.utc),
-        onupdate=lambda: datetime.now(timezone.utc),
+        default=lambda: datetime.now(UTC),
+        onupdate=lambda: datetime.now(UTC),
         nullable=False,
     )
 
@@ -47,11 +46,11 @@ class Author(db.Model):
     name: Mapped[str] = mapped_column(nullable=False)
     articles: Mapped[list["Article"]] = relationship(back_populates="author")
     date_creation: Mapped[datetime] = mapped_column(
-        default=lambda: datetime.now(timezone.utc), nullable=False
+        default=lambda: datetime.now(UTC), nullable=False
     )
     date_modification: Mapped[datetime] = mapped_column(
-        default=lambda: datetime.now(timezone.utc),
-        onupdate=lambda: datetime.now(timezone.utc),
+        default=lambda: datetime.now(UTC),
+        onupdate=lambda: datetime.now(UTC),
         nullable=False,
     )
 
@@ -79,17 +78,17 @@ class Article(db.Model):
     author: Mapped["Author"] = relationship(back_populates="articles")
     url: Mapped[str] = mapped_column(nullable=False, unique=True)
     year: Mapped[int] = mapped_column(nullable=False)
-    summary: Mapped[Optional[str]] = mapped_column(nullable=True)
+    summary: Mapped[str | None] = mapped_column(nullable=True)
     read: Mapped[bool] = mapped_column(default=False, nullable=False)
     read_again: Mapped[bool] = mapped_column(default=False, nullable=False)
     favorite: Mapped[bool] = mapped_column(default=False, nullable=False)
     tags: Mapped[list["Tag"]] = relationship(secondary=article_tag)
     date_creation: Mapped[datetime] = mapped_column(
-        default=lambda: datetime.now(timezone.utc), nullable=False
+        default=lambda: datetime.now(UTC), nullable=False
     )
     date_modification: Mapped[datetime] = mapped_column(
-        default=lambda: datetime.now(timezone.utc),
-        onupdate=lambda: datetime.now(timezone.utc),
+        default=lambda: datetime.now(UTC),
+        onupdate=lambda: datetime.now(UTC),
         nullable=False,
     )
 

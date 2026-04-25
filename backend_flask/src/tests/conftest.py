@@ -160,6 +160,7 @@ def tag(auth_client):
     assert r.status_code == 201
     return r.get_json()
 
+
 @pytest.fixture()
 def mock_article():
     return {
@@ -171,7 +172,7 @@ def mock_article():
         "read_again": False,
         "favorite": False,
         "author": "A famous author",
-        "tags": ["Science-fiction"]
+        "tags": ["Science-fiction"],
     }
 
 
