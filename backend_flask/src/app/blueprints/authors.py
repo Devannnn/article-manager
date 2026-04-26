@@ -1,5 +1,5 @@
 from flask import Blueprint, jsonify
-from flask_jwt_extended import jwt_required
+from flask_jwt_extended import get_jwt_identity, jwt_required
 from sqlalchemy import func, select
 
 from app.database import db
@@ -42,8 +42,9 @@ def list_top_authors():
 @jwt_required()
 @validate_json
 def add_author(data):
+    user_id = int(get_jwt_identity())
     schema = BasicSchema.model_validate(data)
-    author = get_or_create_by_name(Author, schema.name)
+    author = get_or_create_by_name(Author, schema.name, user_id)
     db.session.commit()
     return jsonify(author.to_dict()), 201
 
@@ -52,12 +53,13 @@ def add_author(data):
 @jwt_required()
 @validate_json
 def delete_authors(data):
+    user_id = int(get_jwt_identity())
     schema = IDSchema.model_validate(data)
     author_ids = schema.ids
     authors = get_entities(author_ids, Author)
     authors_dict = [author.to_dict() for author in authors]
     for author in authors:
-        articles = get_articles_by_author(author.id)
+        articles = get_articles_by_author(author.id, user_id)
         if articles:
             return (
                 jsonify({"error": f"The author {author.id} has associated articles."}),

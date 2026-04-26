@@ -1,5 +1,5 @@
 from flask import Blueprint, jsonify
-from flask_jwt_extended import jwt_required
+from flask_jwt_extended import get_jwt_identity, jwt_required
 from sqlalchemy import select
 
 from app.database import db
@@ -23,8 +23,9 @@ def list_tags():
 @jwt_required()
 @validate_json
 def add_tag(data):
+    user_id = int(get_jwt_identity())
     schema = BasicSchema.model_validate(data)
-    tag = get_or_create_by_name(Tag, schema.name)
+    tag = get_or_create_by_name(Tag, schema.name, user_id)
     db.session.commit()
     return jsonify(tag.to_dict()), 201
 

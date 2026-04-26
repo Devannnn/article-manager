@@ -14,12 +14,14 @@ def normalize_name(raw: str) -> str:
     return s.casefold()
 
 
-def get_or_create_by_name[T: Base](model: type[T], name: str) -> T:
+def get_or_create_by_name[T: Base](model: type[T], name: str, user_id: int) -> T:
     normalized_name = normalize_name(name)
-    stmt = select(model).where(model.normalized_name == normalized_name)
+    stmt = select(model).where(
+        model.normalized_name == normalized_name, model.user_id == user_id
+    )
     entity = db.session.execute(stmt).scalars().first()
     if entity is None:
-        new_entity = model(name=name, normalized_name=normalized_name)
+        new_entity = model(name=name, normalized_name=normalized_name, user_id=user_id)
         db.session.add(new_entity)
         db.session.flush()
         return new_entity
@@ -27,12 +29,12 @@ def get_or_create_by_name[T: Base](model: type[T], name: str) -> T:
 
 
 def check_url_uniqueness(url: str, user_id: int, existing_id: int | None = None):
-    stmt = select(Article).where(Article.url == url and Article.user_id == user_id)
+    stmt = select(Article).where(Article.url == url, Article.user_id == user_id)
     entity = db.session.execute(stmt).scalars().first()
     return entity is None or entity.id == existing_id
 
 
-def associate_tags(raw_tags: list[str]):
+def associate_tags(raw_tags: list[str], user_id: int):
     seen = set()
     tags = []
     for raw_tag in raw_tags:
@@ -40,7 +42,7 @@ def associate_tags(raw_tags: list[str]):
         if key in seen:
             continue
         seen.add(key)
-        tags.append(get_or_create_by_name(Tag, raw_tag))
+        tags.append(get_or_create_by_name(Tag, raw_tag, user_id))
     return tags
 
 
@@ -82,7 +84,9 @@ def get_entities[T: Base](
     )
 
 
-def get_articles_by_author(author_id: int):
-    stmt = select(Article).where(Article.author_id == author_id)
+def get_articles_by_author(author_id: int, user_id: int):
+    stmt = select(Article).where(
+        Article.author_id == author_id, Article.user_id == user_id
+    )
     articles = db.session.execute(stmt).scalars().all()
     return articles

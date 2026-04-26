@@ -36,8 +36,8 @@ def add_article(data):
     if not check_url_uniqueness(schema.url, user_id):
         return jsonify({"error": "URL already exists"}), 409
 
-    tags = associate_tags(schema.tags)
-    author = get_or_create_by_name(Author, schema.author)
+    tags = associate_tags(schema.tags, user_id)
+    author = get_or_create_by_name(Author, schema.author, user_id)
 
     article = Article(
         user_id=user_id,
@@ -67,8 +67,8 @@ def edit_article(data):
     if not check_url_uniqueness(schema.url, user_id, schema.id):
         return jsonify({"error": "URL already exists"}), 409
     article = get_entity(schema.id, Article, user_id)
-    tags = associate_tags(schema.tags)
-    author = get_or_create_by_name(Author, schema.author)
+    tags = associate_tags(schema.tags, user_id)
+    author = get_or_create_by_name(Author, schema.author, user_id)
     payload = schema.model_dump()
     payload["author_id"] = author.id
     payload["tags"] = tags
