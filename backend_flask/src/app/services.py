@@ -27,7 +27,7 @@ def get_or_create_by_name[T: Base](model: type[T], name: str) -> T:
 
 
 def check_url_uniqueness(url: str, user_id: int, existing_id: int | None = None):
-    stmt = select(Article).where(Article.url == url)
+    stmt = select(Article).where(Article.url == url and Article.user_id == user_id)
     entity = db.session.execute(stmt).scalars().first()
     return entity is None or entity.id == existing_id
 
