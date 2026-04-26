@@ -9,15 +9,15 @@ interface Auth {
 const AuthContext = createContext<Auth | undefined>(undefined);
 
 export function AuthProvider({ children }: { children: React.ReactNode }) {
-  const [isConnected, setIsConnected] = useState<boolean>(!!localStorage.getItem('access_token'));
+  const [isConnected, setIsConnected] = useState<boolean>(!!sessionStorage.getItem('access_token'));
 
   const login = (token: string) => {
-    localStorage.setItem('access_token', token);
+    sessionStorage.setItem('access_token', token);
     setIsConnected(true);
   };
 
   const logout = () => {
-    localStorage.removeItem('access_token');
+    sessionStorage.removeItem('access_token');
     setIsConnected(false);
   };
 
