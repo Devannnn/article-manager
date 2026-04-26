@@ -14,7 +14,7 @@ jobs:
       FRONTEND_ORIGIN: ${{ vars.FRONTEND_ORIGIN }}
     defaults:
       run:
-        working-directory: backend_flask
+        working-directory: backend
     steps:
       - uses: actions/checkout@v4
 
