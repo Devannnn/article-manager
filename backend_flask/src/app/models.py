@@ -1,6 +1,6 @@
 from datetime import UTC, datetime
 
-from sqlalchemy import ForeignKey
+from sqlalchemy import ForeignKey, UniqueConstraint
 from sqlalchemy.orm import Mapped, mapped_column, relationship
 
 from app.database import db
@@ -24,8 +24,15 @@ class User(db.Model):
 
 
 class Tag(db.Model):
+    __table_args__ = (
+        UniqueConstraint(
+            "user_id", "normalized_name", name="uq_tag_user_normalized_name"
+        ),
+    )
+
     id: Mapped[int] = mapped_column(primary_key=True)
-    normalized_name: Mapped[str] = mapped_column(nullable=False, unique=True)
+    normalized_name: Mapped[str] = mapped_column(nullable=False)
+    user_id: Mapped[int] = mapped_column(ForeignKey("user.id"), nullable=False)
     name: Mapped[str] = mapped_column(nullable=False)
     date_creation: Mapped[datetime] = mapped_column(
         default=lambda: datetime.now(UTC), nullable=False
@@ -41,8 +48,15 @@ class Tag(db.Model):
 
 
 class Author(db.Model):
+    __table_args__ = (
+        UniqueConstraint(
+            "user_id", "normalized_name", name="uq_author_user_normalized_name"
+        ),
+    )
+
     id: Mapped[int] = mapped_column(primary_key=True)
-    normalized_name: Mapped[str] = mapped_column(nullable=False, unique=True)
+    normalized_name: Mapped[str] = mapped_column(nullable=False)
+    user_id: Mapped[int] = mapped_column(ForeignKey("user.id"), nullable=False)
     name: Mapped[str] = mapped_column(nullable=False)
     articles: Mapped[list["Article"]] = relationship(back_populates="author")
     date_creation: Mapped[datetime] = mapped_column(
@@ -71,12 +85,14 @@ article_tag = db.Table(
 
 
 class Article(db.Model):
+    __table_args__ = (UniqueConstraint("user_id", "url", name="uq_article_user_url"),)
+
     id: Mapped[int] = mapped_column(primary_key=True)
     title: Mapped[str] = mapped_column(nullable=False)
     user_id: Mapped[int] = mapped_column(ForeignKey("user.id"), nullable=False)
     author_id: Mapped[int] = mapped_column(ForeignKey("author.id"), nullable=False)
     author: Mapped["Author"] = relationship(back_populates="articles")
-    url: Mapped[str] = mapped_column(nullable=False, unique=True)
+    url: Mapped[str] = mapped_column(nullable=False)
     year: Mapped[int] = mapped_column(nullable=False)
     summary: Mapped[str | None] = mapped_column(nullable=True)
     read: Mapped[bool] = mapped_column(default=False, nullable=False)
