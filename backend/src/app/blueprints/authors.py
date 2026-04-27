@@ -30,7 +30,7 @@ def list_top_authors(user_id):
         .where(Author.user_id == user_id)
         .join(Article, Article.author_id == Author.id, isouter=True)
         .group_by(Author.id)
-        .order_by(nb_articles.desc())
+        .order_by(nb_articles.desc(), Author.name.asc())
     )
     rows = db.session.execute(stmt).all()
     return (
