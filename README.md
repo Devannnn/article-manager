@@ -51,8 +51,14 @@ Create a virtual environment and install dependencies:
 
 ```bash
 cd backend
-python -m venv .venv
-.venv\Scripts\activate
+python -m venv venv
+
+# On Windows
+.\venv\Scripts\Activate.ps1
+
+# On macOS/Linux
+source venv/bin/activate
+
 pip install -r requirements.txt
 ```
 
@@ -82,7 +88,7 @@ To run the frontend, execute the following commands:
 ```bash
 cd frontend
 npm install
-npm run dev
+npm run start
 ```
 
 Then open your browser and go to `http://127.0.0.1:5000`. 
