@@ -18,8 +18,8 @@ export interface Credentials {
   password: string;
 }
 
-export interface RefreshToken {
-  refresh_token: string;
+export interface AccessToken {
+  access_token: string;
 }
 
 export interface Token {

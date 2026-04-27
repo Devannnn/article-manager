@@ -1,6 +1,6 @@
 import axios from 'axios';
 import { API_URLS } from '../constants/constants';
-import type { Article, AuthorStat, Credentials, Token, RefreshToken, Message } from '../constants/types';
+import type { Article, AuthorStat, Credentials, Token, AccessToken, Message } from '../constants/types';
 
 const apiClient = axios.create();
 
@@ -25,24 +25,10 @@ apiClient.interceptors.response.use(
 
     originalRequest._retry = true;
 
-    const refreshToken = sessionStorage.getItem('refresh_token');
-    if (!refreshToken) {
-      return Promise.reject(error);
-    }
+    const { access_token } = await authApi.refresh();
 
-    const { data } = await axios.post(
-      API_URLS.REFRESH,
-      {},
-      {
-        headers: {
-          Authorization: `Bearer ${refreshToken}`,
-        },
-      },
-    );
-
-    sessionStorage.setItem('access_token', data.access_token);
-    originalRequest.headers.Authorization = `Bearer ${data.access_token}`;
-
+    sessionStorage.setItem('access_token', access_token);
+    originalRequest.headers.Authorization = `Bearer ${access_token}`;
     return apiClient(originalRequest);
   },
 );
@@ -56,7 +42,7 @@ export const authApi = {
     const { data } = await apiClient.post(API_URLS.LOGIN, credentials);
     return data;
   },
-  refresh: async (): Promise<RefreshToken> => {
+  refresh: async (): Promise<AccessToken> => {
     const refreshToken = sessionStorage.getItem('refresh_token');
 
     if (!refreshToken) {
