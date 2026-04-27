@@ -14,7 +14,8 @@ authors_bp = Blueprint("authors", __name__, url_prefix="/authors")
 @authors_bp.route("")
 @jwt_required()
 def list_authors():
-    stmt = select(Author)
+    user_id = int(get_jwt_identity())
+    stmt = select(Author).where(Author.user_id==user_id)
     authors = db.session.execute(stmt).scalars().all()
     return jsonify([author.to_dict() for author in authors]), 200
 
@@ -22,9 +23,11 @@ def list_authors():
 @authors_bp.route("/top")
 @jwt_required()
 def list_top_authors():
+    user_id = int(get_jwt_identity())
     nb_articles = func.count(Article.id).label("nb_articles")
     stmt = (
         select(Author, nb_articles)
+        .where(Author.user_id==user_id)
         .join(Article, Article.author_id == Author.id, isouter=True)
         .group_by(Author.id)
         .order_by(nb_articles.desc())

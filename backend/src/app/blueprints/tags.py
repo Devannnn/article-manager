@@ -14,7 +14,8 @@ tags_bp = Blueprint("tags", __name__, url_prefix="/tags")
 @tags_bp.route("")
 @jwt_required()
 def list_tags():
-    stmt = select(Tag)
+    user_id = int(get_jwt_identity())
+    stmt = select(Tag).where(Tag.user_id == user_id)
     tags = db.session.execute(stmt).scalars().all()
     return jsonify([tag.to_dict() for tag in tags]), 200
 
@@ -34,8 +35,9 @@ def add_tag(data):
 @jwt_required()
 @validate_json
 def delete_tags(data):
+    user_id = int(get_jwt_identity())
     schema = IDSchema.model_validate(data)
-    tags = get_entities(schema.ids, Tag)
+    tags = get_entities(schema.ids, Tag, user_id)
     for tag in tags:
         db.session.delete(tag)
     db.session.commit()
