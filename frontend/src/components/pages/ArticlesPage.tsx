@@ -3,6 +3,7 @@ import Checkbox from '@mui/material/Checkbox';
 import { Article } from '../../constants/types';
 import { useArticles } from '../../hooks/queries';
 import AddButton from '../features/AddButton';
+import StatusIcon from '../features/StatusIcon';
 import DataTable from '../layout/DataTable';
 import EditButton from '../features/EditButton';
 import ArticleForm from '../forms/ArticleForm';
@@ -59,13 +60,13 @@ function ArticlesPage() {
     {
       field: 'read',
       renderHeader: () => <strong className="fs-5">{'Read'}</strong>,
-      renderCell: (params) => <Checkbox disabled checked={params.row.read} />,
+      renderCell: (params) => <StatusIcon active={params.row.read} />,
     },
     {
       field: 'read_again',
       width: 150,
       renderHeader: () => <strong className="fs-5">{'Read Again'}</strong>,
-      renderCell: (params) => <Checkbox disabled checked={params.row.read_again} />,
+      renderCell: (params) => <StatusIcon active={params.row.read_again} />,
     },
     {
       field: 'favorite',
