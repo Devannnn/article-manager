@@ -20,7 +20,7 @@ pathspec==1.0.4
 platformdirs==4.9.6
 pluggy==1.6.0
 psycopg==3.2.3
-psycopg-binary==3.2.3
+psycopg-binary==3.3.3
 pydantic==2.13.2
 pydantic_core==2.46.2
 Pygments==2.20.0
