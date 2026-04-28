@@ -167,7 +167,7 @@ body {
 
 .dark .article-form .tags-input-wrapper {
   background-color: #1e293b;
-  border-color: #475569;
+  border-color: #0f172a !important;
 }
 
 .dark .article-form .tag-chip {
@@ -191,6 +191,25 @@ body {
 .dark .article-form .checkbox-group {
   background-color: #1e293b !important;
   border-color: #334155 !important;
+}
+
+.dark .article-form .checkbox-group input[type='checkbox'] {
+  background-color: #0f172a;
+  border-color: #64748b;
+}
+
+.dark .article-form .checkbox-group input[type='checkbox']:checked {
+  background-color: #3b82f6;
+  border-color: #3b82f6;
+}
+
+.dark .article-form .checkbox-group input[type='checkbox']:focus {
+  box-shadow: 0 0 0 0.2rem rgba(96, 165, 250, 0.25);
+}
+
+.dark .article-form .checkbox-group input[type='checkbox']:disabled {
+  background-color: #1e293b;
+  border-color: #475569;
 }
 
 .dark .article-form input.form-control,
