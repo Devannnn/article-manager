@@ -8,10 +8,12 @@ import HomePage from './components/pages/HomePage';
 import { Toaster } from 'sonner';
 import { useIsDarkMode } from './contexts/ThemeContext';
 import { useAuth } from './contexts/AuthContext';
+import { useHealth } from './hooks/queries';
 
 function App() {
   const { isConnected } = useAuth();
   const isDarkMode = useIsDarkMode();
+  useHealth();
 
   return (
     <div className="flex min-h-screen flex-col bg-gradient-to-b from-slate-50 via-slate-100 to-slate-200 text-slate-900 transition-colors dark:from-slate-900 dark:via-slate-900 dark:to-slate-800 dark:text-slate-100">

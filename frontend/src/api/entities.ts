@@ -37,6 +37,13 @@ apiClient.interceptors.response.use(
   },
 );
 
+export const healthApi = {
+  status: async (): Promise<Message> => {
+    const { data } = await axios.get(API_URLS.HEALTH);
+    return data;
+  },
+};
+
 export const authApi = {
   register: async (credentials: Credentials): Promise<Token> => {
     const { data } = await apiClient.post(API_URLS.REGISTER, credentials);
