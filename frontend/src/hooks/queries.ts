@@ -1,5 +1,5 @@
 import { useQuery } from '@tanstack/react-query';
-import { articlesApi, authorsApi, tagsApi } from '../api/entities';
+import { articlesApi, authorsApi, tagsApi, healthApi } from '../api/entities';
 import { queryKeys } from '../api/queryKeys';
 
 export function useArticles() {
@@ -27,5 +27,14 @@ export function useAuthors() {
   return useQuery({
     queryKey: queryKeys.authors.list(),
     queryFn: authorsApi.list,
+  });
+}
+
+export function useHealth() {
+  return useQuery({
+    queryKey: queryKeys.health.status(),
+    queryFn: healthApi.status,
+    refetchInterval: 60000,
+    staleTime: 60000,
   });
 }

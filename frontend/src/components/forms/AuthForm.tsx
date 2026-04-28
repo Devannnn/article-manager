@@ -1,10 +1,11 @@
 import { useState, type FormEvent } from 'react';
-import { Eye, EyeOff } from 'react-feather';
+import { AlertTriangle, Eye, EyeOff } from 'react-feather';
 import { Input } from 'reactstrap';
 import { buttonSize, buttonStyle } from '../../constants/constants';
 import type { Credentials } from '../../constants/types';
 import { useLogin, useRegister } from '../../hooks/mutations';
 import PopupWrapper from '../features/PopupWrapper';
+import { useHealth } from '../../hooks/queries';
 
 type AuthMode = 'login' | 'register';
 
@@ -19,12 +20,14 @@ function AuthForm({ isOpen, mode, onClose }: Readonly<AuthFormProps>) {
   const [isPasswordVisible, setIsPasswordVisible] = useState(false);
   const loginMutation = useLogin();
   const registerMutation = useRegister();
+  const { isSuccess: isServerAlive, isError: isServerUnavailable, isFetching: isCheckingServer } = useHealth();
   const isRegister = mode === 'register';
   const activeMutation = isRegister ? registerMutation : loginMutation;
   const title = isRegister ? 'Register' : 'Login';
-  const submitLabel = activeMutation.isPending ? 'Please wait...' : title;
   const inputClassName =
     'border-slate-300 bg-white text-slate-900 placeholder:text-slate-500 dark:border-slate-600 dark:bg-slate-800 dark:text-slate-100 dark:placeholder:text-slate-400';
+  const isDisabled = activeMutation.isPending || !isServerAlive;
+  const submitLabel = !isServerAlive ? (isCheckingServer ? 'Checking server...' : 'Server unavailable') : title;
 
   function handleSubmit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
@@ -78,9 +81,18 @@ function AuthForm({ isOpen, mode, onClose }: Readonly<AuthFormProps>) {
             </div>
           </div>
         </div>
+        {isServerUnavailable && (
+          <div
+            className="flex items-start gap-2 rounded-lg border border-amber-300 bg-amber-50 px-3 py-2 text-sm text-amber-900 dark:border-amber-500/60 dark:bg-amber-950/40 dark:text-amber-100"
+            role="alert"
+          >
+            <AlertTriangle className="mt-0.5 shrink-0" size={16} />
+            <span>The server is not responding right now. Please try again in a moment.</span>
+          </div>
+        )}
         <div className="flex w-full justify-center">
-          <button className={`${buttonStyle.success} ${buttonSize.medium}`} type="submit" disabled={activeMutation.isPending}>
-            {submitLabel}
+          <button className={`${buttonStyle.success} ${buttonSize.medium}`} type="submit" disabled={isDisabled}>
+            {activeMutation.isPending ? 'Please wait...' : submitLabel}
           </button>
         </div>
       </form>

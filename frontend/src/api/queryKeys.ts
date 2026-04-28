@@ -16,4 +16,8 @@ export const queryKeys = {
   auth: {
     all: ['auth'],
   },
+  health: {
+    all: ['health'],
+    status: () => [...queryKeys.health.all, 'status'],
+  },
 } as const;
