@@ -2,6 +2,9 @@ import pytest
 
 from tests.conftest import INVALID_ARTICLE_CASES
 
+def test_health(client):
+    res = client.get("/health")
+    assert res.status_code == 200
 
 def test_register(client):
     res = client.post("/auth/register", json={"name": "Test", "password": "Test"})
