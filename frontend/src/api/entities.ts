@@ -1,8 +1,12 @@
 import axios from 'axios';
 import { API_URLS } from '../constants/constants';
-import type { Article, AuthorStat, Credentials, Token, AccessToken, Message } from '../constants/types';
+import type { Article, AuthorStat, Credentials, Entity, Token, AccessToken, Message } from '../constants/types';
 
 const apiClient = axios.create();
+
+function normalizeEntityNames(entities: Array<string | Entity>): string[] {
+  return entities.map((entity) => (typeof entity === 'string' ? entity : entity.name));
+}
 
 apiClient.interceptors.request.use((config) => {
   const token = sessionStorage.getItem('access_token');
@@ -89,7 +93,7 @@ export const articlesApi = {
 export const authorsApi = {
   list: async (): Promise<string[]> => {
     const { data } = await apiClient.get(API_URLS.AUTHORS);
-    return data;
+    return normalizeEntityNames(data);
   },
   list_top: async (): Promise<AuthorStat[]> => {
     const { data } = await apiClient.get(API_URLS.TOP_AUTHORS);
@@ -113,7 +117,7 @@ export const authorsApi = {
 export const tagsApi = {
   list: async (): Promise<string[]> => {
     const { data } = await apiClient.get(API_URLS.TAGS);
-    return data;
+    return normalizeEntityNames(data);
   },
   create: async (tag: string): Promise<string> => {
     const { data } = await apiClient.post(API_URLS.TAGS, tag);
