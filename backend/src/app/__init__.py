@@ -11,6 +11,7 @@ from pydantic import ValidationError
 from app.blueprints.articles import articles_bp
 from app.blueprints.auth import auth_bp
 from app.blueprints.authors import authors_bp
+from app.blueprints.health import health_bp
 from app.blueprints.tags import tags_bp
 from app.database import db
 from app.types import EntitiesNotFoundError
@@ -78,6 +79,7 @@ def create_app(test_config=None):
         print("handle_unexpected", str(error))
         return jsonify({"error": "Internal server error"}), 500
 
+    app.register_blueprint(health_bp)
     app.register_blueprint(auth_bp)
     app.register_blueprint(articles_bp)
     app.register_blueprint(authors_bp)

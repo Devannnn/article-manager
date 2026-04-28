@@ -63,3 +63,5 @@ def refresh(user_id):
 @jwt_required()
 def logout():
     return jsonify({"msg": "Successfully logged out"}), 200
+
+
