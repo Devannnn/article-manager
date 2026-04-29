@@ -29,10 +29,13 @@ export const AuthorStatSchema = z.array(
 
 export const ArticleSchema = z.object({
   id: z.int(),
-  title: z.string(),
-  author: z.string(),
-  url: z.string(),
-  year: z.int(),
+  title: z.string().min(1, ' '),
+  author: z.string().min(1, ' '),
+  url: z.url(' '),
+  year: z
+    .int('Year must be an integer')
+    .min(0, 'Year must be greater than or equal to 0')
+    .max(new Date().getFullYear(), 'Year must be less than or equal to the current year'),
   summary: z.string(),
   read: z.boolean(),
   read_again: z.boolean(),
@@ -44,7 +47,7 @@ export const ArticleSchema = z.object({
 
 export const ArticlesSchema = z.array(ArticleSchema);
 
-export const makeDeletedSchema = <T extends z.ZodTypeAny>(itemSchema: T) =>
+const makeDeletedSchema = <T extends z.ZodTypeAny>(itemSchema: T) =>
   z.object({
     deleted: z.array(itemSchema),
     count: z.int(),
