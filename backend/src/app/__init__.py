@@ -7,6 +7,7 @@ from flask import Flask, jsonify
 from flask_cors import CORS
 from flask_jwt_extended import JWTManager
 from pydantic import ValidationError
+from werkzeug.exceptions import HTTPException
 
 from app.blueprints.articles import articles_bp
 from app.blueprints.auth import auth_bp
@@ -70,14 +71,9 @@ def create_app(test_config=None):
     def handle_entities_not_found_error(error):
         return jsonify({"error": str(error), "missing_ids": error.missing_ids}), 404
 
-    @app.errorhandler(404)
-    def handle_404(error):
-        return jsonify({"error": "Not found"}), 404
-
-    @app.errorhandler(Exception)
-    def handle_unexpected(error):
-        print("handle_unexpected", str(error))
-        return jsonify({"error": "Internal server error"}), 500
+    @app.errorhandler(HTTPException)
+    def handle_http_exception(error):
+        return jsonify({"error": error.description}), error.code
 
     app.register_blueprint(health_bp)
     app.register_blueprint(auth_bp)

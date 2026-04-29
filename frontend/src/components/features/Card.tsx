@@ -1,20 +1,36 @@
+import { Star } from 'react-feather';
+
 interface PropsType {
   title: string;
   author: string;
   year: number;
   url: string;
   isDarkMode: boolean;
+  onUnfavorite?: () => void;
+  isUnfavoritePending?: boolean;
 }
 
-function Card({ title, author, year, url, isDarkMode }: Readonly<PropsType>) {
+function Card({ title, author, year, url, isDarkMode, onUnfavorite, isUnfavoritePending = false }: Readonly<PropsType>) {
   return (
     <div
-      className={`group h-full rounded-2xl border p-4 shadow-sm transition hover:-translate-y-0.5 hover:shadow-lg ${
+      className={`group relative h-full rounded-2xl border p-4 shadow-sm transition hover:-translate-y-0.5 hover:shadow-lg ${
         isDarkMode ? 'border-slate-700 bg-slate-800' : 'border-slate-200 bg-white'
       }`}
     >
+      {onUnfavorite && (
+        <button
+          type="button"
+          aria-label={`Remove ${title} from favorites`}
+          title="Remove from favorites"
+          onClick={onUnfavorite}
+          disabled={isUnfavoritePending}
+          className="absolute right-3 top-3 inline-flex h-9 w-9 items-center justify-center text-amber-500 transition hover:text-amber-600 disabled:cursor-not-allowed disabled:opacity-60 dark:text-amber-300"
+        >
+          <Star size={18} fill="currentColor" aria-hidden="true" />
+        </button>
+      )}
       <div className="flex h-full flex-col justify-between gap-4">
-        <h1 className="text-base font-semibold leading-snug text-slate-800 dark:text-slate-100">
+        <h1 className="pr-10 text-base font-semibold leading-snug text-slate-800 dark:text-slate-100">
           <a
             href={url}
             target="_blank"

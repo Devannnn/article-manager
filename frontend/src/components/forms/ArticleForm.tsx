@@ -1,37 +1,25 @@
 import { useState, type ChangeEvent } from 'react';
-import * as yup from 'yup';
 import { Input } from 'reactstrap';
+import { Star } from 'react-feather';
 import CreatableSelect from 'react-select/creatable';
 import type { SingleValue } from 'react-select';
 import TagsForm from './TagsForm';
 import { buttonSize, buttonStyle } from '../../constants/constants';
 import { FormProps } from '../../constants/types';
+import { ArticleSchema } from '../../constants/schema';
 import { useAuthors } from '../../hooks/queries';
 import PopupWrapper from '../features/PopupWrapper';
 import RemoveButton from '../features/RemoveButton';
 
-const validationSchema = yup.object({
-  title: yup.string().required(' '),
-  author: yup.string().required(' '),
-  url: yup.string().url(' ').required(' '),
-  year: yup
-    .date()
-    .min(0, 'Year must be greater than or equal to 0')
-    .max(new Date().getFullYear(), 'Year must be less than or equal to the current year')
-    .required(' '),
-  summary: yup.string(),
-  read: yup.boolean().required(' '),
-  read_again: yup.boolean().required(' '),
-  favorite: yup.boolean().required(' '),
-});
+type AuthorOption = { value: string; label: string };
 
 function ArticleForm({ isOpen, toggle, onSave, title, activeItem, showDeleteButton }: Readonly<FormProps>) {
   const currentYear = new Date().getFullYear();
   const [item, setItem] = useState(activeItem);
   const [errors, setErrors] = useState<Record<string, string>>({});
   const { data: authors = [] } = useAuthors();
-  const authorOptions = authors.map((author) => ({ value: author, label: author }));
-  const selectedAuthor = authorOptions.find((option) => option.value === item.author) ?? null;
+  const authorOptions: AuthorOption[] = authors.map((author) => ({ value: author, label: author }));
+  const selectedAuthor = authorOptions.find((option) => option.value === item.author) ?? { value: item.author, label: item.author };
   const inputClassName =
     'border-slate-300 bg-white text-slate-900 placeholder:text-slate-500 dark:border-slate-600 dark:bg-slate-800 dark:text-slate-100 dark:placeholder:text-slate-400';
 
@@ -45,26 +33,32 @@ function ArticleForm({ isOpen, toggle, onSave, title, activeItem, showDeleteButt
     setItem((prevItem) => ({ ...prevItem, tags: newTags }));
   }
 
-  function handleAuthorsChange(newValue: SingleValue<{ value: string; label: string }>) {
+  function handleAuthorsChange(newValue: SingleValue<AuthorOption>) {
     setItem((prevItem) => ({ ...prevItem, author: newValue?.value ?? '' }));
   }
 
+  function handleFavoriteToggle(): void {
+    setItem((prevItem) => ({ ...prevItem, favorite: !prevItem.favorite }));
+  }
+
   function validateForm() {
-    validationSchema
-      .validate(item, { abortEarly: false })
-      .then(() => {
-        onSave(item);
-        toggle();
-      })
-      .catch((error: yup.ValidationError) => {
-        const newErrors: Record<string, string> = {};
-        error.inner.forEach((err) => {
-          if (err.path !== undefined) {
-            newErrors[err.path] = err.message;
-          }
-        });
-        setErrors(newErrors);
-      });
+    const result = ArticleSchema.safeParse(item);
+
+    if (result.success) {
+      setErrors({});
+      onSave(item);
+      toggle();
+      return;
+    }
+
+    const newErrors: Record<string, string> = {};
+    result.error.issues.forEach((issue) => {
+      const key = issue.path[0];
+      if (typeof key === 'string' && newErrors[key] === undefined) {
+        newErrors[key] = issue.message;
+      }
+    });
+    setErrors(newErrors);
   }
 
   return (
@@ -166,7 +160,18 @@ function ArticleForm({ isOpen, toggle, onSave, title, activeItem, showDeleteButt
                   <b>Favorite</b>
                 </label>
                 <br />
-                <Input type="checkbox" name="favorite" checked={item.favorite} onChange={handleFieldChange} className="h-4 w-4 accent-blue-500" />
+                <button
+                  type="button"
+                  aria-pressed={item.favorite}
+                  aria-label={item.favorite ? 'Remove from favorites' : 'Add to favorites'}
+                  title={item.favorite ? 'Favorite' : 'Not favorite'}
+                  onClick={handleFavoriteToggle}
+                  className={`inline-flex h-6 w-6 items-center justify-center transition ${
+                    item.favorite ? 'text-amber-500 dark:text-amber-300' : 'text-slate-400 dark:text-slate-500'
+                  }`}
+                >
+                  <Star size={18} fill={item.favorite ? 'currentColor' : 'none'} aria-hidden="true" />
+                </button>
                 {errors.favorite && <div className="text-sm text-red-500">{errors.favorite}</div>}
               </div>
             </div>

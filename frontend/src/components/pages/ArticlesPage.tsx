@@ -1,5 +1,5 @@
 import { GridColDef } from '@mui/x-data-grid';
-import Checkbox from '@mui/material/Checkbox';
+import { Star } from 'react-feather';
 import { Article } from '../../constants/types';
 import { useArticles } from '../../hooks/queries';
 import AddButton from '../features/AddButton';
@@ -71,7 +71,17 @@ function ArticlesPage() {
     {
       field: 'favorite',
       renderHeader: () => <strong className="fs-5">{'Favorite'}</strong>,
-      renderCell: (params) => <Checkbox disabled checked={params.row.favorite} />,
+      renderCell: (params) => (
+        <span
+          className={`inline-flex h-8 w-8 items-center justify-center ${
+            params.row.favorite ? 'text-amber-500 dark:text-amber-300' : 'text-slate-400 dark:text-slate-500'
+          }`}
+          aria-label={params.row.favorite ? 'Favorite' : 'Not favorite'}
+          title={params.row.favorite ? 'Favorite' : 'Not favorite'}
+        >
+          <Star size={18} fill={params.row.favorite ? 'currentColor' : 'none'} aria-hidden="true" />
+        </span>
+      ),
     },
     {
       field: 'actions',
