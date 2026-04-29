@@ -3,7 +3,7 @@ import { useQueryClient } from '@tanstack/react-query';
 
 interface Auth {
   isConnected: boolean;
-  login: (access_token: string, refresh_token: string) => void;
+  login: () => void;
   logout: () => void;
 }
 
@@ -13,15 +13,11 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
   const qc = useQueryClient();
   const [isConnected, setIsConnected] = useState<boolean>(!!sessionStorage.getItem('access_token'));
 
-  const login = (access_token: string, refresh_token: string) => {
-    sessionStorage.setItem('access_token', access_token);
-    sessionStorage.setItem('refresh_token', refresh_token);
+  const login = () => {
     setIsConnected(true);
   };
 
   const logout = () => {
-    sessionStorage.removeItem('access_token');
-    sessionStorage.removeItem('refresh_token');
     setIsConnected(false);
     qc.clear();
   };

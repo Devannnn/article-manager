@@ -3,7 +3,7 @@ import axios from 'axios';
 import { toast } from 'sonner';
 import { articlesApi, authorsApi, tagsApi, authApi } from '../api/entities';
 import { queryKeys } from '../api/queryKeys';
-import { Token } from '../constants/types';
+import { Message } from '../constants/types';
 import { useAuth } from '../contexts/AuthContext';
 
 function extractErrorMessage(err: unknown): string {
@@ -37,13 +37,11 @@ export const useRemoveArticle = () => useEntitiesMutation(articlesApi.remove, qu
 export const useCreateAuthor = () => useEntitiesMutation(authorsApi.create, queryKeys.authors.all, 'Author successfully added');
 export const useCreateTag = () => useEntitiesMutation(tagsApi.create, queryKeys.tags.all, 'Tag successfully added');
 
-function useAuthMutation<TArgs>(mutationFn: (args: TArgs) => Promise<Token>) {
+function useAuthMutation<TArgs>(mutationFn: (args: TArgs) => Promise<Message>) {
   const { login } = useAuth();
   return useMutation({
     mutationFn,
-    onSuccess: (res) => {
-      login(res.access_token, res.refresh_token);
-    },
+    onSuccess: () => login(),
     onError: (err) => {
       toast.error(extractErrorMessage(err));
     },
@@ -63,6 +61,7 @@ export const useLogout = () => {
     },
     onError: () => {
       logout();
+      qc.clear();
     },
   });
 };

@@ -1,10 +1,8 @@
 import axios from 'axios';
 import { API_URLS } from '../constants/constants';
-import type { Article, AuthorStat, Credentials, Entity, Token, AccessToken, Message } from '../constants/types';
+import type { Article, AuthorStat, Credentials, Message } from '../constants/types';
 import {
   MessageSchema,
-  TokenSchema,
-  RefreshTokenSchema,
   DeletedArticlesSchema,
   DeletedEntitiesSchema,
   EntitySchema,
@@ -13,18 +11,16 @@ import {
   ArticleSchema,
   ArticlesSchema,
 } from '../constants/schema';
+import { getCookie, normalizeEntityNames } from '../helpers/helpers';
 
 const apiClient = axios.create();
 
-function normalizeEntityNames(entities: Array<string | Entity>): string[] {
-  return entities.map((entity) => (typeof entity === 'string' ? entity : entity.name));
-}
+apiClient.defaults.withCredentials = true;
 
 apiClient.interceptors.request.use((config) => {
-  const token = sessionStorage.getItem('access_token');
-
-  if (token) {
-    config.headers.Authorization = `Bearer ${token}`;
+  const csrf_access_token = getCookie('csrf_access_token');
+  if (csrf_access_token) {
+    config.headers['X-CSRF-TOKEN'] = csrf_access_token;
   }
 
   return config;
@@ -34,17 +30,11 @@ apiClient.interceptors.response.use(
   (response) => response,
   async (error) => {
     const originalRequest = error.config;
-
     if (error.response?.status !== 401 || originalRequest._retry) {
       return Promise.reject(error);
     }
-
     originalRequest._retry = true;
-
-    const { access_token } = await authApi.refresh();
-
-    sessionStorage.setItem('access_token', access_token);
-    originalRequest.headers.Authorization = `Bearer ${access_token}`;
+    await authApi.refresh();
     return apiClient(originalRequest);
   },
 );
@@ -58,35 +48,36 @@ export const healthApi = {
 };
 
 export const authApi = {
-  register: async (credentials: Credentials): Promise<Token> => {
+  register: async (credentials: Credentials): Promise<Message> => {
     const { data } = await apiClient.post(API_URLS.REGISTER, credentials);
-    const result = TokenSchema.parse(data);
+    const result = MessageSchema.parse(data);
     return result;
   },
-  login: async (credentials: Credentials): Promise<Token> => {
+  login: async (credentials: Credentials): Promise<Message> => {
     const { data } = await apiClient.post(API_URLS.LOGIN, credentials);
-    const result = TokenSchema.parse(data);
+    const result = MessageSchema.parse(data);
     return result;
   },
-  refresh: async (): Promise<AccessToken> => {
-    const refreshToken = sessionStorage.getItem('refresh_token');
+  refresh: async (): Promise<Message> => {
+    const csrf_refresh_token = getCookie('csrf_refresh_token');
 
-    if (!refreshToken) {
-      throw new Error('Missing refresh token');
+    if (!csrf_refresh_token) {
+      throw new Error('Missing refresh CSRF cookie');
     }
 
-    const { data } = await axios.post(
+    const axiosClient = axios.create();
+    axiosClient.defaults.withCredentials = true;
+    const { data } = await axiosClient.post(
       API_URLS.REFRESH,
       {},
       {
         headers: {
-          Authorization: `Bearer ${refreshToken}`,
+          'X-CSRF-TOKEN': csrf_refresh_token,
         },
       },
     );
-
-    const response = RefreshTokenSchema.parse(data);
-    return response;
+    const result = MessageSchema.parse(data);
+    return result;
   },
   logout: async (): Promise<Message> => {
     const { data } = await apiClient.post(API_URLS.LOGOUT);
