@@ -1,5 +1,6 @@
 import { useState, type ChangeEvent } from 'react';
 import { Input } from 'reactstrap';
+import { Star } from 'react-feather';
 import CreatableSelect from 'react-select/creatable';
 import type { SingleValue } from 'react-select';
 import TagsForm from './TagsForm';
@@ -34,6 +35,10 @@ function ArticleForm({ isOpen, toggle, onSave, title, activeItem, showDeleteButt
 
   function handleAuthorsChange(newValue: SingleValue<AuthorOption>) {
     setItem((prevItem) => ({ ...prevItem, author: newValue?.value ?? '' }));
+  }
+
+  function handleFavoriteToggle(): void {
+    setItem((prevItem) => ({ ...prevItem, favorite: !prevItem.favorite }));
   }
 
   function validateForm() {
@@ -155,7 +160,18 @@ function ArticleForm({ isOpen, toggle, onSave, title, activeItem, showDeleteButt
                   <b>Favorite</b>
                 </label>
                 <br />
-                <Input type="checkbox" name="favorite" checked={item.favorite} onChange={handleFieldChange} className="h-4 w-4 accent-blue-500" />
+                <button
+                  type="button"
+                  aria-pressed={item.favorite}
+                  aria-label={item.favorite ? 'Remove from favorites' : 'Add to favorites'}
+                  title={item.favorite ? 'Favorite' : 'Not favorite'}
+                  onClick={handleFavoriteToggle}
+                  className={`inline-flex h-6 w-6 items-center justify-center transition ${
+                    item.favorite ? 'text-amber-500 dark:text-amber-300' : 'text-slate-400 dark:text-slate-500'
+                  }`}
+                >
+                  <Star size={18} fill={item.favorite ? 'currentColor' : 'none'} aria-hidden="true" />
+                </button>
                 {errors.favorite && <div className="text-sm text-red-500">{errors.favorite}</div>}
               </div>
             </div>

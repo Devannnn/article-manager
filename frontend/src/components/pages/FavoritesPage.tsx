@@ -1,13 +1,19 @@
 import { Article } from '../../constants/types';
 import { useArticles } from '../../hooks/queries';
 import { useIsDarkMode } from '../../contexts/ThemeContext';
+import { useEditArticle } from '../../hooks/mutations';
 import Card from '../features/Card';
 import PageHeader from '../layout/PageHeader';
 
 function FavoritesPage() {
   const { data: articles = [] } = useArticles();
   const isDarkMode = useIsDarkMode();
+  const { mutate: editArticle, isPending: isUnfavoritePending } = useEditArticle();
   const favoris = articles.filter((article: Article) => article.favorite === true);
+
+  function handleUnfavorite(article: Article): void {
+    editArticle({ ...article, favorite: false });
+  }
 
   return (
     <div className="space-y-5">
@@ -25,7 +31,16 @@ function FavoritesPage() {
         <div className={'rounded-2xl p-4'}>
           <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 xl:grid-cols-3">
             {favoris.map((article: Article) => (
-              <Card key={article.id} title={article.title} author={article.author} year={article.year} url={article.url} isDarkMode={isDarkMode} />
+              <Card
+                key={article.id}
+                title={article.title}
+                author={article.author}
+                year={article.year}
+                url={article.url}
+                isDarkMode={isDarkMode}
+                onUnfavorite={() => handleUnfavorite(article)}
+                isUnfavoritePending={isUnfavoritePending}
+              />
             ))}
           </div>
         </div>
