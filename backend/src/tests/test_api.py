@@ -41,6 +41,11 @@ def test_logout(auth_client):
     assert payload["msg"] == "Successfully logged out"
 
 
+def test_method_not_allowed(client):
+    res = client.get("/auth/register")
+    assert res.status_code == 405
+
+
 def test_add_valid_tag(auth_client, tag):
     res = auth_client.get("/tags")
     assert res.status_code == 200
