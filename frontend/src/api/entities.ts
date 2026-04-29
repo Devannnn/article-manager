@@ -1,6 +1,18 @@
 import axios from 'axios';
 import { API_URLS } from '../constants/constants';
 import type { Article, AuthorStat, Credentials, Entity, Token, AccessToken, Message } from '../constants/types';
+import {
+  MessageSchema,
+  TokenSchema,
+  RefreshTokenSchema,
+  DeletedArticlesSchema,
+  DeletedEntitiesSchema,
+  EntitySchema,
+  EntitiesSchema,
+  AuthorStatSchema,
+  ArticleSchema,
+  ArticlesSchema,
+} from '../constants/schema';
 
 const apiClient = axios.create();
 
@@ -40,18 +52,21 @@ apiClient.interceptors.response.use(
 export const healthApi = {
   status: async (): Promise<Message> => {
     const { data } = await axios.get(API_URLS.HEALTH);
-    return data;
+    const result = MessageSchema.parse(data);
+    return result;
   },
 };
 
 export const authApi = {
   register: async (credentials: Credentials): Promise<Token> => {
     const { data } = await apiClient.post(API_URLS.REGISTER, credentials);
-    return data;
+    const result = TokenSchema.parse(data);
+    return result;
   },
   login: async (credentials: Credentials): Promise<Token> => {
     const { data } = await apiClient.post(API_URLS.LOGIN, credentials);
-    return data;
+    const result = TokenSchema.parse(data);
+    return result;
   },
   refresh: async (): Promise<AccessToken> => {
     const refreshToken = sessionStorage.getItem('refresh_token');
@@ -69,74 +84,93 @@ export const authApi = {
         },
       },
     );
-    return data;
+
+    const response = RefreshTokenSchema.parse(data);
+    return response;
   },
   logout: async (): Promise<Message> => {
     const { data } = await apiClient.post(API_URLS.LOGOUT);
-    return data;
+    const result = MessageSchema.parse(data);
+    return result;
   },
 };
 
 export const articlesApi = {
   list: async (): Promise<Article[]> => {
     const { data } = await apiClient.get(API_URLS.ARTICLES);
-    return data;
+    const response = ArticlesSchema.parse(data);
+    return response;
   },
   create: async (article: Article): Promise<Article> => {
     const { data } = await apiClient.post(API_URLS.ARTICLES, article);
-    return data;
+    const response = ArticleSchema.parse(data);
+    return response;
   },
   update: async (article: Article): Promise<Article> => {
     const { data } = await apiClient.put(API_URLS.ARTICLES, article);
-    return data;
+    const response = ArticleSchema.parse(data);
+    return response;
   },
-  remove: async (ids: number[]): Promise<void> => {
-    await apiClient.delete(API_URLS.ARTICLES, {
+  remove: async (ids: number[]): Promise<number> => {
+    const { data } = await apiClient.delete(API_URLS.ARTICLES, {
       data: { ids },
     });
+    const response = DeletedArticlesSchema.parse(data);
+    return response.count;
   },
 };
 
 export const authorsApi = {
   list: async (): Promise<string[]> => {
     const { data } = await apiClient.get(API_URLS.AUTHORS);
-    return normalizeEntityNames(data);
+    const response = EntitiesSchema.parse(data);
+    return normalizeEntityNames(response);
   },
   list_top: async (): Promise<AuthorStat[]> => {
     const { data } = await apiClient.get(API_URLS.TOP_AUTHORS);
-    return data;
+    const response = AuthorStatSchema.parse(data);
+    return response;
   },
   create: async (author: string): Promise<string> => {
     const { data } = await apiClient.post(API_URLS.AUTHORS, author);
-    return data;
+    const response = EntitySchema.parse(data);
+    return response.name;
   },
   update: async (author: string): Promise<string> => {
     const { data } = await apiClient.put(API_URLS.AUTHORS, author);
-    return data;
+    const response = EntitySchema.parse(data);
+    return response.name;
   },
-  remove: async (ids: number[]): Promise<void> => {
-    await apiClient.delete(API_URLS.AUTHORS, {
+  remove: async (ids: number[]): Promise<number> => {
+    const { data } = await apiClient.delete(API_URLS.AUTHORS, {
       data: { ids },
     });
+    const response = DeletedEntitiesSchema.parse(data);
+    return response.count;
   },
 };
 
 export const tagsApi = {
   list: async (): Promise<string[]> => {
     const { data } = await apiClient.get(API_URLS.TAGS);
-    return normalizeEntityNames(data);
+    const response = EntitiesSchema.parse(data);
+    return normalizeEntityNames(response);
   },
   create: async (tag: string): Promise<string> => {
     const { data } = await apiClient.post(API_URLS.TAGS, tag);
-    return data;
+    const response = EntitySchema.parse(data);
+    return response.name;
   },
   update: async (tag: string): Promise<string> => {
     const { data } = await apiClient.put(API_URLS.TAGS, tag);
-    return data;
+    const response = EntitySchema.parse(data);
+    return response.name;
   },
-  remove: async (ids: number[]): Promise<void> => {
-    await apiClient.delete(API_URLS.TAGS, {
+  remove: async (ids: number[]): Promise<number> => {
+    const { data } = await apiClient.delete(API_URLS.TAGS, {
       data: { ids },
     });
+    const response = DeletedEntitiesSchema.parse(data);
+    return response.count;
   },
 };
