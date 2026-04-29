@@ -41,6 +41,12 @@ def create_app(test_config=None):
     app.config["JWT_SECRET_KEY"] = os.environ["JWT_SECRET_KEY"]
     app.config["JWT_ACCESS_TOKEN_EXPIRES"] = timedelta(minutes=15)
     app.config["JWT_REFRESH_TOKEN_EXPIRES"] = timedelta(days=30)
+    app.config["JWT_TOKEN_LOCATION"] = ["cookies"]
+    app.config["JWT_REFRESH_COOKIE_PATH"] = "/auth/refresh"
+    app.config["JWT_COOKIE_SECURE"] = True
+    app.config["JWT_COOKIE_SAMESITE"] = "None"
+    app.config["JWT_COOKIE_CSRF_PROTECT"] = True
+    app.config["JWT_CSRF_IN_COOKIES"] = True
 
     _origins_raw = os.environ.get("FRONTEND_ORIGIN", "http://localhost:5173")
     frontend_origins = [o.strip() for o in _origins_raw.split(",") if o.strip()]
