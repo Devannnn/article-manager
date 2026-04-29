@@ -67,13 +67,13 @@ def login(data):
 
 
 @auth_bp.route("/refresh", methods=["POST"])
-@jwt_required(refresh=True, locations=["cookies"])
+@jwt_required(refresh=True)
 @get_user_id
 def refresh(user_id):
     access_token = create_access_token(identity=str(user_id))
     response = jsonify({"msg": "Refresh successful"})
     set_access_cookies(response, access_token)
-    return jsonify(response)
+    return response, 200
 
 
 @auth_bp.route("/logout", methods=["POST"])
