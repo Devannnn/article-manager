@@ -9,11 +9,11 @@ Web app to save, organize, and revisit articles. Create an account, manage a per
 
 ## Screenshots
 
-![Homepage](frontend/public/screenshots/homepage.PNG)
+![Homepage](frontend/public/screenshots/light/articles.PNG)
 ----
-![Favorites](frontend/public/screenshots/favorites.PNG)
+![Favorites](frontend/public/screenshots/light/favorites.PNG)
 ----
-![Statistics](frontend/public/screenshots/stats.PNG)
+![Statistics](frontend/public/screenshots/light/stats.PNG)
 
 ## Stack
 
