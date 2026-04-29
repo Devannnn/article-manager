@@ -71,7 +71,9 @@ def login(data):
 @get_user_id
 def refresh(user_id):
     access_token = create_access_token(identity=str(user_id))
-    return jsonify(access_token=access_token)
+    response = jsonify({"msg": "Refresh successful"})
+    set_access_cookies(response, access_token)
+    return jsonify(response)
 
 
 @auth_bp.route("/logout", methods=["POST"])
