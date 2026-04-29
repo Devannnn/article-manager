@@ -41,7 +41,7 @@ function HomePage() {
     }, 7000);
 
     return () => window.clearInterval(intervalId);
-  }, []);
+  }, [screenshots.length]);
 
   const showPreviousScreenshot = () => {
     setCurrentScreenshotIndex((currentIndex) => (currentIndex - 1 + screenshots.length) % screenshots.length);

@@ -2,12 +2,12 @@ import { DataGrid, GridColDef, GridToolbar } from '@mui/x-data-grid';
 import { Article } from '../../constants/types';
 import { useIsDarkMode } from '../../contexts/ThemeContext';
 
-interface TableauProps {
+interface DataTableProps {
   data: Article[];
   columns: GridColDef[];
 }
 
-function DataTable({ data, columns }: Readonly<TableauProps>) {
+function DataTable({ data, columns }: Readonly<DataTableProps>) {
   const isDarkMode = useIsDarkMode();
 
   return (

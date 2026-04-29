@@ -35,12 +35,7 @@ export const useEditArticle = () => useEntitiesMutation(articlesApi.update, quer
 export const useRemoveArticle = () => useEntitiesMutation(articlesApi.remove, queryKeys.articles.all, 'Article successfully deleted');
 
 export const useCreateAuthor = () => useEntitiesMutation(authorsApi.create, queryKeys.authors.all, 'Author successfully added');
-export const useEditAuthor = () => useEntitiesMutation(authorsApi.update, queryKeys.authors.all, 'Author successfully edited');
-export const useRemoveAuthor = () => useEntitiesMutation(authorsApi.remove, queryKeys.authors.all, 'Author successfully deleted');
-
 export const useCreateTag = () => useEntitiesMutation(tagsApi.create, queryKeys.tags.all, 'Tag successfully added');
-export const useEditTag = () => useEntitiesMutation(tagsApi.update, queryKeys.tags.all, 'Tag successfully edited');
-export const useRemoveTag = () => useEntitiesMutation(tagsApi.remove, queryKeys.tags.all, 'Tag successfully deleted');
 
 function useAuthMutation<TArgs>(mutationFn: (args: TArgs) => Promise<Token>) {
   const { login } = useAuth();
@@ -60,17 +55,14 @@ export const useRegister = () => useAuthMutation(authApi.register);
 export const useLogin = () => useAuthMutation(authApi.login);
 
 export const useLogout = () => {
-  const qc = useQueryClient();
   const { logout } = useAuth();
   return useMutation({
     mutationFn: authApi.logout,
     onSuccess: () => {
       logout();
-      qc.clear();
     },
     onError: () => {
       logout();
-      qc.clear();
     },
   });
 };

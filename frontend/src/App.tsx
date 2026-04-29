@@ -23,7 +23,6 @@ function App() {
           <Routes>
             <Route path="/" element={<ArticlesPage />} />
             <Route path="/favorites" element={<FavoritesPage />} />
-            <Route path="/favoris" element={<FavoritesPage />} />
             <Route path="/stats" element={<StatsPage />} />
             <Route path="*" element={<ArticlesPage />} />
           </Routes>
