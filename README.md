@@ -10,21 +10,35 @@ Article Manager is an open-source read-it-later application.
 
 I needed a simple way to track articles I read, add notes, and get basic insights on my reading habits. 
 
-Existing tools felt too heavy or were missing features, so I've built my own and I've been using it weekly ever since.
+Existing tools felt too heavy or were missing features, so I built my own and I've been using it weekly ever since.
 
 🔗 [Try it here!](https://article-manager.devanprigent.com/)
 
 
 ## Screenshots
 
-![Homepage](frontend/public/screenshots/light/articles.PNG)
-----
-![Liked articles](frontend/public/screenshots/light/likes.PNG)
-----
-![Read Later articles](frontend/public/screenshots/light/read-later.PNG)
-----
-![Statistics](frontend/public/screenshots/light/stats.PNG)
-
+<table>
+  <tr>
+    <td align="center" width="50%">
+      <img src="frontend/public/screenshots/light/articles.PNG" alt="Homepage" width="100%" />
+      <br /><sub>Homepage</sub>
+    </td>
+    <td align="center" width="50%">
+      <img src="frontend/public/screenshots/light/likes.PNG" alt="Liked articles" width="100%" />
+      <br /><sub>Liked articles</sub>
+    </td>
+  </tr>
+  <tr>
+    <td align="center" width="50%">
+      <img src="frontend/public/screenshots/light/read-later.PNG" alt="Read Later articles" width="100%" />
+      <br /><sub>Read Later articles</sub>
+    </td>
+    <td align="center" width="50%">
+      <img src="frontend/public/screenshots/light/stats.PNG" alt="Statistics" width="100%" />
+      <br /><sub>Statistics</sub>
+    </td>
+  </tr>
+</table>
 
 ## Features
 
