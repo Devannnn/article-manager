@@ -1,4 +1,5 @@
 import { useState, type FormEvent } from 'react';
+import { useLocation, useNavigate } from 'react-router-dom';
 import { AlertTriangle, Eye, EyeOff } from 'react-feather';
 import { Input } from 'reactstrap';
 import { buttonSize, buttonStyle } from '../../constants/constants';
@@ -9,6 +10,16 @@ import { useHealth } from '../../hooks/queries';
 
 type AuthMode = 'login' | 'register';
 
+const APP_PATHS_AFTER_LOGIN = ['/articles', '/favorites', '/stats'] as const;
+
+function postLoginPath(state: unknown): string {
+  const from = (state as { from?: string } | null)?.from;
+  if (from && (APP_PATHS_AFTER_LOGIN as readonly string[]).includes(from)) {
+    return from;
+  }
+  return '/articles';
+}
+
 interface AuthFormProps {
   isOpen: boolean;
   mode: AuthMode;
@@ -16,6 +27,8 @@ interface AuthFormProps {
 }
 
 function AuthForm({ isOpen, mode, onClose }: Readonly<AuthFormProps>) {
+  const navigate = useNavigate();
+  const location = useLocation();
   const [credentials, setCredentials] = useState<Credentials>({ name: '', password: '' });
   const [isPasswordVisible, setIsPasswordVisible] = useState(false);
   const loginMutation = useLogin();
@@ -31,7 +44,12 @@ function AuthForm({ isOpen, mode, onClose }: Readonly<AuthFormProps>) {
 
   function handleSubmit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
-    activeMutation.mutate(credentials, { onSuccess: onClose });
+    activeMutation.mutate(credentials, {
+      onSuccess: () => {
+        onClose();
+        navigate(postLoginPath(location.state), { replace: true });
+      },
+    });
   }
 
   return (

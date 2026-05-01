@@ -19,16 +19,12 @@ function App() {
     <div className="flex min-h-screen flex-col bg-gradient-to-b from-slate-50 via-slate-100 to-slate-200 text-slate-900 transition-colors dark:from-slate-900 dark:via-slate-900 dark:to-slate-800 dark:text-slate-100">
       <NavBar />
       <div className={`mx-auto w-full flex-1 px-4 py-6 sm:px-6 sm:py-8 ${isConnected ? 'max-w-6xl' : 'max-w-7xl xl:max-w-[80rem]'}`}>
-        {isConnected ? (
-          <Routes>
-            <Route path="/" element={<ArticlesPage />} />
-            <Route path="/favorites" element={<FavoritesPage />} />
-            <Route path="/stats" element={<StatsPage />} />
-            <Route path="*" element={<ArticlesPage />} />
-          </Routes>
-        ) : (
-          <HomePage />
-        )}
+        <Routes>
+          <Route path="/articles" element={<ArticlesPage />} />
+          <Route path="/favorites" element={<FavoritesPage />} />
+          <Route path="/stats" element={<StatsPage />} />
+          <Route path="*" element={<HomePage />} />
+        </Routes>
       </div>
       <Footer />
       <Toaster position="top-center" theme={isDarkMode ? 'dark' : 'light'} richColors closeButton />

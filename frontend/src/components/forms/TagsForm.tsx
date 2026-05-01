@@ -44,7 +44,7 @@ function TagsForm({ onChange, currentTags }: Readonly<TagsProps>) {
               {tag}
             </span>
             <span
-              className="bg-red-600 text-white rounded-full w-4 h-4 flex items-center justify-center"
+              className="flex h-4 w-4 cursor-pointer items-center justify-center rounded-full bg-red-600 text-white transition-colors duration-150 hover:bg-red-700 hover:shadow-sm active:bg-red-800 dark:hover:bg-red-500 dark:active:bg-red-600"
               onKeyDown={handleKeyDown}
               onClick={() => removeTag(index)}
             >
