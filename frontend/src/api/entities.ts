@@ -30,7 +30,8 @@ apiClient.interceptors.response.use(
   (response) => response,
   async (error) => {
     const originalRequest = error.config;
-    if (error.response?.status !== 401 || originalRequest._retry) {
+    const authUrls = [API_URLS.LOGIN, API_URLS.REGISTER, API_URLS.REFRESH];
+    if (error.response?.status !== 401 || originalRequest._retry || authUrls.includes(originalRequest.url)) {
       return Promise.reject(error);
     }
     originalRequest._retry = true;
