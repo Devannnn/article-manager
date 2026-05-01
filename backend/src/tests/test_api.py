@@ -1,6 +1,6 @@
 import pytest
 
-from tests.conftest import INVALID_ARTICLE_CASES
+from tests.conftest import INVALID_ARTICLE_CASES, get_cookie_value, get_csrf_header
 
 
 def test_health(client):
@@ -11,34 +11,36 @@ def test_health(client):
 def test_register(client):
     res = client.post("/auth/register", json={"name": "Test", "password": "Test"})
     assert res.status_code == 201
-    payload = res.get_json()
-    assert "access_token" in payload
-    assert "refresh_token" in payload
+    assert get_cookie_value(res, "access_token_cookie")
+    assert get_cookie_value(res, "refresh_token_cookie")
+    assert get_cookie_value(res, "csrf_access_token")
+    assert get_cookie_value(res, "csrf_refresh_token")
 
 
 def test_login(client):
     client.post("/auth/register", json={"name": "Test", "password": "Test"})
-    res2 = client.post("/auth/login", json={"name": "Test", "password": "Test"})
-    assert res2.status_code == 200
-    payload2 = res2.get_json()
-    assert "access_token" in payload2
-    assert "refresh_token" in payload2
+    res = client.post("/auth/login", json={"name": "Test", "password": "Test"})
+    assert res.status_code == 200
+    assert get_cookie_value(res, "access_token_cookie")
+    assert get_cookie_value(res, "refresh_token_cookie")
+    assert get_cookie_value(res, "csrf_access_token")
+    assert get_cookie_value(res, "csrf_refresh_token")
 
 
 def test_refresh(client):
     res = client.post("/auth/register", json={"name": "Test", "password": "Test"})
-    payload = res.get_json()
-    token = payload["refresh_token"]
-    res2 = client.post("/auth/refresh", headers={"Authorization": f"Bearer {token}"})
-    payload2 = res2.get_json()
-    assert "access_token" in payload2
+    headers = get_csrf_header(res, "refresh")
+    res = client.post("/auth/refresh", headers=headers)
+    assert res.status_code == 200
+    assert get_cookie_value(res, "access_token_cookie")
+    assert get_cookie_value(res, "csrf_access_token")
 
 
 def test_logout(auth_client):
     res = auth_client.post("/auth/logout")
     assert res.status_code == 200
-    payload = res.get_json()
-    assert payload["msg"] == "Successfully logged out"
+    assert not get_cookie_value(res, "access_token_cookie")
+    assert not get_cookie_value(res, "csrf_access_token")
 
 
 def test_method_not_allowed(client):
@@ -146,8 +148,8 @@ def test_per_user_isolation(client, mock_article):
     # User A
     res1 = client.post("/auth/register", json={"name": "Test", "password": "Test"})
     assert res1.status_code == 201
-    token1 = res1.get_json()["access_token"]
-    headers1 = {"Authorization": f"Bearer {token1}"}
+    headers1 = get_csrf_header(res1, "access")
+
     post1 = client.post("/articles", json=mock_article, headers=headers1)
     assert post1.status_code == 201
     payload1 = client.get("/articles", headers=headers1).get_json()
@@ -157,8 +159,7 @@ def test_per_user_isolation(client, mock_article):
     # User B
     res2 = client.post("/auth/register", json={"name": "Test 2", "password": "Test 2"})
     assert res2.status_code == 201
-    token2 = res2.get_json()["access_token"]
-    headers2 = {"Authorization": f"Bearer {token2}"}
+    headers2 = get_csrf_header(res2, "access")
 
     # User B cannot see User A articles
     assert len(client.get("/articles", headers=headers2).get_json()) == 0
@@ -174,4 +175,7 @@ def test_per_user_isolation(client, mock_article):
     )
 
     # A still has article
-    assert len(client.get("/articles", headers=headers1).get_json()) == 1
+    res3 = client.post("/auth/login", json={"name": "Test", "password": "Test"})
+    assert res3.status_code == 200
+    headers3 = get_csrf_header(res3, "access")
+    assert len(client.get("/articles", headers=headers3).get_json()) == 1

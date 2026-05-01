@@ -43,10 +43,14 @@ def create_app(test_config=None):
     app.config["JWT_REFRESH_TOKEN_EXPIRES"] = timedelta(days=30)
     app.config["JWT_TOKEN_LOCATION"] = ["cookies"]
     app.config["JWT_REFRESH_COOKIE_PATH"] = "/auth/refresh"
-    app.config["JWT_COOKIE_SECURE"] = False
+    app.config["JWT_COOKIE_SECURE"] = True
     app.config["JWT_COOKIE_SAMESITE"] = "Lax"
     app.config["JWT_COOKIE_CSRF_PROTECT"] = True
     app.config["JWT_CSRF_IN_COOKIES"] = True
+    app.config["JWT_COOKIE_DOMAIN"] = os.environ.get("JWT_COOKIE_DOMAIN")
+    app.config["JWT_CSRF_COOKIE_HTTPONLY"] = False
+    app.config["JWT_ACCESS_CSRF_COOKIE_PATH"] = "/"
+    app.config["JWT_REFRESH_CSRF_COOKIE_PATH"] = "/"
 
     _origins_raw = os.environ.get("FRONTEND_ORIGIN", "http://localhost:3000")
     frontend_origins = [o.strip() for o in _origins_raw.split(",") if o.strip()]
