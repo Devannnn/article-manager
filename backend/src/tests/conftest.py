@@ -1,7 +1,38 @@
 import pytest
+from werkzeug import Response
 
 from app import create_app
 from app.database import db as _db
+
+
+def parse_cookies(cookies: list[str], name: str) -> str | None:
+    for cookie in cookies:
+        first_pair = cookie.split(";", 1)[0].strip()
+        if not first_pair or "=" not in first_pair:
+            continue
+        cookie_name, cookie_value = first_pair.split("=", 1)
+        if cookie_name.strip() == name:
+            return cookie_value
+    return None
+
+
+def get_cookie_value(response: Response, name: str):
+    cookies = response.headers.getlist("Set-Cookie")
+    print(cookies)
+    return parse_cookies(cookies, name)
+
+
+def get_csrf_header(res: Response, csrf_type: str):
+    if csrf_type == "access":
+        csrf_access_token = get_cookie_value(res, "csrf_access_token")
+        return {
+            "X-CSRF-TOKEN": csrf_access_token,
+        }
+    else:
+        csrf_refresh_token = get_cookie_value(res, "csrf_refresh_token")
+        return {
+            "X-CSRF-TOKEN": csrf_refresh_token,
+        }
 
 
 @pytest.fixture()
@@ -24,12 +55,10 @@ def client(app):
 
 
 @pytest.fixture()
-def auth_headers(client):
+def auth_headers(client) -> dict[str, str]:
     res = client.post("/auth/register", json={"name": "Test", "password": "Test"})
     assert res.status_code == 201
-    payload = res.get_json()
-    token = payload["access_token"]
-    return {"Authorization": f"Bearer {token}"}
+    return get_csrf_header(res, "access")
 
 
 @pytest.fixture()

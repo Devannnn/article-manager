@@ -3,16 +3,6 @@ import * as z from 'zod';
 export const MessageSchema = z.object({
   msg: z.string(),
 });
-
-export const TokenSchema = z.object({
-  access_token: z.string(),
-  refresh_token: z.string(),
-});
-
-export const RefreshTokenSchema = z.object({
-  access_token: z.string(),
-});
-
 export const EntitySchema = z.object({
   id: z.int(),
   name: z.string(),

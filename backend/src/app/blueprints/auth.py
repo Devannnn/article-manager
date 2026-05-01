@@ -1,5 +1,12 @@
 from flask import Blueprint, jsonify
-from flask_jwt_extended import create_access_token, create_refresh_token, jwt_required
+from flask_jwt_extended import (
+    create_access_token,
+    create_refresh_token,
+    jwt_required,
+    set_access_cookies,
+    set_refresh_cookies,
+    unset_jwt_cookies,
+)
 from sqlalchemy import select
 from werkzeug.security import check_password_hash, generate_password_hash
 
@@ -30,7 +37,11 @@ def register(data):
 
     access_token = create_access_token(identity=str(user.id))
     refresh_token = create_refresh_token(identity=str(user.id))
-    return jsonify(access_token=access_token, refresh_token=refresh_token), 201
+
+    response = jsonify({"msg": "Successfully logged-in"})
+    set_access_cookies(response, access_token)
+    set_refresh_cookies(response, refresh_token)
+    return response, 201
 
 
 @auth_bp.route("/login", methods=["POST"])
@@ -48,7 +59,11 @@ def login(data):
 
     access_token = create_access_token(identity=str(user.id))
     refresh_token = create_refresh_token(identity=str(user.id))
-    return jsonify(access_token=access_token, refresh_token=refresh_token), 200
+
+    response = jsonify({"msg": "Successfully logged-in"})
+    set_access_cookies(response, access_token)
+    set_refresh_cookies(response, refresh_token)
+    return response, 200
 
 
 @auth_bp.route("/refresh", methods=["POST"])
@@ -56,12 +71,14 @@ def login(data):
 @get_user_id
 def refresh(user_id):
     access_token = create_access_token(identity=str(user_id))
-    return jsonify(access_token=access_token)
+    response = jsonify({"msg": "Refresh successful"})
+    set_access_cookies(response, access_token)
+    return response, 200
 
 
 @auth_bp.route("/logout", methods=["POST"])
 @jwt_required()
 def logout():
-    return jsonify({"msg": "Successfully logged out"}), 200
-
-
+    response = jsonify({"msg": "Successfully logged-out"})
+    unset_jwt_cookies(response)
+    return response, 200
