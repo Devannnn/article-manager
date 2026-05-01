@@ -69,7 +69,7 @@ function HomePage() {
           <div className="pointer-events-none absolute -right-16 -top-16 h-40 w-40 rounded-full bg-indigo-400/20 blur-3xl" />
           <div className="pointer-events-none absolute -bottom-20 -left-16 h-48 w-48 rounded-full bg-sky-400/20 blur-3xl" />
 
-          <div className="relative rounded-[1.5rem] bg-slate-950/5 dark:bg-slate-950/40">
+          <div className="relative h-[250px] w-full overflow-hidden rounded-[1.5rem] bg-slate-950/5 dark:bg-slate-950/40">
             <AnimatePresence mode="wait">
               <motion.div
                 key={currentScreenshot.title}
@@ -77,15 +77,15 @@ function HomePage() {
                 animate={{ opacity: 1, x: 0 }}
                 exit={{ opacity: 0, x: -32 }}
                 transition={{ duration: 0.35, ease: 'easeOut' }}
-                className="h-[250px] overflow-hidden rounded-2xl bg-white shadow-xl ring-1 ring-slate-900/10 dark:bg-slate-900 dark:ring-white/10"
+                className="absolute inset-0 overflow-hidden rounded-2xl bg-white shadow-xl ring-1 ring-slate-900/10 dark:bg-slate-900 dark:ring-white/10"
               >
                 <img src={currentScreenshot.src} alt={`${currentScreenshot.title} screenshot`} className="h-full w-full object-cover object-top" />
               </motion.div>
             </AnimatePresence>
           </div>
 
-          <div className="relative mt-4 flex items-center justify-between gap-4 px-1">
-            <div>
+          <div className="relative mt-4 flex items-start justify-between gap-4 px-1">
+            <div className="min-h-[7rem] flex-1 pr-2 sm:min-h-[6rem]">
               <p className="text-sm font-semibold text-slate-950 dark:text-white">{currentScreenshot.title}</p>
               <p className="mt-1 text-sm leading-6 text-slate-600 dark:text-slate-300">{currentScreenshot.description}</p>
             </div>
