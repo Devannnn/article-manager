@@ -1,6 +1,7 @@
 import { Routes, Route } from 'react-router-dom';
 import Footer from './components/layout/Footer';
 import NavBar from './components/layout/NavBar';
+import { ProtectedRoute } from './components/layout/ProtectedRoute';
 import FavoritesPage from './components/pages/FavoritesPage';
 import ArticlesPage from './components/pages/ArticlesPage';
 import StatsPage from './components/pages/StatsPage';
@@ -20,9 +21,11 @@ function App() {
       <NavBar />
       <div className={`mx-auto w-full flex-1 px-4 py-6 sm:px-6 sm:py-8 ${isConnected ? 'max-w-6xl' : 'max-w-7xl xl:max-w-[80rem]'}`}>
         <Routes>
-          <Route path="/articles" element={<ArticlesPage />} />
-          <Route path="/favorites" element={<FavoritesPage />} />
-          <Route path="/stats" element={<StatsPage />} />
+          <Route element={<ProtectedRoute />}>
+            <Route path="articles" element={<ArticlesPage />} />
+            <Route path="favorites" element={<FavoritesPage />} />
+            <Route path="stats" element={<StatsPage />} />
+          </Route>
           <Route path="*" element={<HomePage />} />
         </Routes>
       </div>
