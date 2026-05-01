@@ -61,7 +61,6 @@ export const useLogout = () => {
     },
     onError: () => {
       logout();
-      qc.clear();
     },
   });
 };
