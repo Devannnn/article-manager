@@ -11,7 +11,7 @@ const AuthContext = createContext<Auth | undefined>(undefined);
 
 export function AuthProvider({ children }: { children: React.ReactNode }) {
   const qc = useQueryClient();
-  const [isConnected, setIsConnected] = useState<boolean>(!!sessionStorage.getItem('access_token'));
+  const [isConnected, setIsConnected] = useState<boolean>(false);
 
   const login = () => {
     setIsConnected(true);
