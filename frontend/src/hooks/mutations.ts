@@ -6,9 +6,38 @@ import { queryKeys } from '../api/queryKeys';
 import { Message } from '../constants/types';
 import { useAuth } from '../contexts/AuthContext';
 
+function stringifyErrorValue(value: unknown): string | undefined {
+  if (typeof value === 'string') {
+    return value;
+  }
+
+  if (Array.isArray(value)) {
+    const messages = value
+      .map((item) => {
+        if (typeof item === 'string') {
+          return item;
+        }
+        if (item && typeof item === 'object' && 'msg' in item && typeof item.msg === 'string') {
+          return item.msg;
+        }
+        return undefined;
+      })
+      .filter((message): message is string => Boolean(message));
+
+    return messages.length > 0 ? messages.join(', ') : undefined;
+  }
+
+  return undefined;
+}
+
 function extractErrorMessage(err: unknown): string {
   if (axios.isAxiosError(err)) {
-    return err.response?.data?.message ?? err.message;
+    const data = err.response?.data;
+    if (data && typeof data === 'object') {
+      const { message, error } = data;
+      return stringifyErrorValue(message) ?? stringifyErrorValue(error) ?? err.message;
+    }
+    return stringifyErrorValue(data) ?? err.message;
   }
   if (err instanceof Error) {
     return err.message;
