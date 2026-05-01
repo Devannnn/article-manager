@@ -19,7 +19,9 @@ Existing tools felt too heavy or were missing features, so I've built my own and
 
 ![Homepage](frontend/public/screenshots/light/articles.PNG)
 ----
-![Liked articles](frontend/public/screenshots/light/favorites.PNG)
+![Liked articles](frontend/public/screenshots/light/likes.PNG)
+----
+![Read Later articles](frontend/public/screenshots/light/read-later.PNG)
 ----
 ![Statistics](frontend/public/screenshots/light/stats.PNG)
 
