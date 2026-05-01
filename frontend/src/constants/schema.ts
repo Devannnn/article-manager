@@ -27,9 +27,9 @@ export const ArticleSchema = z.object({
     .min(0, 'Year must be greater than or equal to 0')
     .max(new Date().getFullYear(), 'Year must be less than or equal to the current year'),
   summary: z.string(),
-  read: z.boolean(),
-  read_again: z.boolean(),
-  favorite: z.boolean(),
+  consulted: z.boolean(),
+  read_later: z.boolean(),
+  liked: z.boolean(),
   tags: z.array(z.string()),
   date_creation: z.string(),
   date_modification: z.string(),

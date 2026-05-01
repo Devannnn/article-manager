@@ -10,9 +10,9 @@ class ArticleSchema(BaseModel):
     url: str = Field(..., min_length=1)
     year: PositiveInt
     summary: str | None = None
-    read: bool
-    read_again: bool
-    favorite: bool
+    consulted: bool
+    read_later: bool
+    liked: bool
     tags: list[Annotated[str, Field(min_length=1)]]
 
 

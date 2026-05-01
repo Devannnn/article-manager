@@ -95,9 +95,9 @@ class Article(db.Model):
     url: Mapped[str] = mapped_column(nullable=False)
     year: Mapped[int] = mapped_column(nullable=False)
     summary: Mapped[str | None] = mapped_column(nullable=True)
-    read: Mapped[bool] = mapped_column(default=False, nullable=False)
-    read_again: Mapped[bool] = mapped_column(default=False, nullable=False)
-    favorite: Mapped[bool] = mapped_column(default=False, nullable=False)
+    consulted: Mapped[bool] = mapped_column(default=False, nullable=False)
+    read_later: Mapped[bool] = mapped_column(default=False, nullable=False)
+    liked: Mapped[bool] = mapped_column(default=False, nullable=False)
     tags: Mapped[list["Tag"]] = relationship(secondary=article_tag)
     date_creation: Mapped[datetime] = mapped_column(
         default=lambda: datetime.now(UTC), nullable=False
@@ -116,9 +116,9 @@ class Article(db.Model):
             "url": self.url,
             "year": self.year,
             "summary": self.summary,
-            "read": self.read,
-            "read_again": self.read_again,
-            "favorite": self.favorite,
+            "consulted": self.consulted,
+            "read_later": self.read_later,
+            "liked": self.liked,
             "tags": [t.name for t in self.tags],
             "date_creation": self.date_creation.isoformat(),
             "date_modification": self.date_modification.isoformat(),

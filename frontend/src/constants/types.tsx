@@ -5,9 +5,9 @@ export interface Article {
   url: string;
   year: number;
   summary: string;
-  read: boolean;
-  read_again: boolean;
-  favorite: boolean;
+  consulted: boolean;
+  read_later: boolean;
+  liked: boolean;
   tags: string[];
   date_creation: string;
   date_modification: string;

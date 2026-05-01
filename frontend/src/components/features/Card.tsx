@@ -1,4 +1,4 @@
-import { RefreshCw, Star } from 'react-feather';
+import { Heart, XCircle } from 'react-feather';
 
 interface PropsType {
   title: string;
@@ -6,10 +6,10 @@ interface PropsType {
   year: number;
   url: string;
   isDarkMode: boolean;
-  onUnfavorite?: () => void;
-  isUnfavoritePending?: boolean;
-  onClearReadAgain?: () => void;
-  isClearReadAgainPending?: boolean;
+  onUnlike?: () => void;
+  isUnlikePending?: boolean;
+  onClearReadLater?: () => void;
+  isClearReadLaterPending?: boolean;
 }
 
 function Card({
@@ -18,10 +18,10 @@ function Card({
   year,
   url,
   isDarkMode,
-  onUnfavorite,
-  isUnfavoritePending = false,
-  onClearReadAgain,
-  isClearReadAgainPending = false,
+  onUnlike,
+  isUnlikePending = false,
+  onClearReadLater,
+  isClearReadLaterPending = false,
 }: Readonly<PropsType>) {
   return (
     <div
@@ -29,28 +29,28 @@ function Card({
         isDarkMode ? 'border-slate-700 bg-slate-800' : 'border-slate-200 bg-white'
       }`}
     >
-      {onUnfavorite && (
+      {onUnlike && (
         <button
           type="button"
-          aria-label={`Remove ${title} from favorites`}
-          title="Remove from favorites"
-          onClick={onUnfavorite}
-          disabled={isUnfavoritePending}
-          className="absolute right-3 top-3 inline-flex h-9 w-9 items-center justify-center text-amber-500 transition hover:text-amber-600 disabled:cursor-not-allowed disabled:opacity-60 dark:text-amber-300"
+          aria-label={`Remove like for ${title}`}
+          title="Remove like"
+          onClick={onUnlike}
+          disabled={isUnlikePending}
+          className="absolute right-3 top-3 inline-flex h-9 w-9 items-center justify-center text-red-500 transition hover:text-red-600 disabled:cursor-not-allowed disabled:opacity-60 dark:text-red-400 dark:hover:text-red-300"
         >
-          <Star size={18} fill="currentColor" aria-hidden="true" />
+          <Heart size={18} fill="currentColor" aria-hidden="true" />
         </button>
       )}
-      {onClearReadAgain && (
+      {onClearReadLater && (
         <button
           type="button"
-          aria-label={`Clear read again for ${title}`}
-          title="Clear read again"
-          onClick={onClearReadAgain}
-          disabled={isClearReadAgainPending}
+          aria-label={`Remove from read later: ${title}`}
+          title="Remove from read later"
+          onClick={onClearReadLater}
+          disabled={isClearReadLaterPending}
           className="absolute right-3 top-3 inline-flex h-9 w-9 items-center justify-center text-violet-500 transition hover:text-violet-600 disabled:cursor-not-allowed disabled:opacity-60 dark:text-violet-300"
         >
-          <RefreshCw size={18} aria-hidden="true" />
+          <XCircle size={20} strokeWidth={2} aria-hidden="true" />
         </button>
       )}
       <div className="flex h-full flex-col justify-between gap-4">

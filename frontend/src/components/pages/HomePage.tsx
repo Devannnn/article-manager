@@ -12,8 +12,8 @@ const getScreenshots = (theme: string) => {
     },
     {
       src: `/screenshots/${theme}/favorites.PNG`,
-      title: 'Find favorites quickly',
-      description: 'Mark your favorites resources.',
+      title: 'Find liked articles quickly',
+      description: 'Mark articles you like.',
     },
     {
       src: `/screenshots/${theme}/stats.PNG`,
@@ -60,8 +60,8 @@ function HomePage() {
               Never forget an article you've liked again.
             </h2>
             <p className="max-w-2xl text-lg leading-8 text-slate-600 dark:text-slate-300">
-              Article Manager helps you collect, organize, favorite, and review articles, blog posts, and useful websites, so you can easily
-              rediscover what you have read.
+              Article Manager helps you collect, organize, like, and review articles, blog posts, and useful websites, so you can easily rediscover
+              what you have read.
             </p>
           </div>
         </div>

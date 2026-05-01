@@ -25,20 +25,20 @@ function App() {
           <Route element={<ProtectedRoute />}>
             <Route path="articles" element={<ArticlesPage />} />
             <Route
-              path="favorites"
+              path="likes"
               element={
                 <GridPage
-                  title="Favorites"
-                  description="Quickly find the articles you want to revisit."
-                  emptyMessage="No favorites yet. Add favorites from the Articles page."
-                  filter={(article: Article) => article.favorite}
+                  title="Liked"
+                  description="Quickly find the articles you have marked as liked."
+                  emptyMessage="No liked articles yet. Mark articles as liked from the Articles page."
+                  filter={(article: Article) => article.liked}
                   badge={(count) => (
-                    <span className="inline-flex rounded-full bg-amber-100 px-3 py-1 text-xs font-semibold text-amber-700 dark:bg-amber-900/40 dark:text-amber-300">
-                      {count} favorite{count !== 1 ? 's' : ''}
+                    <span className="inline-flex rounded-full bg-red-100 px-3 py-1 text-xs font-semibold text-red-700 dark:bg-red-900/40 dark:text-red-300">
+                      {count} liked
                     </span>
                   )}
-                  clearPatch={(article) => ({ ...article, favorite: false })}
-                  cardAction="favorite"
+                  clearPatch={(article) => ({ ...article, liked: false })}
+                  cardAction="liked"
                 />
               }
             />
@@ -46,17 +46,17 @@ function App() {
               path="read-again"
               element={
                 <GridPage
-                  title="Read again"
+                  title="Read later"
                   description="Articles you plan to revisit—clear the flag when you are done."
-                  emptyMessage="No articles marked read again yet. Enable it when editing an article from the Articles page."
-                  filter={(article: Article) => article.read_again}
+                  emptyMessage="No read-later articles yet. Enable it when editing an article from the Articles page."
+                  filter={(article: Article) => article.read_later}
                   badge={(count) => (
                     <span className="inline-flex rounded-full bg-violet-100 px-3 py-1 text-xs font-semibold text-violet-800 dark:bg-violet-900/40 dark:text-violet-200">
                       {count} marked
                     </span>
                   )}
-                  clearPatch={(article) => ({ ...article, read_again: false })}
-                  cardAction="readAgain"
+                  clearPatch={(article) => ({ ...article, read_later: false })}
+                  cardAction="readLater"
                 />
               }
             />

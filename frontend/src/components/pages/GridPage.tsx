@@ -6,7 +6,7 @@ import { useEditArticle } from '../../hooks/mutations';
 import Card from '../features/Card';
 import PageHeader from '../layout/PageHeader';
 
-export type GridPageCardAction = 'favorite' | 'readAgain';
+export type GridPageCardAction = 'liked' | 'readLater';
 
 interface GridPageProps {
   title: string;
@@ -49,9 +49,9 @@ function GridPage({ title, description, emptyMessage, filter, badge, clearPatch,
                 year={article.year}
                 url={article.url}
                 isDarkMode={isDarkMode}
-                {...(cardAction === 'favorite'
-                  ? { onUnfavorite: () => handleClear(article), isUnfavoritePending: isEditPending }
-                  : { onClearReadAgain: () => handleClear(article), isClearReadAgainPending: isEditPending })}
+                {...(cardAction === 'liked'
+                  ? { onUnlike: () => handleClear(article), isUnlikePending: isEditPending }
+                  : { onClearReadLater: () => handleClear(article), isClearReadLaterPending: isEditPending })}
               />
             ))}
           </div>

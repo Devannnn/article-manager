@@ -23,9 +23,9 @@ export function NavTabs() {
               : 'text-slate-600 hover:bg-white/70 hover:text-slate-800 dark:hover:bg-slate-700 dark:hover:text-slate-100'
           }`
         }
-        to="/favorites"
+        to="/likes"
       >
-        Favorites
+        Liked
       </NavLink>
       <NavLink
         className={({ isActive }) =>
@@ -37,7 +37,7 @@ export function NavTabs() {
         }
         to="/read-again"
       >
-        Read again
+        Read later
       </NavLink>
       <NavLink
         className={({ isActive }) =>

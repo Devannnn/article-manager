@@ -45,9 +45,9 @@ def add_article(data, user_id):
         url=schema.url,
         year=schema.year,
         summary=schema.summary,
-        read=schema.read,
-        read_again=schema.read_again,
-        favorite=schema.favorite,
+        consulted=schema.consulted,
+        read_later=schema.read_later,
+        liked=schema.liked,
         author_id=author.id,
         tags=tags,
     )
@@ -82,9 +82,9 @@ def edit_article(data, user_id):
             "url",
             "year",
             "summary",
-            "read",
-            "read_again",
-            "favorite",
+            "consulted",
+            "read_later",
+            "liked",
         },
     )
     db.session.commit()
