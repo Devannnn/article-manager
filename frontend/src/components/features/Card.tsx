@@ -1,4 +1,4 @@
-import { Star } from 'react-feather';
+import { RefreshCw, Star } from 'react-feather';
 
 interface PropsType {
   title: string;
@@ -8,9 +8,21 @@ interface PropsType {
   isDarkMode: boolean;
   onUnfavorite?: () => void;
   isUnfavoritePending?: boolean;
+  onClearReadAgain?: () => void;
+  isClearReadAgainPending?: boolean;
 }
 
-function Card({ title, author, year, url, isDarkMode, onUnfavorite, isUnfavoritePending = false }: Readonly<PropsType>) {
+function Card({
+  title,
+  author,
+  year,
+  url,
+  isDarkMode,
+  onUnfavorite,
+  isUnfavoritePending = false,
+  onClearReadAgain,
+  isClearReadAgainPending = false,
+}: Readonly<PropsType>) {
   return (
     <div
       className={`group relative h-full rounded-2xl border p-4 shadow-sm transition hover:-translate-y-0.5 hover:shadow-lg ${
@@ -27,6 +39,18 @@ function Card({ title, author, year, url, isDarkMode, onUnfavorite, isUnfavorite
           className="absolute right-3 top-3 inline-flex h-9 w-9 items-center justify-center text-amber-500 transition hover:text-amber-600 disabled:cursor-not-allowed disabled:opacity-60 dark:text-amber-300"
         >
           <Star size={18} fill="currentColor" aria-hidden="true" />
+        </button>
+      )}
+      {onClearReadAgain && (
+        <button
+          type="button"
+          aria-label={`Clear read again for ${title}`}
+          title="Clear read again"
+          onClick={onClearReadAgain}
+          disabled={isClearReadAgainPending}
+          className="absolute right-3 top-3 inline-flex h-9 w-9 items-center justify-center text-violet-500 transition hover:text-violet-600 disabled:cursor-not-allowed disabled:opacity-60 dark:text-violet-300"
+        >
+          <RefreshCw size={18} aria-hidden="true" />
         </button>
       )}
       <div className="flex h-full flex-col justify-between gap-4">

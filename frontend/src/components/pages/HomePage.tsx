@@ -69,7 +69,7 @@ function HomePage() {
           <div className="pointer-events-none absolute -right-16 -top-16 h-40 w-40 rounded-full bg-indigo-400/20 blur-3xl" />
           <div className="pointer-events-none absolute -bottom-20 -left-16 h-48 w-48 rounded-full bg-sky-400/20 blur-3xl" />
 
-          <div className="relative h-[250px] w-full overflow-hidden rounded-[1.5rem] bg-slate-950/5 dark:bg-slate-950/40">
+          <div className="relative h-[220px] w-full overflow-hidden rounded-[1.5rem] bg-slate-950/5 dark:bg-slate-950/40">
             <AnimatePresence mode="wait">
               <motion.div
                 key={currentScreenshot.title}
