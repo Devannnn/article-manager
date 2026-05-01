@@ -11,14 +11,19 @@ const getScreenshots = (theme: string) => {
       description: 'Keep every useful article, blog post, and website in one organized place.',
     },
     {
-      src: `/screenshots/${theme}/favorites.PNG`,
-      title: 'Find favorites quickly',
-      description: 'Mark your favorites resources.',
+      src: `/screenshots/${theme}/likes.PNG`,
+      title: 'Find liked articles quickly',
+      description: 'Mark articles you like.',
+    },
+    {
+      src: `/screenshots/${theme}/read-later.PNG`,
+      title: 'Save articles to read again',
+      description: 'Mark articles you want to read later.',
     },
     {
       src: `/screenshots/${theme}/stats.PNG`,
       title: 'Review your habits',
-      description: 'Track what you read and understand how your library grows over time.',
+      description: 'Track what you read and understand your reading habits.',
     },
   ];
 };
@@ -60,8 +65,7 @@ function HomePage() {
               Never forget an article you've liked again.
             </h2>
             <p className="max-w-2xl text-lg leading-8 text-slate-600 dark:text-slate-300">
-              Article Manager helps you collect, organize, favorite, and review articles, blog posts, and useful websites, so you can easily
-              rediscover what you have read.
+              Save articles, track what you read, add notes, and get simple insights into your reading habits. For free.
             </p>
           </div>
         </div>
@@ -69,7 +73,7 @@ function HomePage() {
           <div className="pointer-events-none absolute -right-16 -top-16 h-40 w-40 rounded-full bg-indigo-400/20 blur-3xl" />
           <div className="pointer-events-none absolute -bottom-20 -left-16 h-48 w-48 rounded-full bg-sky-400/20 blur-3xl" />
 
-          <div className="relative h-[250px] w-full overflow-hidden rounded-[1.5rem] bg-slate-950/5 dark:bg-slate-950/40">
+          <div className="relative h-[220px] w-full overflow-hidden rounded-[1.5rem] bg-slate-950/5 dark:bg-slate-950/40">
             <AnimatePresence mode="wait">
               <motion.div
                 key={currentScreenshot.title}

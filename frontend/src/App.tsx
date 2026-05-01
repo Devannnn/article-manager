@@ -2,13 +2,14 @@ import { Routes, Route } from 'react-router-dom';
 import Footer from './components/layout/Footer';
 import NavBar from './components/layout/NavBar';
 import { ProtectedRoute } from './components/layout/ProtectedRoute';
-import FavoritesPage from './components/pages/FavoritesPage';
+import GridPage from './components/pages/GridPage';
 import ArticlesPage from './components/pages/ArticlesPage';
 import StatsPage from './components/pages/StatsPage';
 import HomePage from './components/pages/HomePage';
 import { Toaster } from 'sonner';
-import { useIsDarkMode } from './contexts/ThemeContext';
+import { Article } from './constants/types';
 import { useAuth } from './contexts/AuthContext';
+import { useIsDarkMode } from './contexts/ThemeContext';
 import { useHealth } from './hooks/queries';
 
 function App() {
@@ -23,7 +24,42 @@ function App() {
         <Routes>
           <Route element={<ProtectedRoute />}>
             <Route path="articles" element={<ArticlesPage />} />
-            <Route path="favorites" element={<FavoritesPage />} />
+            <Route
+              path="likes"
+              element={
+                <GridPage
+                  title="Liked"
+                  description="Quickly find the articles you have marked as liked."
+                  emptyMessage="No liked articles yet. Mark articles as liked from the Articles page."
+                  filter={(article: Article) => article.liked}
+                  badge={(count) => (
+                    <span className="inline-flex rounded-full bg-red-100 px-3 py-1 text-xs font-semibold text-red-700 dark:bg-red-900/40 dark:text-red-300">
+                      {count} liked
+                    </span>
+                  )}
+                  clearPatch={(article) => ({ ...article, liked: false })}
+                  cardAction="liked"
+                />
+              }
+            />
+            <Route
+              path="read-again"
+              element={
+                <GridPage
+                  title="Read later"
+                  description="Articles you plan to revisit—clear the flag when you are done."
+                  emptyMessage="No read-later articles yet. Enable it when editing an article from the Articles page."
+                  filter={(article: Article) => article.read_later}
+                  badge={(count) => (
+                    <span className="inline-flex rounded-full bg-violet-100 px-3 py-1 text-xs font-semibold text-violet-800 dark:bg-violet-900/40 dark:text-violet-200">
+                      {count} marked
+                    </span>
+                  )}
+                  clearPatch={(article) => ({ ...article, read_later: false })}
+                  cardAction="readLater"
+                />
+              }
+            />
             <Route path="stats" element={<StatsPage />} />
           </Route>
           <Route path="*" element={<HomePage />} />

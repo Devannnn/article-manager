@@ -1,6 +1,6 @@
 import { useState, type ChangeEvent } from 'react';
 import { Input } from 'reactstrap';
-import { Star } from 'react-feather';
+import { Heart } from 'react-feather';
 import CreatableSelect from 'react-select/creatable';
 import type { SingleValue } from 'react-select';
 import TagsForm from './TagsForm';
@@ -37,8 +37,8 @@ function ArticleForm({ isOpen, toggle, onSave, title, activeItem, showDeleteButt
     setItem((prevItem) => ({ ...prevItem, author: newValue?.value ?? '' }));
   }
 
-  function handleFavoriteToggle(): void {
-    setItem((prevItem) => ({ ...prevItem, favorite: !prevItem.favorite }));
+  function handleLikedToggle(): void {
+    setItem((prevItem) => ({ ...prevItem, liked: !prevItem.liked }));
   }
 
   function validateForm() {
@@ -140,39 +140,39 @@ function ArticleForm({ isOpen, toggle, onSave, title, activeItem, showDeleteButt
             </div>
             <div className="checkbox-group flex flex-row justify-between space-x-4 rounded-xl border border-slate-200 bg-white px-4 py-3">
               <div>
-                <label htmlFor="read" className="text-slate-800 dark:text-slate-100">
+                <label htmlFor="consulted" className="text-slate-800 dark:text-slate-100">
                   <b>Consulted</b>
                 </label>
                 <br />
-                <Input type="checkbox" name="read" checked={item.read} onChange={handleFieldChange} className="h-4 w-4 accent-blue-500" />
-                {errors.read && <div className="text-sm text-red-500">{errors.read}</div>}
+                <Input type="checkbox" name="consulted" checked={item.consulted} onChange={handleFieldChange} className="h-4 w-4 accent-blue-500" />
+                {errors.consulted && <div className="text-sm text-red-500">{errors.consulted}</div>}
               </div>
               <div>
-                <label htmlFor="read_again" className="text-slate-800 dark:text-slate-100">
-                  <b>Review</b>
+                <label htmlFor="read_later" className="text-slate-800 dark:text-slate-100">
+                  <b>Read later</b>
                 </label>
                 <br />
-                <Input type="checkbox" name="read_again" checked={item.read_again} onChange={handleFieldChange} className="h-4 w-4 accent-blue-500" />
-                {errors.read_again && <div className="text-sm text-red-500">{errors.read_again}</div>}
+                <Input type="checkbox" name="read_later" checked={item.read_later} onChange={handleFieldChange} className="h-4 w-4 accent-blue-500" />
+                {errors.read_later && <div className="text-sm text-red-500">{errors.read_later}</div>}
               </div>
               <div>
-                <label htmlFor="favorite" className="text-slate-800 dark:text-slate-100">
-                  <b>Favorite</b>
+                <label htmlFor="liked" className="text-slate-800 dark:text-slate-100">
+                  <b>Liked</b>
                 </label>
                 <br />
                 <button
                   type="button"
-                  aria-pressed={item.favorite}
-                  aria-label={item.favorite ? 'Remove from favorites' : 'Add to favorites'}
-                  title={item.favorite ? 'Favorite' : 'Not favorite'}
-                  onClick={handleFavoriteToggle}
+                  aria-pressed={item.liked}
+                  aria-label={item.liked ? 'Remove like' : 'Add like'}
+                  title={item.liked ? 'Liked' : 'Not liked'}
+                  onClick={handleLikedToggle}
                   className={`inline-flex h-6 w-6 items-center justify-center transition ${
-                    item.favorite ? 'text-amber-500 dark:text-amber-300' : 'text-slate-400 dark:text-slate-500'
+                    item.liked ? 'text-red-500 dark:text-red-400' : 'text-slate-400 dark:text-slate-500'
                   }`}
                 >
-                  <Star size={18} fill={item.favorite ? 'currentColor' : 'none'} aria-hidden="true" />
+                  <Heart size={18} fill={item.liked ? 'currentColor' : 'none'} aria-hidden="true" />
                 </button>
-                {errors.favorite && <div className="text-sm text-red-500">{errors.favorite}</div>}
+                {errors.liked && <div className="text-sm text-red-500">{errors.liked}</div>}
               </div>
             </div>
             <div>

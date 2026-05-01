@@ -10,7 +10,7 @@ import { useHealth } from '../../hooks/queries';
 
 type AuthMode = 'login' | 'register';
 
-const APP_PATHS_AFTER_LOGIN = ['/articles', '/favorites', '/stats'] as const;
+const APP_PATHS_AFTER_LOGIN = ['/articles', '/likes', '/read-again', '/stats'] as const;
 
 function postLoginPath(state: unknown): string {
   const from = (state as { from?: string } | null)?.from;

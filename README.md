@@ -19,7 +19,7 @@ Existing tools felt too heavy or were missing features, so I've built my own and
 
 ![Homepage](frontend/public/screenshots/light/articles.PNG)
 ----
-![Favorites](frontend/public/screenshots/light/favorites.PNG)
+![Liked articles](frontend/public/screenshots/light/favorites.PNG)
 ----
 ![Statistics](frontend/public/screenshots/light/stats.PNG)
 
@@ -28,15 +28,15 @@ Existing tools felt too heavy or were missing features, so I've built my own and
 
 - Secure authentication (JWT + httpOnly cookies + CSRF)
 - Create, edit, delete, and list articles scoped to the current user.
-- Track article metadata: title, author, URL, year, summary, tags, read status, read-again status, and favorites.
-- Browse read-later and favorites articles.
+- Track article metadata: title, author, URL, year, summary, tags, consulted, read-later, and liked flags.
+- Browse read-later and liked articles.
 - View stats for top authors and articles read by month.
 - Toggle light and dark themes.
 
 
 ## Architecture
 
-The application is built with a Flask REST API, a PostgreSQL database and a React interface. It supports user accounts, article metadata, favorites, read status, and basic statistics such as top authors and articles read by month.
+The application is built with a Flask REST API, a PostgreSQL database and a React interface. It supports user accounts, article metadata, liked and read-later flags, a consulted flag, and basic statistics such as top authors and articles consulted by month.
 
 Authentication uses JWTs stored in httpOnly cookies, as well as CSRF tokens for authenticated requests.
 
