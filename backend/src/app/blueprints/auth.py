@@ -1,3 +1,5 @@
+import logging
+
 from flask import Blueprint, jsonify
 from flask_jwt_extended import (
     create_access_token,
@@ -15,6 +17,8 @@ from app.decorators import get_user_id, validate_json
 from app.models import User
 from app.schemas import UserSchema
 
+logger = logging.getLogger("article_manager.auth")
+
 auth_bp = Blueprint("auth", __name__, url_prefix="/auth")
 
 
@@ -29,11 +33,13 @@ def register(data):
     stmt = select(User).where(User.name == username)
     user = db.session.execute(stmt).scalars().first()
     if user is not None:
+        logger.warning("Register failed — username already taken: %r", username)
         return jsonify({"error": "Username unavailable"}), 409
 
     user = User(name=username, password_hash=password_hash)
     db.session.add(user)
     db.session.commit()
+    logger.info("User registered: id=%d name=%r", user.id, username)
 
     access_token = create_access_token(identity=str(user.id))
     refresh_token = create_refresh_token(identity=str(user.id))
@@ -55,8 +61,10 @@ def login(data):
     user = db.session.execute(stmt).scalars().first()
 
     if user is None or not check_password_hash(user.password_hash, password):
+        logger.warning("Login failed — wrong credentials for username: %r", username)
         return jsonify({"error": "Wrong username or password"}), 401
 
+    logger.info("User logged in: id=%d name=%r", user.id, username)
     access_token = create_access_token(identity=str(user.id))
     refresh_token = create_refresh_token(identity=str(user.id))
 
@@ -70,6 +78,7 @@ def login(data):
 @jwt_required(refresh=True)
 @get_user_id
 def refresh(user_id):
+    logger.info("Token refreshed: user_id=%d", user_id)
     access_token = create_access_token(identity=str(user_id))
     response = jsonify({"msg": "Refresh successful"})
     set_access_cookies(response, access_token)
@@ -79,6 +88,7 @@ def refresh(user_id):
 @auth_bp.route("/logout", methods=["POST"])
 @jwt_required()
 def logout():
+    logger.info("User logged out")
     response = jsonify({"msg": "Successfully logged-out"})
     unset_jwt_cookies(response)
     return response, 200
