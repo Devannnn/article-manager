@@ -1,3 +1,5 @@
+import logging
+
 from flask import Blueprint, jsonify
 from flask_jwt_extended import jwt_required
 from sqlalchemy import select
@@ -8,6 +10,8 @@ from app.models import Tag
 from app.schemas import BasicSchema, IDSchema
 from app.services import get_entities, get_or_create_by_name
 
+logger = logging.getLogger("article_manager.tags")
+
 tags_bp = Blueprint("tags", __name__, url_prefix="/tags")
 
 
@@ -17,6 +21,7 @@ tags_bp = Blueprint("tags", __name__, url_prefix="/tags")
 def list_tags(user_id):
     stmt = select(Tag).where(Tag.user_id == user_id)
     tags = db.session.execute(stmt).scalars().all()
+    logger.debug("Listed %d tags for user_id=%d", len(tags), user_id)
     return jsonify([tag.to_dict() for tag in tags]), 200
 
 
@@ -28,6 +33,7 @@ def add_tag(data, user_id):
     schema = BasicSchema.model_validate(data)
     tag = get_or_create_by_name(Tag, schema.name, user_id)
     db.session.commit()
+    logger.info("Tag created/retrieved: id=%d name=%r user_id=%d", tag.id, tag.name, user_id)
     return jsonify(tag.to_dict()), 201
 
 
@@ -41,6 +47,7 @@ def delete_tags(data, user_id):
     for tag in tags:
         db.session.delete(tag)
     db.session.commit()
+    logger.info("Tags deleted: ids=%s user_id=%d count=%d", schema.ids, user_id, len(tags))
     return (
         jsonify({"deleted": [tag.to_dict() for tag in tags], "count": len(tags)}),
         200,

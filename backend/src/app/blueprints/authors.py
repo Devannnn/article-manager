@@ -1,3 +1,5 @@
+import logging
+
 from flask import Blueprint, jsonify
 from flask_jwt_extended import jwt_required
 from sqlalchemy import func, select
@@ -8,6 +10,8 @@ from app.models import Article, Author
 from app.schemas import BasicSchema, IDSchema
 from app.services import get_articles_by_author, get_entities, get_or_create_by_name
 
+logger = logging.getLogger("article_manager.authors")
+
 authors_bp = Blueprint("authors", __name__, url_prefix="/authors")
 
 
@@ -17,6 +21,7 @@ authors_bp = Blueprint("authors", __name__, url_prefix="/authors")
 def list_authors(user_id):
     stmt = select(Author).where(Author.user_id == user_id)
     authors = db.session.execute(stmt).scalars().all()
+    logger.debug("Listed %d authors for user_id=%d", len(authors), user_id)
     return jsonify([author.to_dict() for author in authors]), 200
 
 
@@ -33,6 +38,7 @@ def list_top_authors(user_id):
         .order_by(nb_articles.desc(), Author.name.asc())
     )
     rows = db.session.execute(stmt).all()
+    logger.debug("Top authors fetched for user_id=%d: %d results", user_id, len(rows))
     return (
         jsonify(
             [
@@ -52,6 +58,7 @@ def add_author(data, user_id):
     schema = BasicSchema.model_validate(data)
     author = get_or_create_by_name(Author, schema.name, user_id)
     db.session.commit()
+    logger.info("Author created/retrieved: id=%d name=%r user_id=%d", author.id, author.name, user_id)
     return jsonify(author.to_dict()), 201
 
 
@@ -67,12 +74,14 @@ def delete_authors(data, user_id):
     for author in authors:
         articles = get_articles_by_author(author.id, user_id)
         if articles:
+            logger.warning("Delete author blocked — has articles: author_id=%d user_id=%d", author.id, user_id)
             return (
                 jsonify({"error": f"The author {author.id} has associated articles."}),
                 409,
             )
         db.session.delete(author)
     db.session.commit()
+    logger.info("Authors deleted: ids=%s user_id=%d count=%d", schema.ids, user_id, len(authors))
     return (
         jsonify(
             {
