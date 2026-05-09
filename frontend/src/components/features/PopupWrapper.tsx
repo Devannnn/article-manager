@@ -32,17 +32,26 @@ function PopupWrapper({ popup, setPopup, status, children }: Readonly<PropsType>
       onClose={() => setPopup(false)}
       aria-labelledby="modal-modal-title"
       aria-describedby="modal-modal-description"
-      className="overflow-auto"
+      sx={{ overflow: 'hidden' }}
     >
-      <motion.div initial={{ y: '-100vh', opacity: 0 }} animate={{ y: '5vh', opacity: 1 }} transition={{ duration: 0.5 }}>
+      <motion.div
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        transition={{ duration: 0.25 }}
+        style={{
+          position: 'fixed',
+          top: '50%',
+          left: '50%',
+          transform: 'translate(-50%, -50%)',
+          width: 'min(calc(100vw - 2rem), 28rem)',
+          maxHeight: 'min(90dvh, calc(100dvh - 2rem))',
+        }}
+      >
         <Box
           sx={{
-            position: 'absolute',
-            top: '50%',
-            left: '50%',
-            transform: 'translate(-50%, -50%)',
-            maxWidth: '70%',
-            maxHeight: '70%',
+            outline: 'none',
+            maxHeight: 'inherit',
+            overflow: 'auto',
           }}
         >
           <div id="alert-additional-content-3" className={`${statusClasses} rounded-lg select-none p-4`} role="alert">

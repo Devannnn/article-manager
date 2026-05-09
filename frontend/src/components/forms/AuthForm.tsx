@@ -54,7 +54,7 @@ function AuthForm({ isOpen, mode, onClose }: Readonly<AuthFormProps>) {
 
   return (
     <PopupWrapper popup={isOpen} setPopup={(value) => !value && onClose()} status="neutral">
-      <form className="article-form flex w-80 flex-col space-y-6" onSubmit={handleSubmit}>
+      <form className="article-form mx-auto flex w-80 max-w-full flex-col space-y-6" onSubmit={handleSubmit}>
         <h1 className="text-center text-3xl font-bold dark:text-white">{title}</h1>
         <div className="flex flex-col space-y-3 text-slate-800 dark:text-slate-100">
           <div>
@@ -99,6 +99,14 @@ function AuthForm({ isOpen, mode, onClose }: Readonly<AuthFormProps>) {
             </div>
           </div>
         </div>
+        {activeMutation.isPending && (
+          <div
+            className="flex items-start gap-2 rounded-lg border border-amber-300 bg-amber-50 px-3 py-2 text-sm text-amber-900 dark:border-amber-500/60 dark:bg-amber-950/40 dark:text-amber-100"
+            role="alert"
+          >
+            <span>The server is currently waking up, it can take up to 1mn to be fully available.</span>
+          </div>
+        )}
         {isServerUnavailable && (
           <div
             className="flex items-start gap-2 rounded-lg border border-amber-300 bg-amber-50 px-3 py-2 text-sm text-amber-900 dark:border-amber-500/60 dark:bg-amber-950/40 dark:text-amber-100"
