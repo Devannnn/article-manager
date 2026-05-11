@@ -4,5 +4,5 @@ Flask-JWT-Extended==4.7.3
 Flask-SQLAlchemy==3.1.1
 gunicorn==26.0.0
 psycopg[binary]==3.3.4
-pydantic==2.13.2
+pydantic==2.13.4
 python-dotenv==1.0.1
