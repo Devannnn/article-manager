@@ -6,7 +6,7 @@ import { useEditArticle } from '../../hooks/mutations';
 import Card from '../features/Card';
 import PageHeader from '../layout/PageHeader';
 
-export type GridPageCardAction = 'liked' | 'readLater';
+type GridPageCardAction = 'liked' | 'readLater';
 
 interface GridPageProps {
   title: string;
