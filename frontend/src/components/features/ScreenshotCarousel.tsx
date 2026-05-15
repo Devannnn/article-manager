@@ -1,6 +1,6 @@
 import { AnimatePresence, motion } from 'framer-motion';
 import { ChevronLeft, ChevronRight } from 'react-feather';
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import { useTheme } from '../../contexts/ThemeContext';
 
 const getScreenshots = (theme: string) => {
@@ -39,14 +39,6 @@ function ScreenshotCarousel() {
     ? 'rounded-full border border-slate-500/90 bg-slate-700 p-2 shadow-md shadow-black/30 transition hover:-translate-y-0.5 hover:border-indigo-400 hover:bg-slate-600'
     : 'rounded-full border border-slate-200 bg-white p-2 shadow-sm transition hover:-translate-y-0.5 hover:border-indigo-200 hover:bg-slate-50';
   const carouselChevronColor = isDarkTheme ? '#f8fafc' : '#0f172a';
-
-  useEffect(() => {
-    const intervalId = window.setInterval(() => {
-      setCurrentScreenshotIndex((currentIndex) => (currentIndex + 1) % screenshots.length);
-    }, 7000);
-
-    return () => window.clearInterval(intervalId);
-  }, [screenshots.length]);
 
   const showPreviousScreenshot = () => {
     setCurrentScreenshotIndex((currentIndex) => (currentIndex - 1 + screenshots.length) % screenshots.length);
