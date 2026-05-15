@@ -1,7 +1,7 @@
 const ALLOWED_TYPES = ['feat', 'fix', 'perf', 'refactor', 'docs', 'ci', 'test', 'deploy'];
 const ALLOWED_SCOPES = new Set(['frontend', 'backend', 'script']);
 
-export default {
+module.exports = {
   extends: ['@commitlint/config-conventional'],
   plugins: [
     {
